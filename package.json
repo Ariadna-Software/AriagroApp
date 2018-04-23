@@ -1,8 +1,8 @@
 {
   "name": "AriagroApp",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "author": "Ariadna Software SL (rafa@myariadna.com)",
+  "homepage": "http://ariadnasw.com/",
   "private": true,
   "scripts": {
     "clean": "ionic-app-scripts clean",

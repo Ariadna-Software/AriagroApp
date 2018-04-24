@@ -43,30 +43,25 @@ export class LoginPage {
     this.submitAttempt = true;
     if (this.loginForm.valid) {
       this.ariagroData.login(this.settings.parametros.url, this.login, this.password)
-      .subscribe(
-        (data)=>{
-          this.settings.user = data;
-          this.localData.saveSettings(this.settings);
-          this.navCtrl.setRoot('HomePage');
-        },
-        (error)=>{
-          if (error.status == 404){
-            let alert = this.alertCrtl.create({
-              title: "AVISO",
-              subTitle: "Usuario o contraseña incorretos.",
-              buttons: ['OK']
-            });
-            alert.present();
-          }else{
-            let alert = this.alertCrtl.create({
-              title: "ERROR",
-              subTitle: JSON.stringify(error, null, 4),
-              buttons: ['OK']
-            });
-            alert.present();
+        .subscribe(
+          (data) => {
+            this.settings.user = data;
+            this.settings.campanya = {
+              codempre: 0,
+              nomresum: 'Campaña actual',
+              ariagro: 'ariagro'
+            }
+            this.localData.saveSettings(this.settings);
+            this.navCtrl.setRoot('HomePage');
+          },
+          (error) => {
+            if (error.status == 404) {
+              this.showAlert("AVISO", "Usuario o contraseña incorrectos");
+            } else {
+              this.showAlert("ERROR", JSON.stringify(error, null, 4));
+            }
           }
-        }
-      );
+        );
     }
   }
 
@@ -76,6 +71,15 @@ export class LoginPage {
 
   goHome(): any {
     this.navCtrl.setRoot('HomePage');
+  }
+
+  showAlert(title, subTitle): void {
+    let alert = this.alertCrtl.create({
+      title: title,
+      subTitle: subTitle,
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
 }

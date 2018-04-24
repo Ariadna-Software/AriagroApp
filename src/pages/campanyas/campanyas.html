@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      ARIAGRO APP V2
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only class="buttonGreen" (click)="goHome()">
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item text-wrap no-lines class="greenHeader">
+      CAMPAÑAS
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4>
+          <div class="psb">
+            <img src="assets/imgs/campanyas.png">
+          </div>
+        </ion-col>
+        <ion-col col-8>
+          Por favor, escoja la campaña de la que desea ver los datos
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+  <ion-list>
+      <ion-item *ngFor="let campanya of campanyas" (click)="setCampanya(campanya)" text-wrap>
+        <div>
+          {{campanya.nomresum}}
+        </div>
+        <ion-icon name="log-in" item-end class="buttonGreen"></ion-icon>
+      </ion-item>
+    </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>
+      <span style="font-size:0.8em;">(c) Ariadna SW 2018</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>

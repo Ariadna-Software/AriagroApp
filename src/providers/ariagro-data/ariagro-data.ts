@@ -22,4 +22,8 @@ export class AriagroDataProvider {
       }
     });
   }
+
+  getCampanyas(url): any {
+    return this.http.get(url + '/api/campanyas');
+  }
 }

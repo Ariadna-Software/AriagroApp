@@ -13,7 +13,7 @@ export class HomePage {
   settings: any = {};
   nombreCooperativa: string = "";
   nombreUsuario: string = "";
-  nombreCampanya: string = "";
+  nombreCampanya: string = "Campaña actual";
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public alertCrtl: AlertController, public ariagroData: AriagroDataProvider, public localData: LocalDataProvider) {
@@ -27,7 +27,7 @@ export class HomePage {
         this.nombreCooperativa = this.settings.parametros.nombre;
         if (this.settings.user) {
           this.nombreUsuario = this.settings.user.nombre;
-          this.nombreCampanya = "Campaña actual";
+          this.nombreCampanya = this.settings.campanya.nomresum;
         } else {
           this.navCtrl.setRoot('LoginPage');
         }
@@ -38,6 +38,10 @@ export class HomePage {
   }
 
   goLogin(): void {
-    this.navCtrl.setRoot('LoginPage');
+    this.navCtrl.push('LoginPage');
+  }
+
+  goCampanyas(): void {
+    this.navCtrl.push('CampanyasPage');
   }
 }

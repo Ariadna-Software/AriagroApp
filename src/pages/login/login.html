@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      ARIAGRO APP V2
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only class="buttonGreen" (click)="goHome()">
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item text-wrap no-lines class="greenHeader">
+      <h2>LOGIN / AJUSTES [LOGIN]</h2>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4>
+          <div class="psb">
+            <img src="assets/imgs/ajustes.png">
+          </div>
+        </ion-col>
+        <ion-col col-8>
+          Bienvenido a {{nombreCooperativa}}. Introduzca sus datos para poder acceder a la aplicación.
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <form [formGroup]="loginForm" no-lines>
+      <ion-item>
+        <ion-label stacked>USUARIO</ion-label>
+        <ion-input formControlName="login" type="text" [(ngModel)]="login"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="!loginForm.controls.login.valid  && submitAttempt" no-lines>
+        <p style="color:red">Se necesita un usuario.</p>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>CONTRASEÑA</ion-label>
+        <ion-input formControlName="password" type="password" [(ngModel)]="password"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="!loginForm.controls.password.valid  && submitAttempt" no-lines>
+        <p style="color:red">Se necesita una contraseña.</p>
+      </ion-item>
+    </form>
+    <ion-item no-lines>
+      <button ion-button outline item-end round icon-left class="buttonGreen" (click)="goConexion()">
+        <ion-icon name="cog"></ion-icon>
+        Parámetros
+      </button>
+      <button ion-button outline item-end round icon-left class="buttonGreen" (click)="doLogin()">
+        <ion-icon name="checkmark"></ion-icon>
+        Aceptar
+      </button>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>
+      <span style="font-size:0.8em;">(c) Ariadna SW 2018</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>

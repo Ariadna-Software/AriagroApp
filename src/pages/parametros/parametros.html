@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      ARIAGRO APP V2
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only class="buttonGreen" (click)="goHome()">
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item text-wrap no-lines class="greenHeader">
+      <h2>LOGIN / AJUSTES [CONEXIÓN]</h2>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4>
+          <div class="psb">
+            <img src="assets/imgs/ajustes.png">
+          </div>
+        </ion-col>
+        <ion-col col-8>
+          Introduzca su número de cooperativa para poder obtener sus parámetros de conexión
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <form [formGroup]="parametrosForm" no-lines>
+      <ion-item>
+        <ion-label stacked>NÚMERO DE COOPERATIVA</ion-label>
+        <ion-input formControlName="numeroCooperativa" type="text" [(ngModel)]="numeroCooperativa"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="!parametrosForm.controls.numeroCooperativa.valid  && submitAttempt" no-lines>
+        <p style="color:red">Debe introducir un valor.</p>
+      </ion-item>
+    </form>
+    <ion-item no-lines>
+      <button ion-button outline item-end round icon-left class="buttonGreen" (click)="doSearch()">
+        <ion-icon name="search"></ion-icon>
+        Buscar
+      </button>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>
+      <span style="font-size:0.8em;">(c) Ariadna SW 2018</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>

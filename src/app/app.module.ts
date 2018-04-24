@@ -4,7 +4,12 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
+import { IonicStorageModule } from '@ionic/storage';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+
 import { MyApp } from './app.component';
+import { AriagroDataProvider } from '../providers/ariagro-data/ariagro-data';
+import { LocalDataProvider } from '../providers/local-data/local-data';
 
 
 @NgModule({
@@ -13,7 +18,9 @@ import { MyApp } from './app.component';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    HttpClientModule,
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -22,7 +29,9 @@ import { MyApp } from './app.component';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AriagroDataProvider,
+    LocalDataProvider
   ]
 })
 export class AppModule {}

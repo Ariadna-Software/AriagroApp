@@ -4,17 +4,18 @@ import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
 import { ViewController } from 'ionic-angular';
 import * as numeral from 'numeral';
+import * as moment from 'moment';
 
 @IonicPage()
 @Component({
-  selector: 'page-campos',
-  templateUrl: 'campos.html',
+  selector: 'page-anticipos',
+  templateUrl: 'anticipos.html',
 })
-export class CamposPage {
+export class AnticiposPage {
   settings: any = {};
   campanya: any = {};
   user: any = {};
-  variedades: any = [];
+  anticipos: any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public alertCrtl: AlertController, public viewCtrl: ViewController,
@@ -28,11 +29,10 @@ export class CamposPage {
         this.viewCtrl.setBackButtonText('');
         this.user = this.settings.user;
         this.campanya = this.settings.campanya;
-        this.ariagroData.getCampos(this.settings.parametros.url, this.user.ariagroId, this.campanya.ariagro)
+        this.ariagroData.getAnticipos(this.settings.parametros.url, this.user.ariagroId, this.campanya.ariagro)
           .subscribe(
             (data) => {
-              this.cargarVariedades(data);
-              console.log("VARIEDADES: ", this.variedades);
+              this.cargarAnticipos(data);
             },
             (error) => {
               this.showAlert("ERROR", JSON.stringify(error, null, 4));
@@ -44,19 +44,21 @@ export class CamposPage {
     });
   }
 
-  cargarVariedades(variedades): void {
-    this.variedades = [];
-    variedades.forEach(v => {
-      v.numkilos = numeral(v.numkilos).format('0,0');
-      v.campos.forEach(c => {
-        c.kilos = numeral(c.kilos).format('0,0');
+  cargarAnticipos(anticipos): void {
+    anticipos.forEach(a => {
+      a.fecfactu = moment(a.fecfactu).format('DD/MM/YYYY');
+      a.baseimpo = numeral(a.baseimpo).format('0,0.00');
+      a.imporiva = numeral(a.imporiva).format('0,0.00');
+      a.impreten = numeral(a.impreten).format('0,0.00');
+      a.totalfac = numeral(a.totalfac).format('0,0.00');
+      a.lineas.forEach(l => {
+        l.kilosnet = numeral(l.kilosnet).format('0,0.00');
+        l.imporvar = numeral(l.imporvar).format('0,0.00');
       });
-      this.variedades.push(v);
-    })
+    });
+    this.anticipos = anticipos;
   }
-  toggleSection(i) {
-    this.variedades[i].open = !this.variedades[i].open;
-  }
+
 
   goHome(): any {
     this.navCtrl.setRoot('HomePage');
@@ -71,8 +73,8 @@ export class CamposPage {
     alert.present();
   }
 
-  goEntradas(campo): void {
-    this.navCtrl.push('EntradasPage', {campo: campo});
+  goAnticipo(anticipo): void {
+    
   }
 
 }

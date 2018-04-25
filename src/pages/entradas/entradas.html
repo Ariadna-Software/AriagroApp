@@ -15,40 +15,33 @@
 <ion-content padding>
   <ion-list>
     <ion-item text-wrap no-lines class="greenHeader">
-      DATOS
+      ENTRADAS CAMPO: {{campo.codcampo}}
+      <br> {{campanya.nomresum}}
+      <br> Partida: {{campo.nomparti}}
+      <br> Polígono: {{campo.poligono}} Parcela: {{campo.parcela}}
+
     </ion-item>
     <ion-grid>
       <ion-row>
         <ion-col col-4>
           <div class="psb">
-            <img src="assets/imgs/datos.png">
+            <img src="assets/imgs/campos.png">
           </div>
         </ion-col>
         <ion-col col-8>
-          Estos son sus datos en nuestros ficheros.
+          Este es el detalle de entradas para el campo y campaña seleccionados
         </ion-col>
       </ion-row>
     </ion-grid>
   </ion-list>
-  <ion-list no-lines>
-    <ion-item text-wrap>
-      <p>{{user.nombre}}</p>
-      <p>NIF: {{user.nif}}</p>
-      <p>{{user.direccion}}</p>
-      <p>({{user.codPostal}}) {{user.poblacion}}</p>
-      <p>{{user.provincia}}</p>
-      <p>Teléfono(1): {{user.telefono1}}</p>
-      <p>Teléfono(2): {{user.telefono2}}</p>
-      <p>Correo: {{user.email}}</p>
-      <p>IBAN: {{user.iban}}</p>
-    </ion-item>
-    <ion-item no-lines>
-      <button ion-button outline item-end round icon-left text-wrap class="myGreen"  (click)="cambioDatos()">
-        <ion-icon name="git-compare"></ion-icon>
-        Quiero solicitar un cambio en mis datos
-      </button>
+  <ion-list>
+    <ion-item *ngFor="let entrada of campo.entradas" text-wrap>
+      <span class="myGreen">Fecha: {{entrada.fecalbar}} Albarán: {{entrada.numalbar}}</span>
+       <br>
+      {{entrada.kilosnet}} Kg. {{entrada.numcajon}} Cajones
     </ion-item>
   </ion-list>
+
 </ion-content>
 
 <ion-footer>

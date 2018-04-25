@@ -15,38 +15,29 @@
 <ion-content padding>
   <ion-list>
     <ion-item text-wrap no-lines class="greenHeader">
-      DATOS
+      ANTICIPOS / LIQUIDACIONES
+      <br> {{campanya.nomresum}}
     </ion-item>
     <ion-grid>
       <ion-row>
         <ion-col col-4>
           <div class="psb">
-            <img src="assets/imgs/datos.png">
+            <img src="assets/imgs/anticipos.png">
           </div>
         </ion-col>
         <ion-col col-8>
-          Estos son sus datos en nuestros ficheros.
+          Estos son los anticipos y liquidaciones que figuran para la campaña. Seleccione para ver el detalle.
         </ion-col>
       </ion-row>
     </ion-grid>
   </ion-list>
-  <ion-list no-lines>
-    <ion-item text-wrap>
-      <p>{{user.nombre}}</p>
-      <p>NIF: {{user.nif}}</p>
-      <p>{{user.direccion}}</p>
-      <p>({{user.codPostal}}) {{user.poblacion}}</p>
-      <p>{{user.provincia}}</p>
-      <p>Teléfono(1): {{user.telefono1}}</p>
-      <p>Teléfono(2): {{user.telefono2}}</p>
-      <p>Correo: {{user.email}}</p>
-      <p>IBAN: {{user.iban}}</p>
-    </ion-item>
-    <ion-item no-lines>
-      <button ion-button outline item-end round icon-left text-wrap class="myGreen"  (click)="cambioDatos()">
-        <ion-icon name="git-compare"></ion-icon>
-        Quiero solicitar un cambio en mis datos
-      </button>
+  <ion-list>
+    <ion-item *ngFor="let anticipo of anticipos" (click)="goAnticipo(anticipo)" text-wrap>
+      <span class="myGreen">{{anticipo.nomtipom}} </span><br>
+      {{anticipo.factura}} {{anticipo.fecfactu}} <br>
+      Base: {{anticipo.baseimpo}}€ IVA: {{anticipo.imporiva}}€ <br>
+      Retención: {{anticipo.impreten}}€ TOTAL: {{anticipo.totalfac}}€
+      <ion-icon name="log-in" item-end class="myGreen"></ion-icon>
     </ion-item>
   </ion-list>
 </ion-content>

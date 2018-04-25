@@ -35,4 +35,14 @@ export class AriagroDataProvider {
       }
     });
   }
+
+  getAnticipos(url, socio, campanya): any {
+    return this.http.get(url + '/api/anticipos-liquidaciones/socio', {
+      params: {
+        codsocio: socio,
+        campanya: campanya
+      }
+    });
+  }
+
 }

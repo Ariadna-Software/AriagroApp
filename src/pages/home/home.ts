@@ -52,4 +52,8 @@ export class HomePage {
   goCampos(): void {
     this.navCtrl.push('CamposPage');
   }
+
+  goAnticipos(): void {
+    this.navCtrl.push('AnticiposPage');
+  }
 }

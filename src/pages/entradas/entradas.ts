@@ -4,21 +4,23 @@ import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
 import { ViewController } from 'ionic-angular';
 import * as numeral from 'numeral';
+import * as moment from 'moment';
 
 @IonicPage()
 @Component({
-  selector: 'page-campos',
-  templateUrl: 'campos.html',
+  selector: 'page-entradas',
+  templateUrl: 'entradas.html',
 })
-export class CamposPage {
+export class EntradasPage {
   settings: any = {};
   campanya: any = {};
   user: any = {};
-  variedades: any = [];
+  campo: any = {};
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public alertCrtl: AlertController, public viewCtrl: ViewController,
     public ariagroData: AriagroDataProvider, public localData: LocalDataProvider) {
+
   }
 
   ionViewDidLoad() {
@@ -28,34 +30,21 @@ export class CamposPage {
         this.viewCtrl.setBackButtonText('');
         this.user = this.settings.user;
         this.campanya = this.settings.campanya;
-        this.ariagroData.getCampos(this.settings.parametros.url, this.user.ariagroId, this.campanya.ariagro)
-          .subscribe(
-            (data) => {
-              this.cargarVariedades(data);
-              console.log("VARIEDADES: ", this.variedades);
-            },
-            (error) => {
-              this.showAlert("ERROR", JSON.stringify(error, null, 4));
-            }
-          );
+        this.cargarEntradas(this.navParams.get('campo'));
+
       } else {
         this.navCtrl.setRoot('ParametrosPage');
       }
     });
   }
 
-  cargarVariedades(variedades): void {
-    this.variedades = [];
-    variedades.forEach(v => {
-      v.numkilos = numeral(v.numkilos).format('0,0');
-      v.campos.forEach(c => {
-        c.kilos = numeral(c.kilos).format('0,0');
-      });
-      this.variedades.push(v);
-    })
-  }
-  toggleSection(i) {
-    this.variedades[i].open = !this.variedades[i].open;
+  cargarEntradas(campo): void {
+    campo.entradas.forEach(e => {
+      e.numcajon = numeral(e.numcajon).format('0,0');
+      e.kilosnet = numeral(e.kilosnet).format('0,0');
+      e.fecalbar = moment(e.fecalbar).format('DD/MM/YYYY');
+    });
+    this.campo = campo;
   }
 
   goHome(): any {
@@ -71,8 +60,5 @@ export class CamposPage {
     alert.present();
   }
 
-  goEntradas(campo): void {
-    this.navCtrl.push('EntradasPage', {campo: campo});
-  }
 
 }

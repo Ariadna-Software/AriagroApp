@@ -44,4 +44,12 @@ export class HomePage {
   goCampanyas(): void {
     this.navCtrl.push('CampanyasPage');
   }
+
+  goDatos(): void {
+    this.navCtrl.push('DatosPage');
+  }
+
+  goCampos(): void {
+    this.navCtrl.push('CamposPage');
+  }
 }

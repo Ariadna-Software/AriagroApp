@@ -26,4 +26,13 @@ export class AriagroDataProvider {
   getCampanyas(url): any {
     return this.http.get(url + '/api/campanyas');
   }
+
+  getCampos(url, socio, campanya): any {
+    return this.http.get(url + '/api/campos/socio', {
+      params: {
+        codsocio: socio,
+        campanya: campanya
+      }
+    });
+  }
 }

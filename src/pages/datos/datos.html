@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      ARIAGRO APP V2
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only class="buttonGreen" (click)="goHome()">
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item text-wrap no-lines class="greenHeader">
+      DATOS
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4>
+          <div class="psb">
+            <img src="assets/imgs/datos.png">
+          </div>
+        </ion-col>
+        <ion-col col-8>
+          Estos son sus datos en nuestros ficheros.
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+  <ion-list no-lines>
+    <ion-item text-wrap>
+      <p>{{user.nombre}}</p>
+      <p>NIF: {{user.nif}}</p>
+      <p>{{user.direccion}}</p>
+      <p>({{user.codPostal}}) {{user.poblacion}}</p>
+      <p>{{user.provincia}}</p>
+      <p>Teléfono(1): {{user.telefono1}}</p>
+      <p>Teléfono(2): {{user.telefono2}}</p>
+      <p>Correo: {{user.email}}</p>
+      <p>IBAN: {{user.iban}}</p>
+    </ion-item>
+    <ion-item no-lines>
+      <button ion-button outline item-end round icon-left text-wrap class="buttonGreen"  (click)="cambioDatos()">
+        <ion-icon name="git-compare"></ion-icon>
+        Quiero solicitar un cambio en mis datos
+      </button>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>
+      <span style="font-size:0.8em;">(c) Ariadna SW 2018</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>

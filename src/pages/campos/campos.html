@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      ARIAGRO APP V2
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only class="buttonGreen" (click)="goHome()">
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding >
+  <ion-list>
+    <ion-item text-wrap no-lines class="greenHeader">
+      CAMPOS
+      <br> {{campanya.nomresum}}
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4>
+          <div class="psb">
+            <img src="assets/imgs/campos.png">
+          </div>
+        </ion-col>
+        <ion-col col-8>
+          Escoja la variedad cultivada para ver el detalle de los campos implicados. Seleccione un campo para ver las entradas relacionadas.
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+  <ion-list *ngFor="let variedad of variedades; let i = index" no-lines class="outList">
+    <ion-item (click)="toggleSection(i)" detail-none [ngClass]="{'section-active': variedad.open, 'section': !variedad.open}">
+      <ion-icon item-left name="arrow-forward" *ngIf="!variedad.open"></ion-icon>
+      <ion-icon item-left name="arrow-down" *ngIf="variedad.open"></ion-icon>
+      {{variedad.nomvarie}}
+      <p>{{variedad.numkilos}} Kg.</p>
+    </ion-item>
+    <ion-list *ngIf="variedad.campos && variedad.open" no-lines>
+      <ion-item *ngFor="let campo of variedad.campos; let j = index" detail-none text-wrap (click)="goEntradas(campo)">
+        <p>
+          <strong>Campo: </strong> {{campo.codcampo}}
+          <br>
+          <strong>Partida: </strong> {{campo.nomparti}}
+          <br>
+          <strong>Poligono: </strong> {{campo.poligono}}
+          <strong>Parcela: </strong> {{campo.parcela}}
+          <br>
+          <strong>Recintos: </strong> {{campo.recintos}}
+          <strong>Kilos: </strong> {{campo.kilos}}
+        </p>
+        <ion-icon name="log-in" item-end class="buttonGreen"></ion-icon>
+      </ion-item>
+    </ion-list>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>
+      <span style="font-size:0.8em;">(c) Ariadna SW 2018</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>

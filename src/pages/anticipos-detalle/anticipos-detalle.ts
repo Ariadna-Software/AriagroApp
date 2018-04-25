@@ -8,14 +8,14 @@ import * as moment from 'moment';
 
 @IonicPage()
 @Component({
-  selector: 'page-entradas',
-  templateUrl: 'entradas.html',
+  selector: 'page-anticipos-detalle',
+  templateUrl: 'anticipos-detalle.html',
 })
-export class EntradasPage {
+export class AnticiposDetallePage {
   settings: any = {};
   campanya: any = {};
   user: any = {};
-  campo: any = {};
+  anticipo: any = {};
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public alertCrtl: AlertController, public viewCtrl: ViewController,
@@ -30,21 +30,12 @@ export class EntradasPage {
         this.viewCtrl.setBackButtonText('');
         this.user = this.settings.user;
         this.campanya = this.settings.campanya;
-        this.cargarEntradas(this.navParams.get('campo'));
-
+        this.anticipo = this.navParams.get('anticipo');
+        console.log("ANTICIPO: ", this.anticipo);
       } else {
         this.navCtrl.setRoot('ParametrosPage');
       }
     });
-  }
-
-  cargarEntradas(campo): void {
-    campo.entradas.forEach(e => {
-      e.numcajon = numeral(e.numcajon).format('0,0');
-      e.kilosnet = numeral(e.kilosnet).format('0,0');
-      e.fecalbar = moment(e.fecalbar).format('DD/MM/YYYY');
-    });
-    this.campo = campo;
   }
 
   goHome(): any {

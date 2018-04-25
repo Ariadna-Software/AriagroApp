@@ -52,7 +52,7 @@ export class AnticiposPage {
       a.impreten = numeral(a.impreten).format('0,0.00');
       a.totalfac = numeral(a.totalfac).format('0,0.00');
       a.lineas.forEach(l => {
-        l.kilosnet = numeral(l.kilosnet).format('0,0.00');
+        l.kilosnet = numeral(l.kilosnet).format('0,0');
         l.imporvar = numeral(l.imporvar).format('0,0.00');
       });
     });
@@ -74,7 +74,9 @@ export class AnticiposPage {
   }
 
   goAnticipo(anticipo): void {
-    
+    this.navCtrl.push('AnticiposDetallePage',{
+      anticipo: anticipo
+    });
   }
 
 }

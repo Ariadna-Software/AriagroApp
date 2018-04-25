@@ -15,30 +15,29 @@
 <ion-content padding>
   <ion-list>
     <ion-item text-wrap no-lines class="greenHeader">
-      ENTRADAS CAMPO: {{campo.codcampo}}
+      {{anticipo.nomtipom}}
       <br> {{campanya.nomresum}}
-      <br> Partida: {{campo.nomparti}}
-      <br> Polígono: {{campo.poligono}} Parcela: {{campo.parcela}}
-
+      <br> {{anticipo.factura}} {{anticipo.fecfactu}}
+      <br> Base: {{anticipo.baseimpo}} € IVA: {{anticipo.imporiva}} € 
+      <br> Retención: {{anticipo.impreten}} € TOTAL: {{anticipo.totalfac}} €
     </ion-item>
     <ion-grid>
       <ion-row>
         <ion-col col-4>
           <div class="psb">
-            <img src="assets/imgs/campos.png">
+            <img src="assets/imgs/anticipos.png">
           </div>
         </ion-col>
         <ion-col col-8>
-          Este es el detalle de entradas para el campo y campaña seleccionados
+          Este es el detalle del anticipo / liquidación seleccionado.
         </ion-col>
       </ion-row>
     </ion-grid>
   </ion-list>
   <ion-list>
-    <ion-item *ngFor="let entrada of campo.entradas" text-wrap>
-      <span class="myGreen">Fecha: {{entrada.fecalbar}} Albarán: {{entrada.numalbar}}</span>
-       <br>
-      {{entrada.kilosnet}} Kg. {{entrada.numcajon}} Cajones
+    <ion-item *ngFor="let linea of anticipo.lineas" text-wrap>
+      <span class="myGreen">{{linea.nomvarie}}</span>
+      <br>{{linea.kilosnet}} Kg. {{linea.imporvar}} €
     </ion-item>
   </ion-list>
 

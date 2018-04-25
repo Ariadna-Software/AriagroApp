@@ -35,8 +35,8 @@
     <ion-item *ngFor="let anticipo of anticipos" (click)="goAnticipo(anticipo)" text-wrap>
       <span class="myGreen">{{anticipo.nomtipom}} </span><br>
       {{anticipo.factura}} {{anticipo.fecfactu}} <br>
-      Base: {{anticipo.baseimpo}}€ IVA: {{anticipo.imporiva}}€ <br>
-      Retención: {{anticipo.impreten}}€ TOTAL: {{anticipo.totalfac}}€
+      Base: {{anticipo.baseimpo}} € IVA: {{anticipo.imporiva}} € <br>
+      Retención: {{anticipo.impreten}} € TOTAL: {{anticipo.totalfac}} €
       <ion-icon name="log-in" item-end class="myGreen"></ion-icon>
     </ion-item>
   </ion-list>

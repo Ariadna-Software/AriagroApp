@@ -198,4 +198,10 @@ export class FacturasPage {
     });
   }
 
+  goFacturasTratamientos(): void {
+    this.navCtrl.push('FacturasTratamientosPage', {
+      facturas: this.facturasTratamientos
+    });
+  }
+
 }

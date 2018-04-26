@@ -8,15 +8,14 @@ import * as moment from 'moment';
 
 @IonicPage()
 @Component({
-  selector: 'page-facturas-tienda',
-  templateUrl: 'facturas-tienda.html',
+  selector: 'page-facturas-tienda-detalle',
+  templateUrl: 'facturas-tienda-detalle.html',
 })
-export class FacturasTiendaPage {
+export class FacturasTiendaDetallePage {
   settings: any = {};
   campanya: any = {};
   user: any = {};
-  facturas: any = [];
-  numfacturas: number = 0;
+  factura: any = {};
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public alertCrtl: AlertController, public viewCtrl: ViewController,
@@ -31,8 +30,7 @@ export class FacturasTiendaPage {
         this.viewCtrl.setBackButtonText('');
         this.user = this.settings.user;
         this.campanya = this.settings.campanya;
-        this.facturas = this.navParams.get('facturas');
-        this.numfacturas = this.facturas.length;
+        this.factura = this.navParams.get('factura');
       } else {
         this.navCtrl.setRoot('ParametrosPage');
       }
@@ -50,12 +48,6 @@ export class FacturasTiendaPage {
       buttons: ['OK']
     });
     alert.present();
-  }
-
-  goFacturaDetalle(factura): void {
-    this.navCtrl.push('FacturasTiendaDetallePage',{
-      factura: factura
-    });
   }
 
 }

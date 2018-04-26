@@ -32,7 +32,6 @@ export class CamposPage {
           .subscribe(
             (data) => {
               this.cargarVariedades(data);
-              console.log("VARIEDADES: ", this.variedades);
             },
             (error) => {
               this.showAlert("ERROR", JSON.stringify(error, null, 4));

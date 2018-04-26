@@ -45,4 +45,20 @@ export class AriagroDataProvider {
     });
   }
 
+  getFacturasTienda(url, codclien, year): any {
+    return this.http.get(url + '/api/facturas/tienda/' + codclien + '/' + year);
+  }
+
+  getFacturasTelefonia(url, codclien, year): any {
+    return this.http.get(url + '/api/facturas/telefonia/' + codclien + '/' + year);
+  }
+
+  getFacturasGasolinera(url, codclien, year): any {
+    return this.http.get(url + '/api/facturas/gasolinera/' + codclien + '/' + year);
+  }
+
+  getFacturasTratamientos(url, codclien, year, codsocio, campanya): any {
+    return this.http.get(url + '/api/facturas/tratamientos/' + codclien + '/' + year + '/' + codsocio + '/' + campanya);
+  }
+
 }

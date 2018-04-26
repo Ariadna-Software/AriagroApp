@@ -31,7 +31,6 @@ export class AnticiposDetallePage {
         this.user = this.settings.user;
         this.campanya = this.settings.campanya;
         this.anticipo = this.navParams.get('anticipo');
-        console.log("ANTICIPO: ", this.anticipo);
       } else {
         this.navCtrl.setRoot('ParametrosPage');
       }

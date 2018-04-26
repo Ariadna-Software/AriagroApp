@@ -56,4 +56,8 @@ export class HomePage {
   goAnticipos(): void {
     this.navCtrl.push('AnticiposPage');
   }
+
+  goFacturas(): void {
+    this.navCtrl.push('FacturasPage');
+  }
 }

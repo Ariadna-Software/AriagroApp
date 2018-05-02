@@ -51,7 +51,7 @@
       <ion-badge color="secondary">{{numFacturasTienda}}</ion-badge>
       <ion-icon name="log-in" item-end class="myGreen"></ion-icon>
     </ion-item>
-    <ion-item>
+    <ion-item (click)="goFacturasTelefonia()">
       <ion-thumbnail item-start>
         <img src="assets/imgs/telefonia.png">
       </ion-thumbnail>
@@ -60,7 +60,7 @@
       <ion-badge color="secondary">{{numFacturasTelefonia}}</ion-badge>
       <ion-icon name="log-in" item-end class="myGreen"></ion-icon>
     </ion-item>
-    <ion-item>
+    <ion-item (click)="goFacturasGasolinera()">
       <ion-thumbnail item-start>
         <img src="assets/imgs/gasolinera.png">
       </ion-thumbnail>

@@ -113,7 +113,7 @@ export class FacturasPage {
   getFacturasTelefonia(): void {
     let loading = this.loadingCtrl.create({ content: 'Buscando telefonia...' });
     loading.present();
-    this.ariagroData.getFacturasTelefonia(this.settings.parametros.url, this.user.tiendaId, this.selectedYear)
+    this.ariagroData.getFacturasTelefonia(this.settings.parametros.url, this.user.telefoniaId, this.selectedYear)
       .subscribe(
         (data) => {
           loading.dismiss();
@@ -140,7 +140,7 @@ export class FacturasPage {
   getFacturasGasolinera(): void {
     let loading = this.loadingCtrl.create({ content: 'Buscando gasolinera...' });
     loading.present();
-    this.ariagroData.getFacturasGasolinera(this.settings.parametros.url, this.user.tiendaId, this.selectedYear)
+    this.ariagroData.getFacturasGasolinera(this.settings.parametros.url, this.user.gasolineraId, this.selectedYear)
       .subscribe(
         (data) => {
           loading.dismiss();
@@ -168,7 +168,7 @@ export class FacturasPage {
   getFacturasTratamientos(): void {
     let loading = this.loadingCtrl.create({ content: 'Buscando tratamientos...' });
     loading.present();
-    this.ariagroData.getFacturasTratamientos(this.settings.parametros.url, this.user.tiendaId, this.selectedYear, this.user.ariagroId, this.campanya.ariagro)
+    this.ariagroData.getFacturasTratamientos(this.settings.parametros.url, this.user.tratamientosId, this.selectedYear, this.user.ariagroId, this.campanya.ariagro)
       .subscribe(
         (data) => {
           loading.dismiss();
@@ -195,6 +195,18 @@ export class FacturasPage {
   goFacturasTienda(): void {
     this.navCtrl.push('FacturasTiendaPage', {
       facturas: this.facturasTienda
+    });
+  }
+
+  goFacturasTelefonia(): void {
+    this.navCtrl.push('FacturasTelefoniaPage', {
+      facturas: this.facturasTelefonia
+    });
+  }
+  
+  goFacturasGasolinera(): void {
+    this.navCtrl.push('FacturasGasolineraPage', {
+      facturas: this.facturasGasolinera
     });
   }
 

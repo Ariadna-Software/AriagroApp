@@ -1,0 +1,29 @@
+page-facturas-telefonia {
+    ion-header {
+        text-align: center;
+    }
+    ion-toolbar {
+        text-align: center;
+    }
+    img {
+        width: 40%;
+    }
+    .psb {
+        padding: 5px;
+        border: solid;
+        border-radius: 30px;
+        border-color: teal;
+        border-width: 3px;
+        text-align: center;
+     }
+     .greenHeader {
+        background-color: teal;
+        color: white;
+     }
+     .myGreen {
+         color: teal;
+     }
+     ion-header ion-icon.back-button-icon.icon {
+        color: teal;
+     }
+}

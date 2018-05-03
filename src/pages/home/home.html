@@ -51,11 +51,13 @@
           <p>FACTURAS</p>
         </div>
       </ion-col>
-      <ion-col col-6>
+      <ion-col col-6 (click)='goMensajes()'>
         <div class="psb">
           <img src="assets/imgs/mensajes.png">
           <p>MENSAJES</p>
-          <ion-badge color="secondary">0</ion-badge>
+          <div *ngIf='numNoLeidos > 0'>
+            <ion-badge color="secondary">{{numNoLeidos}}</ion-badge>
+          </div>
         </div>
       </ion-col>
     </ion-row>

@@ -61,4 +61,8 @@ export class AriagroDataProvider {
     return this.http.get(url + '/api/facturas/tratamientos/' + codclien + '/' + year + '/' + codsocio + '/' + campanya);
   }
 
+  getMensajesUsuario(url, usuPush): any {
+    return this.http.get(url + '/api/mensajes/usuario/' + usuPush);
+  }
+
 }

@@ -7,16 +7,14 @@ import { ViewController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-facturas-gasolinera',
-  templateUrl: 'facturas-gasolinera.html',
+  selector: 'page-facturas-gasolinera-detalle',
+  templateUrl: 'facturas-gasolinera-detalle.html',
 })
-export class FacturasGasolineraPage {
-
+export class FacturasGasolineraDetallePage {
   settings: any = {};
   campanya: any = {};
   user: any = {};
-  facturas: any = [];
-  numfacturas: number = 0;
+  factura: any = {};
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public alertCrtl: AlertController, public viewCtrl: ViewController,
@@ -31,8 +29,7 @@ export class FacturasGasolineraPage {
         this.viewCtrl.setBackButtonText('');
         this.user = this.settings.user;
         this.campanya = this.settings.campanya;
-        this.facturas = this.navParams.get('facturas');
-        this.numfacturas = this.facturas.length;
+        this.factura = this.navParams.get('factura');
       } else {
         this.navCtrl.setRoot('ParametrosPage');
       }
@@ -52,10 +49,5 @@ export class FacturasGasolineraPage {
     alert.present();
   }
 
-  goFacturaDetalle(factura): void {
-    this.navCtrl.push('FacturasGasolineraDetallePage',{
-      factura: factura
-    });
-  }
 
 }

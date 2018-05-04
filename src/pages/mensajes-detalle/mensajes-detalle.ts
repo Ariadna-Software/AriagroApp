@@ -5,18 +5,24 @@ import { LocalDataProvider } from '../../providers/local-data/local-data';
 import { ViewController } from 'ionic-angular';
 import * as moment from 'moment';
 
-
+/**
+ * Generated class for the MensajesDetallePage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
 
 @IonicPage()
 @Component({
-  selector: 'page-mensajes',
-  templateUrl: 'mensajes.html',
+  selector: 'page-mensajes-detalle',
+  templateUrl: 'mensajes-detalle.html',
 })
-export class MensajesPage {
+export class MensajesDetallePage {
+
   settings: any = {};
   campanya: any = {};
   user: any = {};
-  mensajes: any = [];
+  mensaje: any = {};
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public alertCrtl: AlertController, public viewCtrl: ViewController, public loadingCtrl: LoadingController,
@@ -24,44 +30,28 @@ export class MensajesPage {
   }
 
 
-  ionViewWillEnter() {
+  ionViewDidLoad() {
     this.localData.getSettings().then(data => {
       if (data) {
         this.settings = JSON.parse(data);
         this.viewCtrl.setBackButtonText('');
         this.user = this.settings.user;
         this.campanya = this.settings.campanya;
-        this.cargarMensajes();
+        this.mensaje = this.navParams.get('mensaje');
+        this.ariagroData.putMensajeUsuario(this.settings.parametros.url, this.user.usuarioPushId, this.mensaje.mensajeId, moment(new Date()).format('YYYY-MM-DD HH:mm:ss'))
+        .subscribe(
+          (data) => {
+          },
+          (error) => {
+            this.showAlert("ERROR", JSON.stringify(error, null, 4));
+          }
+        );
       } else {
         this.navCtrl.setRoot('ParametrosPage');
       }
+      
     });
-  }
 
-  cargarMensajes(): void {
-    let loading = this.loadingCtrl.create({ content: 'Buscando mensajes...' });
-    loading.present();
-    this.ariagroData.getMensajesUsuario(this.settings.parametros.url, this.settings.user.usuarioPushId)
-    .subscribe(
-      (data) => {
-        
-        loading.dismiss();
-        if(data.length > 0) {
-          data.forEach(f => {
-            f.fecha = moment(f.fecha).format('DD/MM/YYYY HH:mm:ss');
-            
-          });
-          /*data.sort(function (a, b) {
-            return (a.estado - b.estado)
-        })*/
-        this.mensajes = data;
-        } 
-      },
-      (error) => {
-        loading.dismiss();
-        this.showAlert("ERROR", JSON.stringify(error, null, 4));
-      }
-    );
   }
 
   showAlert(title, subTitle): void {
@@ -72,12 +62,5 @@ export class MensajesPage {
     });
     alert.present();
   }
-
-
-
-  goMensajeDetalle(mensaje): void {
-    this.navCtrl.push('MensajesDetallePage', {
-      mensaje: mensaje
-    });
-  }
 }
+

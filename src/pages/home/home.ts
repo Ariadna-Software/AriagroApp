@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController, LoadingController
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
+import * as moment from 'moment';
 
 @IonicPage()
 @Component({
@@ -51,6 +52,7 @@ export class HomePage {
         loading.dismiss();
         if(data.length > 0) {
           data.forEach(f => {
+            f.fecha = moment(f.fecha).format('DD/MM/YYYY HH:mm:ss');
             if(f.estado != 'LEIDO') {this.numNoLeidos++;
             }
           });

@@ -65,4 +65,14 @@ export class AriagroDataProvider {
     return this.http.get(url + '/api/mensajes/usuario/' + usuPush);
   }
 
+  putMensajeUsuario(url, usuarioPushId, mensajeId, fecha): any {
+    var data = {
+      usuarioPushId: usuarioPushId,
+      mensajeId: mensajeId,
+      fecha: fecha
+  };
+    return this.http.put(url + '/api/mensajes/usuario/'+ usuarioPushId, data );
+  }
+
+ 
 }

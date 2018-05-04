@@ -1,0 +1,53 @@
+<ion-header>
+    <ion-navbar>
+      <ion-title>
+        ARIAGRO APP V2
+      </ion-title>
+      <ion-buttons end>
+        <button ion-button icon-only class="myGreen" (click)="goHome()">
+          <ion-icon name="home"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+  
+
+
+<ion-content padding>
+  <ion-list>
+      <ion-item no-lines class="greenHeader">
+          MENSAJE
+        </ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-4>
+              <div class="psb">
+                <img src="assets/imgs/mensajes.png">
+              </div>
+            </ion-col>
+            <ion-col col-8 style="text-align: justify;">
+                Este el detalle del mensaje escogido
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-item text-wrap>
+            <div>
+                <strong>Fecha: </strong> {{mensaje.fecha}}
+            </div>
+            <div>
+                <strong>Asunto: </strong> {{mensaje.asunto}}
+            </div>
+            <div>
+                <strong>Texto: </strong> {{mensaje.texto}}
+            </div>
+        </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+      <ion-title>
+        <span style="font-size:0.8em;">(c) Ariadna SW 2018</span>
+      </ion-title>
+    </ion-toolbar>
+</ion-footer>

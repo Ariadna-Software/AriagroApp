@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      ARIAGRO APP V2
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only class="myGreen" (click)="goHome()">
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-list>
+        <ion-item no-lines class="greenHeader">
+            ENVIAR MENSAJES 
+        </ion-item>
+        <ion-grid>
+            <ion-row>
+              <ion-col col-4>
+                <div class="psb">
+                  <img src="assets/imgs/mensajes.png">
+                </div>
+              </ion-col>
+              <ion-col col-8 style="text-align: justify;">
+                  Escriba el mensaje que desea hacernos llegar y pulse el botón enviar
+              </ion-col>
+            </ion-row>
+        </ion-grid>
+        <ion-item-divider>
+            MENSAJE
+        </ion-item-divider>
+        <form name="mensForm" novalidate="">
+            <ion-item>
+                <ion-textarea  rows="10" name="observac" [(ngModel)]="correo.texto" placeholder="Escriba aquí el texto de su mensaje"></ion-textarea>
+            </ion-item>
+            <ion-item no-lines>
+                <button ion-button outline item-end round icon-left class="myGreen" (click)="enviarMensaje(mensForm)">
+                  <ion-icon name="send"></ion-icon>
+                  Enviar
+                </button>
+            </ion-item>
+        </form>
+    </ion-list>
+
+</ion-content>
+
+
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>
+      <span style="font-size:0.8em;">(c) Ariadna SW 2018</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>

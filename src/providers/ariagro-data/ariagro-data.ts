@@ -75,4 +75,10 @@ export class AriagroDataProvider {
   }
 
  
+  postCorreo(url, correo){
+    var data = {
+        correo: correo
+    };
+    return this.http.post(url + '/api/mensajes/correo', data);
+}
 }

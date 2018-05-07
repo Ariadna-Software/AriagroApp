@@ -54,6 +54,10 @@ export class MensajesDetallePage {
 
   }
 
+  goHome(): any {
+    this.navCtrl.setRoot('HomePage');
+  }
+
   showAlert(title, subTitle): void {
     let alert = this.alertCrtl.create({
       title: title,

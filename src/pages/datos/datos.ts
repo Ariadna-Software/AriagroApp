@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
 import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
 import { ViewController } from 'ionic-angular';
@@ -15,7 +15,7 @@ export class DatosPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public alertCrtl: AlertController, public viewCtrl: ViewController,
-    public ariagroData: AriagroDataProvider, public localData: LocalDataProvider) {
+    public ariagroData: AriagroDataProvider, public localData: LocalDataProvider, public modalCtrl: ModalController) {
   }
 
   ionViewDidLoad() {
@@ -48,7 +48,8 @@ export class DatosPage {
   }
 
   cambioDatos(): void {
-    
+    let modal = this.modalCtrl.create('ModalDatosCambiarPage');
+    modal.present();
   }
 
 }

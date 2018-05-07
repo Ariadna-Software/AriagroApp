@@ -3,20 +3,24 @@ import { IonicPage, NavController, NavParams, AlertController, LoadingController
 import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
 import { ViewController } from 'ionic-angular';
-import * as moment from 'moment';
 
 
 
 @IonicPage()
 @Component({
-  selector: 'page-mensajes',
-  templateUrl: 'mensajes.html',
+  selector: 'page-mensajes-enviar',
+  templateUrl: 'mensajes-enviar.html',
 })
-export class MensajesPage {
+export class MensajesEnviarPage {
+
   settings: any = {};
   campanya: any = {};
   user: any = {};
   mensajes: any = [];
+  correo: any = {
+    texto: ""
+  }
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public alertCrtl: AlertController, public viewCtrl: ViewController, public loadingCtrl: LoadingController,
@@ -31,62 +35,62 @@ export class MensajesPage {
         this.viewCtrl.setBackButtonText('');
         this.user = this.settings.user;
         this.campanya = this.settings.campanya;
-        this.cargarMensajes();
       } else {
         this.navCtrl.setRoot('ParametrosPage');
       }
     });
   }
 
-  cargarMensajes(): void {
-    let loading = this.loadingCtrl.create({ content: 'Buscando mensajes...' });
+  enviarMensaje(): void {
+    this.correo.asunto = "Mensaje de " + this.user.nombre;
+    let loading = this.loadingCtrl.create({ content: 'Enviando mensaje...' });
     loading.present();
-    this.ariagroData.getMensajesUsuario(this.settings.parametros.url, this.settings.user.usuarioPushId)
-    .subscribe(
-      (data) => {
+    this.ariagroData.postCorreo(this.settings.parametros.url, this.correo)
+      .subscribe(
+        (data) =>{
+        loading.dismiss();
+        this.showExito("EXITO", "Mensaje eviado");
         
+    },
+    (error) =>{
         loading.dismiss();
-        if(data.length > 0) {
-          data.forEach(f => {
-            f.fecha = moment(f.fecha).format('DD/MM/YYYY HH:mm:ss');
+        if (error) {
+            this.showAlert("ERROR", JSON.stringify(error, null, 4));
             
-          });
-          /*data.sort(function (a, b) {
-            return (a.estado - b.estado)
-        })*/
-        this.mensajes = data;
-        } 
-      },
-      (error) => {
-        loading.dismiss();
-        this.showAlert("ERROR", JSON.stringify(error, null, 4));
-      }
-    );
-  }
-
-  showAlert(title, subTitle): void {
-    let alert = this.alertCrtl.create({
-      title: title,
-      subTitle: subTitle,
-      buttons: ['OK']
+        } else {
+          this.showAlert("ERROR", "Error de conexión. Revise disponibilidad de datos y/o configuración");
+        }
     });
-    alert.present();
-  }
+}
 
+showAlert(title, subTitle): void {
+  let alert = this.alertCrtl.create({
+    title: title,
+    subTitle: subTitle,
+    buttons: ['OK'],
+  });
+  alert.present();
+}
 
-
-  goMensajeDetalle(mensaje): void {
-    this.navCtrl.push('MensajesDetallePage', {
-      mensaje: mensaje
-    });
-  }
+showExito(title, subTitle): void {
+  let alert = this.alertCrtl.create({
+    title: title,
+    subTitle: subTitle,
+    buttons: [
+      {
+        text:'OK',
+        handler: () => {
+          this.navCtrl.pop();
+        }
+    }
+    
+    ]
+  });
+  alert.present();
+}
 
   goHome(): any {
     this.navCtrl.setRoot('HomePage');
   }
 
-  crearMensaje(): void {
-    this.navCtrl.push('MensajesEnviarPage', {
-    });
-  }
 }

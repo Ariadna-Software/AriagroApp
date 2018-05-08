@@ -12,11 +12,21 @@
 <ion-content padding>
     <ion-list>
         <ion-item text-wrap no-lines class="greenHeader">
-            {{user.nombre}}
+            {{userCopia.nombre}}
         </ion-item>
-        <ion-item text-wrap no-lines>
-            Modifique los datos que desee y pulse el bótón enviar al final de la pantalla
-        </ion-item>
+        
+        <ion-grid>
+            <ion-row>
+              <ion-col col-4>
+                <div class="psb">
+                  <img src="assets/imgs/datos.png">
+                </div>
+              </ion-col>
+              <ion-col col-8>
+                Modifique los datos que desee y pulse el bótón enviar al final de la pantalla
+              </ion-col>
+            </ion-row>
+          </ion-grid>
     </ion-list>
     <ion-list>
         
@@ -56,11 +66,17 @@
             </ion-item>
             <ion-item class="expand">
                 <ion-label color="teal" stacked>Correo:</ion-label>
-                <ion-input value="{{user.correo}}" [(ngModel)]="user.correo" [ngModelOptions]="{standalone: true}"></ion-input>
+                <ion-input value="{{user.email}}" [(ngModel)]="user.email" [ngModelOptions]="{standalone: true}"></ion-input>
             </ion-item>
             <ion-item class="expand">
                 <ion-label color="teal" stacked>IBAN:</ion-label>
                 <ion-input value="{{user.iban}}" [(ngModel)]="user.iban" [ngModelOptions]="{standalone: true}"></ion-input>
+            </ion-item>
+            <ion-item no-lines>
+                <button ion-button outline item-end round icon-left text-wrap class="myGreen"  (click)="cambioDatos()">
+                  <ion-icon name="git-compare"></ion-icon>
+                  Solicitar cambio
+                </button>
             </ion-item>
            
           </form>

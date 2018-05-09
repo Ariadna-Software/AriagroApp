@@ -43,6 +43,7 @@ export class MensajesEnviarPage {
         this.viewCtrl.setBackButtonText('');
         this.user = this.settings.user;
         this.campanya = this.settings.campanya;
+       
       } else {
         this.navCtrl.setRoot('ParametrosPage');
       }
@@ -72,6 +73,8 @@ export class MensajesEnviarPage {
           this.showAlert("ERROR", "Error de conexión. Revise disponibilidad de datos y/o configuración");
         }
       });
+    } else {
+      this.showAlert("ERROR", "No se puede enviar un mensaje sin texto");
     }
   }
 

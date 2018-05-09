@@ -33,12 +33,8 @@
             MENSAJE
         </ion-item-divider>
         <form name="mensForm" [formGroup]="mensForm" no-lines>
-            <ion-item *ngIf="mensForm.controls.texto.valid || !submitAttempt" no-lines>
-                <ion-textarea  rows="10" name="observac" formControlName="texto" [(ngModel)]="texto" placeholder="Escriba aquí el texto de su mensaje"></ion-textarea>
-            </ion-item>
-            <ion-item *ngIf="!mensForm.controls.texto.valid && submitAttempt" no-lines>
-                <ion-textarea  rows="10" name="observac" formControlName="texto" [(ngModel)]="texto" placeholder="Debe introducir un mensaje"></ion-textarea>
-             
+            <ion-item no-lines>
+                <ion-textarea  placeholder="Escriba aquí el texto de su mensaje" rows="10" id="observac" name="observac" formControlName="texto" [(ngModel)]="texto" ></ion-textarea>
             </ion-item>
         </form>
         <ion-item no-lines>

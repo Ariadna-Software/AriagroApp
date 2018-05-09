@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController, LoadingController
 import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
 import { ViewController } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 
@@ -20,11 +21,18 @@ export class MensajesEnviarPage {
   correo: any = {
     texto: ""
   }
+  texto: string = "";
+  mensForm: FormGroup;
+  submitAttempt: boolean = false;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public alertCrtl: AlertController, public viewCtrl: ViewController, public loadingCtrl: LoadingController,
-    public ariagroData: AriagroDataProvider, public localData: LocalDataProvider) {
+    public ariagroData: AriagroDataProvider, public localData: LocalDataProvider, public formBuilder: FormBuilder) {
+
+      this.mensForm = formBuilder.group({
+        texto: ['', Validators.compose([Validators.required])]
+      });
   }
 
 
@@ -42,17 +50,20 @@ export class MensajesEnviarPage {
   }
 
   enviarMensaje(): void {
-    this.correo.asunto = "Mensaje de " + this.user.nombre;
-    let loading = this.loadingCtrl.create({ content: 'Enviando mensaje...' });
-    loading.present();
-    this.ariagroData.postCorreo(this.settings.parametros.url, this.correo)
-      .subscribe(
-        (data) =>{
-        loading.dismiss();
-        this.showExito("EXITO", "Mensaje eviado");
+    this.submitAttempt = true;
+    if(this.mensForm.valid){
+      this.correo.texto = this.texto
+      this.correo.asunto = "Mensaje de " + this.user.nombre;
+      let loading = this.loadingCtrl.create({ content: 'Enviando mensaje...' });
+      loading.present();
+      this.ariagroData.postCorreo(this.settings.parametros.url, this.correo)
+        .subscribe(
+          (data) =>{
+          loading.dismiss();
+          this.showExito("EXITO", "Mensaje eviado");
         
-    },
-    (error) =>{
+      },
+      (error) =>{
         loading.dismiss();
         if (error) {
             this.showAlert("ERROR", JSON.stringify(error, null, 4));
@@ -60,8 +71,9 @@ export class MensajesEnviarPage {
         } else {
           this.showAlert("ERROR", "Error de conexión. Revise disponibilidad de datos y/o configuración");
         }
-    });
-}
+      });
+    }
+  }
 
 showAlert(title, subTitle): void {
   let alert = this.alertCrtl.create({

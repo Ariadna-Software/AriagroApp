@@ -32,17 +32,21 @@
         <ion-item-divider>
             MENSAJE
         </ion-item-divider>
-        <form name="mensForm" novalidate="">
-            <ion-item>
-                <ion-textarea  rows="10" name="observac" [(ngModel)]="correo.texto" placeholder="Escriba aquí el texto de su mensaje"></ion-textarea>
+        <form name="mensForm" [formGroup]="mensForm" no-lines>
+            <ion-item *ngIf="mensForm.controls.texto.valid || !submitAttempt" no-lines>
+                <ion-textarea  rows="10" name="observac" formControlName="texto" [(ngModel)]="texto" placeholder="Escriba aquí el texto de su mensaje"></ion-textarea>
             </ion-item>
-            <ion-item no-lines>
-                <button ion-button outline item-end round icon-left class="myGreen" (click)="enviarMensaje(mensForm)">
-                  <ion-icon name="send"></ion-icon>
-                  Enviar
-                </button>
+            <ion-item *ngIf="!mensForm.controls.texto.valid && submitAttempt" no-lines>
+                <ion-textarea  rows="10" name="observac" formControlName="texto" [(ngModel)]="texto" placeholder="Debe introducir un mensaje"></ion-textarea>
+             
             </ion-item>
         </form>
+        <ion-item no-lines>
+          <button ion-button outline item-end round icon-left class="myGreen" (click)="enviarMensaje(mensForm)">
+            <ion-icon name="send"></ion-icon>
+            Enviar
+          </button>
+      </ion-item>
     </ion-list>
 
 </ion-content>

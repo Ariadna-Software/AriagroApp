@@ -43,6 +43,7 @@ export class HomePage {
   }
 
   cargarMensajes(): void {
+    this.numNoLeidos = 0;
     let loading = this.loadingCtrl.create({ content: 'Buscando mensajes...' });
     loading.present();
     this.ariagroData.getMensajesUsuario(this.settings.parametros.url, this.settings.user.usuarioPushId)

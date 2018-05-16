@@ -22,8 +22,8 @@
                   <img src="assets/imgs/datos.png">
                 </div>
               </ion-col>
-              <ion-col col-8>
-                Modifique los datos que desee y pulse el bótón enviar al final de la pantalla
+              <ion-col col-8 class="justificar">
+                Modifique los datos que desee y pulse el bótón enviar al final de la pantalla.
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -32,43 +32,43 @@
         
             <form  no-lines>
             
-            <ion-item class="expand">
+            <ion-item >
                 <ion-label  color="teal" stacked>Nombre:</ion-label>
                 <ion-input  value="{{user.nombre}}" [(ngModel)]="user.nombre" [ngModelOptions]="{standalone: true}"></ion-input>
             </ion-item>
-            <ion-item class="expand">
+            <ion-item >
                 <ion-label color="teal" stacked>Nif:</ion-label>
                 <ion-input value="{{user.nif}}" [(ngModel)]="user.nif" [ngModelOptions]="{standalone: true}"></ion-input>
             </ion-item>
-            <ion-item class="expand">
+            <ion-item >
                 <ion-label color="teal" stacked>Dirección:</ion-label>
                 <ion-input value="{{user.direccion}}" [(ngModel)]="user.direccion" [ngModelOptions]="{standalone: true}"></ion-input>
             </ion-item>
-            <ion-item class="expand">
+            <ion-item >
                 <ion-label color="teal" stacked>Cod. postal:</ion-label>
                 <ion-input value="{{user.codPostal}}" [(ngModel)]="user.codPostal" [ngModelOptions]="{standalone: true}"></ion-input>
             </ion-item>
-            <ion-item class="expand">
+            <ion-item >
                 <ion-label color="teal" stacked>Poblacion:</ion-label>
                 <ion-input value="{{user.poblacion}}" [(ngModel)]="user.poblacion" [ngModelOptions]="{standalone: true}"></ion-input>
             </ion-item>
-            <ion-item class="expand">
+            <ion-item >
                 <ion-label color="teal" stacked>Provincia:</ion-label>
                 <ion-input value="{{user.provincia}}" [(ngModel)]="user.provincia" [ngModelOptions]="{standalone: true}"></ion-input>
             </ion-item>
-            <ion-item class="expand">
+            <ion-item >
                 <ion-label color="teal" stacked>Telefono (1):</ion-label>
                 <ion-input value="{{user.telefono1}}" [(ngModel)]="user.telefono1" [ngModelOptions]="{standalone: true}"></ion-input>
             </ion-item>
-            <ion-item class="expand">
+            <ion-item >
                 <ion-label color="teal" stacked>Telefono (2):</ion-label>
                 <ion-input value="{{user.telefono2}}" [(ngModel)]="user.telefono2" [ngModelOptions]="{standalone: true}"></ion-input>
             </ion-item>
-            <ion-item class="expand">
+            <ion-item >
                 <ion-label color="teal" stacked>Correo:</ion-label>
                 <ion-input value="{{user.email}}" [(ngModel)]="user.email" [ngModelOptions]="{standalone: true}"></ion-input>
             </ion-item>
-            <ion-item class="expand">
+            <ion-item >
                 <ion-label color="teal" stacked>IBAN:</ion-label>
                 <ion-input value="{{user.iban}}" [(ngModel)]="user.iban" [ngModelOptions]="{standalone: true}"></ion-input>
             </ion-item>

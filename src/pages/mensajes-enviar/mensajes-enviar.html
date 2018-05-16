@@ -24,8 +24,8 @@
                   <img src="assets/imgs/mensajes.png">
                 </div>
               </ion-col>
-              <ion-col col-8 style="text-align: justify;">
-                  Escriba el mensaje que desea hacernos llegar y pulse el botón enviar
+              <ion-col col-8 class="justificar">
+                  Escriba el mensaje que desea hacernos llegar y pulse el botón enviar.
               </ion-col>
             </ion-row>
         </ion-grid>
@@ -34,7 +34,7 @@
         </ion-item-divider>
         <form name="mensForm" [formGroup]="mensForm" no-lines>
             <ion-item no-lines>
-                <ion-textarea  placeholder="Escriba aquí el texto de su mensaje" rows="10" id="observac" name="observac" formControlName="texto" [(ngModel)]="texto" ></ion-textarea>
+                <ion-textarea  placeholder="Escriba aquí el texto de su mensaje" rows="5" id="observac" name="observac" formControlName="texto" [(ngModel)]="texto" ></ion-textarea>
             </ion-item>
         </form>
         <ion-item no-lines>

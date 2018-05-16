@@ -5,6 +5,15 @@ page-facturas-tienda {
     ion-toolbar {
         text-align: center;
     }
+    .item-md ion-thumbnail {
+        min-width: 0px;
+        min-height: 0px; 
+        width: 5rem;    
+       
+        img {
+            width: 100%;    
+        }
+    }
     img {
         width: 40%;
     }

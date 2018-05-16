@@ -51,9 +51,7 @@ export class MensajesPage {
             f.fecha = moment(f.fecha).format('DD/MM/YYYY HH:mm:ss');
             
           });
-          /*data.sort(function (a, b) {
-            return (a.estado - b.estado)
-        })*/
+         
         this.mensajes = data;
         } 
       },

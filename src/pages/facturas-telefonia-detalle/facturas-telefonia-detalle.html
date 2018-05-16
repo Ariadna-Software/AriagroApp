@@ -18,18 +18,23 @@
       FACTURAS
       <br> {{campanya.nomresum}}
     </ion-item>
+    <ion-grid>
+        <ion-row>
+          <ion-col col-4>
+            <div class="psb">
+                <img src="assets/imgs/telefonia.png">
+            </div>
+          </ion-col>
+          <ion-col col-8>
+              <span class="myGreen">TELEFONIA</span>
+              <br><span class="myGreen">{{factura.numfactu}} {{factura.fecfactu}}</span>
+              <br>BASE: {{factura.bases}} € IVA: {{factura.cuotas}} €
+              <br>TOTAL: {{factura.totalfac}} €
+          </ion-col>
+        </ion-row>
+      </ion-grid>
   </ion-list>
-  <ion-list>
-    <ion-item>
-      <ion-thumbnail item-start>
-        <img src="assets/imgs/telefonia.png">
-      </ion-thumbnail>
-      <h2 class="myGreen">TELEFONIA</h2>
-      <span class="myGreen">{{factura.numfactu}} {{factura.fecfactu}}</span>
-      <br>BASE: {{factura.bases}} € IVA: {{factura.cuotas}} €
-      <br>TOTAL: {{factura.totalfac}} €
-    </ion-item>
-  </ion-list>
+  
   <ion-list>
     <ion-item *ngFor="let linea of factura.lineas">
       <span class="myGreen">{{linea.nomartic}}</span>

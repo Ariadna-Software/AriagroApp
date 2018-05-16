@@ -32,7 +32,8 @@
   <ion-list>
     <ion-item *ngFor="let factura of facturas" (click)="goFacturaDetalle(factura)">
       <span class="myGreen">{{factura.numfactu}} {{factura.fecfactu}}</span>
-      <br>BASE: {{factura.bases}} € IVA: {{factura.cuotas}} €
+      <br>BASE: {{factura.bases}} € 
+      <br>IVA: {{factura.cuotas}} €
       <br>TOTAL: {{factura.totalfac}} €
       <ion-icon name="log-in" item-end class="myGreen"></ion-icon>
     </ion-item>

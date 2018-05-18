@@ -6,7 +6,7 @@ page-facturas-tratamientos-detalle {
         text-align: center;
     }
     img {
-        width: 40%;
+        width: 60%;
     }
     .psb {
         padding: 5px;
@@ -16,6 +16,9 @@ page-facturas-tratamientos-detalle {
         border-width: 3px;
         text-align: center;
      }
+     .letra {
+        font-size: 1em;
+    }
      .greenHeader {
         background-color: teal;
         color: white;
@@ -26,4 +29,15 @@ page-facturas-tratamientos-detalle {
      ion-header ion-icon.back-button-icon.icon {
         color: teal;
      }
+
+     .item-md ion-thumbnail, .item-ios ion-thumbnail, .item-wp ion-thumbnail{
+        min-width: 0px;
+        min-height: 0px;
+        width: 7rem;    
+        img {
+            width: 80%;    
+            height: 80%;
+            margin-left: 20%
+        }
+    }
 }

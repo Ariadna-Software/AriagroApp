@@ -13,14 +13,20 @@
 
 
 <ion-content padding>
-  <ion-list>
-    <ion-item text-wrap no-lines class="greenHeader">
+  <ion-list no-lines>
+    <ion-item text-wrap class="greenHeader">
       ENTRADAS CAMPO: {{campo.codcampo}}
       <br> {{campanya.nomresum}}
       <br> Partida: {{campo.nomparti}}
       <br> Polígono: {{campo.poligono}} Parcela: {{campo.parcela}}
-
+      <ion-buttons end>
+          <button color="light" ion-button outline item-end round icon-left (click)="openModalCalidadesCampo(campo)">
+              <ion-icon name="shuffle"></ion-icon>
+              Clasificacion
+          </button>
+    </ion-buttons>
     </ion-item>
+    
     <ion-grid>
       <ion-row>
         <ion-col col-4>
@@ -35,10 +41,13 @@
     </ion-grid>
   </ion-list>
   <ion-list>
-    <ion-item *ngFor="let entrada of campo.entradas" text-wrap>
-      <span class="myGreen">Fecha: {{entrada.fecalbar}} Albarán: {{entrada.numalbar}}</span>
-       <br>
-      {{entrada.kilosnet}} Kg. {{entrada.numcajon}} Cajones
+    <ion-item  *ngFor="let entrada of campo.entradas" (click)="openModalCalidadesAlbaran(entrada)" text-wrap>
+      
+        <span class="myGreen">Fecha: {{entrada.fecalbar}} Albarán: {{entrada.numalbar}}</span>
+        <br>
+        {{entrada.kilosnet}} Kg. {{entrada.numcajon}} Cajones
+        <ion-icon name="shuffle" item-end class="myGreen"></ion-icon>
+      
     </ion-item>
   </ion-list>
 

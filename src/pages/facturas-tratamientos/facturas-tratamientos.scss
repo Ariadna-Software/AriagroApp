@@ -26,4 +26,15 @@ page-facturas-tratamientos {
      ion-header ion-icon.back-button-icon.icon {
         color: teal;
      }
+
+     .item-md ion-thumbnail, .item-ios ion-thumbnail, .item-wp ion-thumbnail{
+        min-width: 0px;
+        min-height: 0px;
+        width: 7rem;    
+        img {
+            width: 80%;    
+            height: 80%;
+            margin-left: 20%
+        }
+    }
 }

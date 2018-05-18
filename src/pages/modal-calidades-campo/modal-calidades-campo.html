@@ -1,0 +1,46 @@
+
+<ion-header>
+
+  <ion-navbar>
+      <ion-buttons end>
+          <button ion-button icon-only (click)="dismiss()">
+            <ion-icon class="myGreen" ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+          </button>
+        </ion-buttons>
+    <ion-title>CAMPO: {{campo.codcampo}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-list>
+        <ion-item text-wrap no-lines class="greenHeader">
+          Partida: {{campo.nomparti}}
+          <br> Polígono: {{campo.poligono}} Parcela: {{campo.parcela}}
+          <br> {{campo.kilos}} kg
+        </ion-item>
+    </ion-list>
+
+    <ion-list >
+      <div *ngIf="calidades.length > 0">
+        <ion-item  *ngFor="let calidad of calidades" text-wrap>
+          
+          <div>
+              <span class="myGreen"><strong>Calidad: </strong>{{calidad.calidad}}</span>
+              <br> <strong>Kilos netos:</strong> {{calidad.kilos}}
+          </div>
+            
+        </ion-item>
+      </div>
+    </ion-list>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>
+      <span style="font-size:0.8em;">(c) Ariadna SW 2018</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>

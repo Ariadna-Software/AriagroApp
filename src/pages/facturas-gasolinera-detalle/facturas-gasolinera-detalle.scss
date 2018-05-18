@@ -6,7 +6,7 @@ page-facturas-gasolinera-detalle {
         text-align: center;
     }
     img {
-        width: 40%;
+        width: 60%;
     }
 
     .psb {
@@ -17,6 +17,10 @@ page-facturas-gasolinera-detalle {
         border-width: 3px;
         text-align: center;
      }
+
+    .letra {
+        font-size: 1em;
+    }
      .greenHeader {
         background-color: teal;
         color: white;
@@ -27,4 +31,15 @@ page-facturas-gasolinera-detalle {
      ion-header ion-icon.back-button-icon.icon {
         color: teal;
      }
+
+     .item-md ion-thumbnail, .item-ios ion-thumbnail, .item-wp ion-thumbnail{
+        min-width: 0px;
+        min-height: 0px;
+        width: 7rem;    
+        img {
+            width: 60%;    
+            height: 60%;
+            margin-left: 20%
+        }
+    }
 }

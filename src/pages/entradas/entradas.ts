@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
-import { ViewController } from 'ionic-angular';
+import { ViewController, ModalController } from 'ionic-angular';
+import { ModalCalidadesCampoPage } from '../modal-calidades-campo/modal-calidades-campo'
 import * as numeral from 'numeral';
 import * as moment from 'moment';
 
@@ -16,10 +17,12 @@ export class EntradasPage {
   campanya: any = {};
   user: any = {};
   campo: any = {};
+  modalCalidadesCampo: any;
+  modalCalidadesAlbaran: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public alertCrtl: AlertController, public viewCtrl: ViewController,
-    public ariagroData: AriagroDataProvider, public localData: LocalDataProvider) {
+    public ariagroData: AriagroDataProvider, public localData: LocalDataProvider, public modalCtrl: ModalController) {
 
   }
 
@@ -60,5 +63,13 @@ export class EntradasPage {
     alert.present();
   }
 
+  openModalCalidadesCampo(campo): void  {
+    this.modalCalidadesCampo = this.modalCtrl.create('ModalCalidadesCampoPage', {campo: campo});
+    this.modalCalidadesCampo.present();
+  }
 
+  openModalCalidadesAlbaran(entrada): void  {
+    this.modalCalidadesAlbaran = this.modalCtrl.create('ModalCalidadesAlbaranPage', {entrada: entrada});
+    this.modalCalidadesAlbaran.present();
+  }
 }

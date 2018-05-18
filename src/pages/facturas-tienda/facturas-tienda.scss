@@ -5,15 +5,7 @@ page-facturas-tienda {
     ion-toolbar {
         text-align: center;
     }
-    .item-md ion-thumbnail {
-        min-width: 0px;
-        min-height: 0px; 
-        width: 5rem;    
-       
-        img {
-            width: 100%;    
-        }
-    }
+    
     img {
         width: 40%;
     }
@@ -35,4 +27,15 @@ page-facturas-tienda {
      ion-header ion-icon.back-button-icon.icon {
         color: teal;
      }
+
+     .item-md ion-thumbnail, .item-ios ion-thumbnail, .item-wp ion-thumbnail{
+        min-width: 0px;
+        min-height: 0px;
+        width: 7rem;    
+        img {
+            width: 60%;    
+            height: 60%;
+            margin-left: 20%
+        }
+    }
 }

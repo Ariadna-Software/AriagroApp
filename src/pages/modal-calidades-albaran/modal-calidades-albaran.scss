@@ -1,4 +1,4 @@
-page-facturas-telefonia-detalle {
+page-modal-calidades-albaran {
     ion-header {
         text-align: center;
     }
@@ -6,10 +6,7 @@ page-facturas-telefonia-detalle {
         text-align: center;
     }
     img {
-        width: 60%;
-    }
-    .letra {
-        font-size: 1em;
+        width: 40%;
     }
     .psb {
         padding: 5px;
@@ -24,20 +21,9 @@ page-facturas-telefonia-detalle {
         color: white;
      }
      .myGreen {
-         color: teal;
+         color: hsl(180, 100%, 25%);
      }
      ion-header ion-icon.back-button-icon.icon {
         color: teal;
      }
-
-     .item-md ion-thumbnail, .item-ios ion-thumbnail, .item-wp ion-thumbnail{
-        min-width: 0px;
-        min-height: 0px;
-        width: 7rem;    
-        img {
-            width: 60%;    
-            height: 60%;
-            margin-left: 20%
-        }
-    }
 }

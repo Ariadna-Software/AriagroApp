@@ -23,6 +23,11 @@ page-modal-datos-cambiar {
      .myGreen {
          color: hsl(180, 100%, 25%);
      }
+
+     .toolbar-title {
+        overflow: visible;
+    }
+    
      ion-header ion-icon.back-button-icon.icon {
         color: teal;
      }

@@ -69,55 +69,56 @@ export class ModalDatosCambiarPage {
 
   cambioDatos = function() {
             var texto = " Datos antes de la modificación \n";
-            texto += "Nombre: " + this.userCopia.nombre + "\n";
-            texto += "NIF: " + this.userCopia.nif + "\n";
-            texto += "Dirección: " + this.userCopia.direccion + "\n";
-            texto += "Cod. Postal: " + this.userCopia.codPostal + "\n";
-            texto += "Población: " + this.userCopia.poblacion + "\n";
-            texto += "Provincia: " + this.userCopia.provincia + "\n";
-            texto += "Cod. Postal: " + this.userCopia.codPostal + "\n";
-            texto += "Telefono(1): " + this.userCopia.telefono1 + "\n";
-            texto += "Teléfono(2): " + this.userCopia.telefono2 + "\n";
-            texto += "Correo: " + this.userCopia.email + "\n";
-            texto += "IBAN: " + this.userCopia.iban + "\n";
+            var label;
+            var contador = 0;
+
+            for (var propiedad in this.user){
+              
+              if(this.user[propiedad] != this.userCopia[propiedad]) {
+                label = propiedad.toString();
+                texto += label + ": " + this.userCopia[propiedad] + "\n";
+                contador ++;
+              }
+            }
+
+           
 
             texto += " Datos después de la modificación \n";
-            texto += "Nombre: " + this.user.nombre + "\n";
-            texto += "NIF: " + this.user.nif + "\n";
-            texto += "Dirección: " + this.user.direccion + "\n";
-            texto += "Cod. Postal: " + this.user.codPostal + "\n";
-            texto += "Población: " + this.user.poblacion + "\n";
-            texto += "Provincia: " + this.user.provincia + "\n";
-            texto += "Cod. Postal: " + this.user.codPostal + "\n";
-            texto += "Telefono(1): " + this.user.telefono1 + "\n";
-            texto += "Teléfono(2): " + this.user.telefono2 + "\n";
-            texto += "Correo: " + this.user.email + "\n";
-            texto += "IBAN: " + this.user.iban + "\n";
 
+            for (var propiedad in this.user){
+              
+              if(this.user[propiedad] != this.userCopia[propiedad]) {
+                label = propiedad.toString();
+                texto += label + ": " + this.user[propiedad] + "\n";
+              }
+            }
 
-            var asunto = "Solicitud cambio de datos (" + this.userCopia.nombre + ")";
-            var correo = {
+            if(contador > 0) {
+              var asunto = "Solicitud cambio de datos (" + this.userCopia.nombre + ")";
+              var correo = {
                 asunto: asunto,
                 texto: texto
-            }
-            let loading = this.loadingCtrl.create({ content: 'Enviando correo...' });
-            loading.present();
-            this.ariagroData.postCorreo(this.settings.parametros.url, correo)
-              .subscribe(
-                (data) => {
-                  loading.dismiss();
-                  this.showExito("EXITO", "Correo eviado");
-            },
-            (error)=>{
-                loading.dismiss();
-                if (error) {
-                  this.showAlert("ERROR", JSON.stringify(error, null, 4));
-                  
-              } else {
-                this.showAlert("ERROR", "Error de conexión. Revise disponibilidad de datos y/o configuración");
               }
-            });
+              let loading = this.loadingCtrl.create({ content: 'Enviando correo...' });
+              loading.present();
+              this.ariagroData.postCorreo(this.settings.parametros.url, correo)
+                .subscribe(
+                  (data) => {
+                    loading.dismiss();
+                    this.showExito("", "Mensaje enviado correctamente");
+                  },
+                  (error)=>{
+                    loading.dismiss();
+                  if (error) {
+                    this.showAlert("ERROR", JSON.stringify(error, null, 4));
+                  } else {
+                    this.showAlert("ERROR", "Error de conexión. Revise disponibilidad de datos y/o configuración");
+                  }
+                });
 
+            } else {
+              this.showAlert("", "No se ha cambiado ningún dato");
+            }
   }
   showAlert(title, subTitle): void {
     let alert = this.alertCrtl.create({

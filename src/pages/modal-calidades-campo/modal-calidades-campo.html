@@ -23,12 +23,12 @@
     </ion-list>
 
     <ion-list >
-      <div *ngIf="calidades.length > 0">
-        <ion-item  *ngFor="let calidad of calidades" text-wrap>
+      <div *ngIf="calidades.length > 0 ">
+        <ion-item  *ngFor="let calidad of calidades">
           
-          <div>
-              <span class="myGreen"><strong>Calidad: </strong>{{calidad.calidad}}</span>
-              <br> <strong>Kilos netos:</strong> {{calidad.kilos}}
+          <div *ngIf="calidad.kilos">
+              <strong>Cal: </strong>{{calidad.calidad}}
+              {{calidad.kilos}} <strong>Kgs.</strong> 
           </div>
             
         </ion-item>

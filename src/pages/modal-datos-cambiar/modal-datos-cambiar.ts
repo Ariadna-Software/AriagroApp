@@ -85,11 +85,11 @@ export class ModalDatosCambiarPage {
 
             texto += " Datos después de la modificación \n";
 
-            for (var propiedad in this.user){
+            for (var propiedad_dos in this.user){
               
-              if(this.user[propiedad] != this.userCopia[propiedad]) {
-                label = propiedad.toString();
-                texto += label + ": " + this.user[propiedad] + "\n";
+              if(this.user[propiedad_dos] != this.userCopia[propiedad_dos]) {
+                label = propiedad_dos.toString();
+                texto += label + ": " + this.user[propiedad_dos] + "\n";
               }
             }
 

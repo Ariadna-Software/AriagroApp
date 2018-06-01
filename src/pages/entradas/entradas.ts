@@ -42,10 +42,16 @@ export class EntradasPage {
   }
 
   cargarEntradas(campo): void {
+    var comprobar;// comprueba si al formatear la fecha esta ya ha sido formateada
+
     campo.entradas.forEach(e => {
-      e.numcajon = numeral(e.numcajon).format('0,0');
-      e.kilosnet = numeral(e.kilosnet).format('0,0');
-      e.fecalbar = moment(e.fecalbar).format('DD/MM/YYYY');
+      comprobar = moment(e.fecalbar).format('DD/MM/YYYY');
+      if(comprobar != 'Invalid date') {
+        e.numcajon = numeral(e.numcajon).format('0,0');
+        e.kilosnet = numeral(e.kilosnet).format('0,0');
+        e.fecalbar = moment(e.fecalbar).format('DD/MM/YYYY');
+      }
+      
     });
     this.campo = campo;
   }

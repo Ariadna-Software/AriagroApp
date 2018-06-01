@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, ModalController, AlertController, LoadingController  } from 'ionic-angular';
 import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
+import * as numeral from 'numeral';
 
 
 
@@ -47,7 +48,7 @@ export class ModalCalidadesAlbaranPage {
     .subscribe(
       (data) => {
         loading.dismiss();
-        this.cargarTabla(data);
+        this.calidades = this.prepareData(data);
       },
       (error) => {
         loading.dismiss();
@@ -56,9 +57,15 @@ export class ModalCalidadesAlbaranPage {
     );
   }
 
-  cargarTabla(data): void {
-    console.log(data);
-    this.calidades = data
+  prepareData(calidades): any {
+    var contador = 1;
+    calidades.forEach(a => {
+      if(a.kilos != null) {
+        a.contador = contador++;
+        a.kilos = numeral(a.kilos).format('0,0');
+      }
+    });
+    return calidades;
   }
 
   showAlert(title, subTitle): void {

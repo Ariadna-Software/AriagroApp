@@ -22,19 +22,27 @@
         </ion-item>
     </ion-list>
 
-    <ion-list >
-      <div *ngIf="calidades.length > 0 ">
-        <ion-item  *ngFor="let calidad of calidades">
+    <ion-list>
+      <ion-item no-lines *ngIf="calidades.length > 0 " >         
+        <ion-grid style=" border: 1px solid grey;" no-padding>
           
-          <div *ngIf="calidad.kilos">
-              <strong>Cal: </strong>{{calidad.calidad}}
-              {{calidad.kilos}} <strong>Kgs.</strong> 
+          <div *ngFor="let calidad of calidades">
+              <div *ngIf="calidad.kilos != null">
+            <ion-row [ngClass]="{'color': calidad.contador%2 > 0}">
+              
+                <ion-col col-4 >
+                  {{calidad.calidad}}
+                </ion-col>
+                <ion-col  col-8 style="text-align:right;">
+                  {{calidad.kilos}} <strong> Kgs</strong>
+                </ion-col>
+              
+            </ion-row>
           </div>
-            
-        </ion-item>
-      </div>
+          </div>
+        </ion-grid>
+      </ion-item>
     </ion-list>
-
 </ion-content>
 
 <ion-footer>

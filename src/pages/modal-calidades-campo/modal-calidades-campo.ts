@@ -57,10 +57,12 @@ export class ModalCalidadesCampoPage {
   }
 
   prepareData(calidades): any {
+    var contador = 1;
     calidades.forEach(a => {
-      
-      a.kilos = numeral(a.kilos).format('0,0');
-     
+      if(a.kilos != null) {
+        a.contador = contador++;
+        a.kilos = numeral(a.kilos).format('0,0');
+      }
     });
     return calidades;
   }

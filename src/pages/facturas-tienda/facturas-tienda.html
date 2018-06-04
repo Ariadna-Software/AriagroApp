@@ -32,23 +32,9 @@
   <ion-list>
     <ion-item *ngFor="let factura of facturas" (click)="goFacturaDetalle(factura)">
       <span class="myGreen">{{factura.numfactu}} {{factura.fecfactu}}</span>
-      <ion-grid>
-        <ion-row>
-          <ion-col col-3 col-sm-1 col-lg-1>BASE: </ion-col>
-          <ion-col col-5 col-sm-3 col-lg-1 style="text-align:right;">{{factura.bases}} € </ion-col>
-          <ion-col col-4 col-sm-8 col-lg-10></ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col col-3 col-sm-1 col-lg-1>IVA: </ion-col>
-          <ion-col col-5 col-sm-3 col-lg-1 style="text-align:right;">{{factura.cuotas}} € </ion-col>
-          <ion-col col-4 col-sm-8 col-lg-10></ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col col-3 col-sm-1 col-lg-1>TOTAL: </ion-col>
-          <ion-col col-5 col-sm-3 col-lg-1 style="text-align:right;">{{factura.totalfac}} € </ion-col>
-          <ion-col col-4 col-sm-8 col-lg-10></ion-col>
-        </ion-row>
-      </ion-grid>
+      <br>BASE: {{factura.bases}} € 
+      <br>IVA: {{factura.cuotas}} €
+      <br>TOTAL: {{factura.totalfac}} €
       <ion-icon name="log-in" item-end class="myGreen"></ion-icon>
     </ion-item>
   </ion-list>

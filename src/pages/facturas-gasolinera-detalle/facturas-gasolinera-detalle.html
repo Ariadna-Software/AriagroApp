@@ -33,7 +33,7 @@
   <ion-list>
     <ion-item *ngFor="let linea of factura.lineas">
       <span class="myGreen">({{linea.fecalbar}}) {{linea.nomartic}}</span>
-      <br>Unidades: {{linea.cantidad}} Importe: {{linea.implinea}} €
+      <br>{{linea.cantidad}} UD. * {{linea.preciove}} € = {{linea.implinea}} €
     </ion-item>
   </ion-list>
 

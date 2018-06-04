@@ -98,6 +98,8 @@ export class FacturasPage {
             f.lineas.forEach(l => {
               l.cantidad = numeral(l.cantidad).format('0,0.00');
               l.importel = numeral(l.importel).format('0,0.00');
+              l.precioar = numeral(l.precioar).format('0,0.00');
+             
             });
           });
           this.facturasTienda = data;
@@ -125,6 +127,7 @@ export class FacturasPage {
             f.lineas.forEach(l => {
               l.cantidad = numeral(l.cantidad).format('0,0.00');
               l.importel = numeral(l.importel).format('0,0.00');
+              l.precioar = numeral(l.precioar).format('0,0.00');
             });
           });
           this.facturasTelefonia = data;
@@ -153,6 +156,7 @@ export class FacturasPage {
               l.fecalbar = moment(l.fecalbar).format('DD/MM/YYYY');
               l.cantidad = numeral(l.cantidad).format('0,0.00');
               l.implinea = numeral(l.implinea).format('0,0.00');
+              l.preciove = numeral(l.preciove).format('0,0.000');
             });
           });
           this.facturasGasolinera = data;
@@ -180,6 +184,7 @@ export class FacturasPage {
             f.lineas.forEach(l => {
               l.cantidad = numeral(l.cantidad).format('0,0.00');
               l.importel = numeral(l.importel).format('0,0.00');
+              l.precioar = numeral(l.precioar).format('0,0.00');
             });
           });
           this.facturasTratamientos = data;

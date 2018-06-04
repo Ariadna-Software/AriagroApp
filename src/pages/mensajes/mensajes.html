@@ -17,18 +17,17 @@
     <ion-item text-wrap no-lines class="greenHeader">
         MENSAJES 
       </ion-item>
-      <ion-grid (click)='crearMensaje()'>
-        <ion-row>
-          <ion-col col-4>
-            <div class="psb">
-              <img src="assets/imgs/mensajes.png">
-            </div>
-          </ion-col>
-          <ion-col col-8 class="justificar">
+     
+          <ion-item (click)='crearMensaje()' class="justificar" text-wrap no-lines>
               Pulse en cualquier mensaje para ver su detalle. Si desea enviarnos un mensaje haga clic aquí.
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+          </ion-item>
+          <ion-item no-lines>
+              <button ion-button outline item-end round icon-left class="myGreen" (click)="crearMensaje()">
+                <ion-icon name="mail"></ion-icon>
+                Enviar
+              </button>
+          </ion-item>
+        
       <div *ngFor="let mensaje of mensajes" (click)="goMensajeDetalle(mensaje)">
         <ion-item text-wrap *ngIf='mensaje.estado == "LEIDO"; else color '>
             FECHA: {{mensaje.fecha}}
@@ -43,6 +42,7 @@
           </ion-item>
         </ng-template>
       </div>
+    
   </ion-list>
 </ion-content>
 

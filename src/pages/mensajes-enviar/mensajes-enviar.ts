@@ -61,7 +61,7 @@ export class MensajesEnviarPage {
         .subscribe(
           (data) =>{
           loading.dismiss();
-          this.showExito("EXITO", "Mensaje eviado");
+          this.showExito("", "Mensaje enviado con exito");
         
       },
       (error) =>{

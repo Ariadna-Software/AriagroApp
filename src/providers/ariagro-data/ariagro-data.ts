@@ -14,6 +14,10 @@ export class AriagroDataProvider {
     return this.http.get(url);
   }
 
+  getParametros(url): any {
+    return this.http.get(url + '/api/parametos/0');
+  }
+
   login(url, login, password): any {
     return this.http.get(url + '/api/usupush/login', {
       params: {
@@ -82,6 +86,14 @@ export class AriagroDataProvider {
     return this.http.put(url + '/api/mensajes/usuario/'+ usuarioPushId, data );
   }
 
+
+  putUsuario(url, usuario): any {
+    var data = {
+      usuario: usuario
+     
+  };
+    return this.http.put(url + '/api/mensajes/usuario/'+ usuario.playerId, data );
+  }
  
   postCorreo(url, correo){
     var data = {

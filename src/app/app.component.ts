@@ -33,10 +33,9 @@ export class MyApp {
       oneSignal.startInit("33728f44-2576-4f76-9b7c-b6a65d345c28", "595606821946");
       oneSignal.handleNotificationOpened();
 
-      oneSignal.inFocusDisplaying(oneSignal.OSInFocusDisplayOption.Notification);
-      oneSignal.handleNotificationReceived().subscribe(data => this.onPushReceived(data.payload));
-      oneSignal.handleNotificationOpened().subscribe(data => this.onPushOpened(data.notification.payload));
+      
 
+      
       oneSignal.endInit();
 
       // Setting locales for the entire app

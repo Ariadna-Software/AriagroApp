@@ -11,6 +11,8 @@ import { MyApp } from './app.component';
 import { AriagroDataProvider } from '../providers/ariagro-data/ariagro-data';
 import { LocalDataProvider } from '../providers/local-data/local-data';
 
+import { OneSignal } from '../providers/onesignal';
+
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { LocalDataProvider } from '../providers/local-data/local-data';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AriagroDataProvider,
-    LocalDataProvider
+    LocalDataProvider,
+    OneSignal
   ]
 })
 export class AppModule {}

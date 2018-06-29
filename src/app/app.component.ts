@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Locales } from '../locales/locales';
 import { OneSignal, OSNotificationPayload } from '../providers/onesignal';
+import { AriagroDataProvider } from '../providers/ariagro-data/ariagro-data';
 
 @Component({
   templateUrl: 'app.html'
@@ -11,12 +12,19 @@ import { OneSignal, OSNotificationPayload } from '../providers/onesignal';
 export class MyApp {
   rootPage: any = 'HomePage';
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, oneSignal: OneSignal ) {
+  settings: any = {};
+  password: string = "";
+ 
+
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, oneSignal: OneSignal, ariagroData: AriagroDataProvider ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+
+      ariagroData.getParametros(this.settings.parametros.url)
+      .subscribe((data) =>{}, (error) => {})
 
       // OneSignal Code start:
       // Enable to debug issues:
@@ -31,7 +39,9 @@ export class MyApp {
     
       
       oneSignal.startInit("33728f44-2576-4f76-9b7c-b6a65d345c28", "595606821946");
-      oneSignal.handleNotificationOpened();
+      oneSignal.inFocusDisplaying(oneSignal.OSInFocusDisplayOption.Notification);
+      oneSignal.handleNotificationReceived().subscribe(data => this.onPushReceived(data.payload));
+      oneSignal.handleNotificationOpened().subscribe(data => this.onPushOpened(data.notification.payload));
 
       
 
@@ -50,6 +60,18 @@ export class MyApp {
   
   private onPushOpened(payload: OSNotificationPayload) {
     alert(payload.body);
+  }
+
+  private load() {
+    this.localData.getSettings().then(data => {
+      if (data) {
+        this.settings = JSON.parse(data);
+        
+        this.viewCtrl.setBackButtonText('');
+      } else {
+        this.navCtrl.setRoot('ParametrosPage');
+      }
+    });
   }
 }
 

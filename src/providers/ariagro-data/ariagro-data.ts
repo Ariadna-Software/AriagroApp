@@ -15,7 +15,7 @@ export class AriagroDataProvider {
   }
 
   getParametros(url): any {
-    return this.http.get(url + '/api/parametos/0');
+    return this.http.get(url + '/api/parametros/0');
   }
 
   login(url, login, password): any {
@@ -87,12 +87,12 @@ export class AriagroDataProvider {
   }
 
 
-  putUsuario(url, usuario): any {
+  putUsuario(url, id, usuario): any {
     var data = {
-      usuario: usuario
+      usuarioPush: usuario
      
   };
-    return this.http.put(url + '/api/mensajes/usuario/'+ usuario.playerId, data );
+    return this.http.put(url + '/api/usupush/'+ id, data );
   }
  
   postCorreo(url, correo){

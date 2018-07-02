@@ -89,13 +89,14 @@ export class HomePage {
 
               this.oneSignal.handleNotificationReceived()
               .subscribe(jsonData => {
-                this.goMensajes();
+                
               });
 
 
               this.oneSignal.handleNotificationOpened()
               .subscribe(jsonData => {
-                this.navCtrl.push('MensajesPage');
+                console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+                this.goMensajes();
               });
 
               

@@ -100,7 +100,7 @@ export class LoginPage {
 
                             this.oneSignal.handleNotificationReceived()
                             .subscribe(jsonData => {
-                              this.navCtrl.push('MensajesPage');
+                             
                             });
                             
 

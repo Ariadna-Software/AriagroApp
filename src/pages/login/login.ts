@@ -91,47 +91,53 @@ export class LoginPage {
             };
 
               
-  
+            try{
               // Registro OneSignal
               this.oneSignal.startInit(config.paramPush.appId,  config.paramPush.gcm );
+              
+                            
+                            this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
 
+                            this.oneSignal.handleNotificationReceived()
+                            .subscribe(jsonData => {
+                              this.navCtrl.push('MensajesPage');
+                            });
+                            
+
+                            this.oneSignal.handleNotificationOpened()
+                            .subscribe(jsonData => {
+                              this.navCtrl.push('MensajesPage');
+                            });
+
+                            this.oneSignal.getIds().then( (ids) =>{
+                              var myUser = this.settings.user;
+                                
+                                //alert(JSON.stringify(ids));
+                                if(config.user.playerId != ids.userId) {
+                                 
+                                  myUser.playerId = ids.userId;
+                                  this.ariagroData.putUsuario(this.settings.parametros.url, myUser.usuarioPushId ,myUser)
+                                  .subscribe((data) => {
+                                      this.settings.user = data;
+                                  },
+                                  (err) => {
+                                    loading.dismiss();
+                                    console.log("PUT usuario error");
+                                  }); 
+                                }
+                            },
+                            (error) => {
+                              if (error.status == 404) {
+                                this.showAlert("AVISO", "Usuario o contraseña incorrectos");
+                              } else {
+                                this.showAlert("ERROR", JSON.stringify(error, null, 4));
+                              }
+                            });
+                            this.oneSignal.endInit();
+            }  catch(e) {
+              console.log("Error de carga de oneSignal");
+            }
               
-              this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification);
-              this.oneSignal.handleNotificationOpened()
-              .subscribe(jsonData => {
-                let alert = this.alertCrtl.create({
-                  title: jsonData.notification.payload.title,
-                  subTitle: jsonData.notification.payload.body,
-                  buttons: ['OK']
-                });
-                alert.present();
-                console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
-              });
-              
-              this.oneSignal.getIds().then( (ids) =>{
-                var myUser = this.settings.user;
-                  
-                  //alert(JSON.stringify(ids));
-                  if(config.user.playerId != ids.userId) {
-                   
-                    myUser.playerId = ids.userId;
-                    this.ariagroData.putUsuario(this.settings.parametros.url, myUser.usuarioPushId ,myUser)
-                    .subscribe((data) => {
-                        this.settings.user = data;
-                    },
-                    (err) => {
-                      loading.dismiss();
-                      console.log("PUT usuario error");
-                    }); 
-                  }
-              },
-              (error) => {
-                if (error.status == 404) {
-                  this.showAlert("AVISO", "Usuario o contraseña incorrectos");
-                } else {
-                  this.showAlert("ERROR", JSON.stringify(error, null, 4));
-                }
-              });
           },
           (err) => {
             loading.dismiss();

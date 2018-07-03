@@ -93,22 +93,7 @@ export class LoginPage {
               
             try{
               // Registro OneSignal
-              this.oneSignal.startInit(config.paramPush.appId,  config.paramPush.gcm );
-              
-                            
-                            this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
-
-                            this.oneSignal.handleNotificationReceived()
-                            .subscribe(jsonData => {
-                             
-                            });
-                            
-
-                            this.oneSignal.handleNotificationOpened()
-                            .subscribe(jsonData => {
-                              this.navCtrl.push('MensajesPage');
-                            });
-
+                            this.oneSignal.startInit(config.paramPush.appId,  config.paramPush.gcm );
                             this.oneSignal.getIds().then( (ids) =>{
                               var myUser = this.settings.user;
                                 

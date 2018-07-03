@@ -69,6 +69,11 @@ export class AriagroDataProvider {
     return this.http.get(url + '/api/mensajes/usuario/' + usuPush);
   }
 
+  getMensajeHttp(url, mensajeId): any {
+    return this.http.get(url + '/api/mensajes/' + mensajeId);
+  }
+
+
   getCampoClasificacion(url, codcampo, campanya): any {
     return this.http.get(url + '/api/campos/buscar/clasificacion/' + codcampo + '/' +campanya);
   }

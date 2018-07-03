@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController, Platform } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
@@ -18,7 +18,7 @@ export class HomePage {
   nombreCampanya: string = "Campaña actual";
   mensajes: any = [];
   numNoLeidos: number = 0;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public oneSignal: OneSignal, 
+  constructor(public navCtrl: NavController, public navParams: NavParams, public oneSignal: OneSignal, public plt: Platform, 
     public alertCrtl: AlertController, public ariagroData: AriagroDataProvider, public localData: LocalDataProvider, 
   public loadingCtrl: LoadingController) {
 
@@ -74,62 +74,66 @@ export class HomePage {
   }
 
   regOneSignal(): void {
-    
-      var notificationOpenedCallback = function(jsonData) {
-        alert("NOTIFICA LOGIN:\n" + JSON.stringify(jsonData));
-        console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
-      };
-      
+    this.plt.ready().then( () => {
       try {
-          // Registro OneSignal
-              this.oneSignal.startInit(this.settings.paramPush.appId, this.settings.paramPush.gcm );
+        // Registro OneSignal
+            this.oneSignal.startInit(this.settings.paramPush.appId, this.settings.paramPush.gcm );
 
+            
+            this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
+
+            this.oneSignal.handleNotificationReceived()
+            .subscribe(jsonData => {
               
-              this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
-
-              this.oneSignal.handleNotificationReceived()
-              .subscribe(jsonData => {
-                
-              });
+            });
 
 
-              this.oneSignal.handleNotificationOpened()
-              .subscribe(jsonData => {
-                console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
-                this.goMensajes();
-              });
-
-              
-
-              this.oneSignal.getIds().then( (ids) =>{
-                var myUser = this.settings.user;
-                  
-                  //alert(JSON.stringify(ids));
-                  if(this.settings.user.playerId != ids.userId) {
-                   
-                    myUser.playerId = ids.userId;
-                    this.ariagroData.putUsuario(this.settings.parametros.url, myUser.usuarioPushId ,myUser)
-                    .subscribe((data) => {
-                        this.settings.user = data;
-                    },
-                    (err) => {
-                      var msg = err || err.message;
-                      this.showAlert("ERROR", msg);
-                    }); 
-                  }
+            this.oneSignal.handleNotificationOpened()
+            .subscribe(jsonData => {
+              console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+              this.ariagroData.getMensajeHttp(this.settings.parametros.url, jsonData.notification.payload.additionalData.mensajeId)
+              .subscribe( (data) => {
+                data.fecha = moment(data.fecha).format('DD/MM/YYYY HH:mm:ss');
+                this.navCtrl.push('MensajesDetallePage', {
+                  mensaje: data
+                });
               },
               (error) => {
-                if (error.status == 404) {
-                  this.showAlert("AVISO", "Usuario o contraseña incorrectos");
-                } else {
-                  this.showAlert("ERROR", JSON.stringify(error, null, 4));
-                }
-              });
-              this.oneSignal.endInit();
-      } catch (e) {
+                this.showAlert("ERROR", JSON.stringify(error, null, 4));
+            })
+            });
 
-      }
-  
+            
+
+            this.oneSignal.getIds().then( (ids) =>{
+              var myUser = this.settings.user;
+                
+                //alert(JSON.stringify(ids));
+                if(this.settings.user.playerId != ids.userId) {
+                 
+                  myUser.playerId = ids.userId;
+                  this.ariagroData.putUsuario(this.settings.parametros.url, myUser.usuarioPushId ,myUser)
+                  .subscribe((data) => {
+                      this.settings.user = data;
+                  },
+                  (err) => {
+                    var msg = err || err.message;
+                    this.showAlert("ERROR", msg);
+                  }); 
+                }
+            },
+            (error) => {
+              if (error.status == 404) {
+                this.showAlert("AVISO", "Usuario o contraseña incorrectos");
+              } else {
+                this.showAlert("ERROR", JSON.stringify(error, null, 4));
+              }
+            });
+            this.oneSignal.endInit();
+    } catch (e) {
+      console.log("Error de carga de oneSignal");
+    }
+    });
   }
 
 

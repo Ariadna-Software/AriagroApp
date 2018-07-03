@@ -71,8 +71,8 @@ export class LoginPage {
  
 
   pushUser(user) {
-    
-        // obtener los parámetros
+        this.plt.ready().then( () => {
+            // obtener los parámetros
         let loading = this.loadingCtrl.create({ content: 'Buscando mensajes...' });
         loading.present();
         this.ariagroData.getParametros(this.settings.parametros.url)
@@ -146,6 +146,7 @@ export class LoginPage {
                 this.showAlert("ERROR", msg);
             } 
           });
+        });
   }
 
 

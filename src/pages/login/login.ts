@@ -4,8 +4,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
 import { ViewController } from 'ionic-angular';
+//import { OneSignal } from '@ionic-native/onesignal';
 
-import { OneSignal, OSNotificationPayload } from '../../providers/onesignal';
+//import { OneSignal, OSNotificationPayload } from '../../providers/onesignal';
 
 @IonicPage()
 @Component({
@@ -22,7 +23,7 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public plt: Platform, public loadingCtrl: LoadingController,
     public formBuilder: FormBuilder, public alertCrtl: AlertController, public viewCtrl: ViewController,
-    public ariagroData: AriagroDataProvider, public localData: LocalDataProvider, public oneSignal: OneSignal) {
+    public ariagroData: AriagroDataProvider, public localData: LocalDataProvider) {
     this.loginForm = formBuilder.group({
       login: ['', Validators.compose([Validators.required])],
       password: ['', Validators.compose([Validators.required])]
@@ -93,8 +94,8 @@ export class LoginPage {
 
             try {
               // Registro OneSignal
-              this.oneSignal.startInit(config.paramPush.appId, config.paramPush.gcm);
-              this.oneSignal.getIds().then((ids) => {
+              window["plugins"].OneSignal.startInit(config.paramPush.appId, config.paramPush.gcm);
+              window["plugins"].OneSignal.getIds().then((ids) => {
                 var myUser = this.settings.user;
 
                 //alert(JSON.stringify(ids));
@@ -116,7 +117,7 @@ export class LoginPage {
                     this.showAlert("AVISO", "Usuario o contraseña incorrectos");
                   } 
                 });
-              this.oneSignal.endInit();
+              window["plugins"].OneSignal.endInit();
             } catch (e) {
               console.log("Error de carga de oneSignal");
             }

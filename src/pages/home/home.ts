@@ -3,10 +3,10 @@ import { IonicPage, NavController, NavParams, AlertController, LoadingController
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
-//import { OneSignal } from '@ionic-native/onesignal';
+import { OneSignal } from '@ionic-native/onesignal';
 
-//import { OneSignal, OSNotificationPayload } from '../../providers/onesignal';
 import * as moment from 'moment';
+import { AppVersion } from '@ionic-native/app-version';
 
 @IonicPage()
 @Component({
@@ -22,7 +22,7 @@ export class HomePage {
   numNoLeidos: number = 0;
   constructor(public navCtrl: NavController, public navParams: NavParams, public plt: Platform,
     public alertCrtl: AlertController, public ariagroData: AriagroDataProvider, public localData: LocalDataProvider,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController, public appVersion: AppVersion, public oneSignal: OneSignal) {
 
   }
 
@@ -80,18 +80,18 @@ export class HomePage {
     this.plt.ready().then(() => {
       try {
         // Registro OneSignal
-        window["plugins"].OneSignal.startInit(this.settings.paramPush.appId, this.settings.paramPush.gcm);
+        this.oneSignal.startInit(this.settings.paramPush.appId, this.settings.paramPush.gcm);
 
 
-        window["plugins"].OneSignal.inFocusDisplaying(window["plugins"].OneSignal.OSInFocusDisplayOption.InAppAlert);
+        this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
 
-        window["plugins"].OneSignal.handleNotificationReceived()
+        this.oneSignal.handleNotificationReceived()
           .subscribe(jsonData => {
 
           });
 
 
-        window["plugins"].OneSignal.handleNotificationOpened()
+        this.oneSignal.handleNotificationOpened()
           .subscribe(jsonData => {
             console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
             this.ariagroData.getMensajeHttp(this.settings.parametros.url, jsonData.notification.payload.additionalData.mensajeId)
@@ -108,7 +108,7 @@ export class HomePage {
 
 
 
-        window["plugins"].OneSignal.getIds().then((ids) => {
+        this.oneSignal.getIds().then((ids) => {
           var myUser = this.settings.user;
 
           //alert(JSON.stringify(ids));
@@ -128,9 +128,11 @@ export class HomePage {
           (error) => {
             if (error.status == 404) {
               this.showAlert("AVISO", "Usuario o contraseña incorrectos");
+            } else {
+              this.showAlert("ERROR", JSON.stringify(error, null, 4));
             }
           });
-        window["plugins"].OneSignal.endInit();
+        this.oneSignal.endInit();
       } catch (e) {
         console.log("Error de carga de oneSignal");
       }

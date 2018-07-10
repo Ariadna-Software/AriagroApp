@@ -11,7 +11,8 @@ import { MyApp } from './app.component';
 import { AriagroDataProvider } from '../providers/ariagro-data/ariagro-data';
 import { LocalDataProvider } from '../providers/local-data/local-data';
 
-import { OneSignal } from '../providers/onesignal';
+import {OneSignal} from '@ionic-native/onesignal';
+import { AppVersion } from '@ionic-native/app-version';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { OneSignal } from '../providers/onesignal';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AriagroDataProvider,
     LocalDataProvider,
-    OneSignal
+    OneSignal,
+    AppVersion
   ]
 })
 export class AppModule {}

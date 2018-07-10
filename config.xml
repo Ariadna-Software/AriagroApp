@@ -86,4 +86,5 @@
     <plugin name="onesignal-cordova-plugin" spec="~2.4.1" />
     <allow-navigation href="http://192.168.1.105:8100" />
     <engine name="android" spec="~6.3.0" />
+    <plugin name="cordova-plugin-app-version" spec="^0.1.9" />
 </widget>

@@ -114,9 +114,7 @@ export class LoginPage {
                 (error) => {
                   if (error.status == 404) {
                     this.showAlert("AVISO", "Usuario o contraseña incorrectos");
-                  } else {
-                    this.showAlert("ERROR", JSON.stringify(error, null, 4));
-                  }
+                  } 
                 });
               this.oneSignal.endInit();
             } catch (e) {

@@ -19,6 +19,7 @@ export class HomePage {
   nombreCampanya: string = "Campaña actual";
   mensajes: any = [];
   numNoLeidos: number = 0;
+  version: string = "ARIAGRO APP V2";
   constructor(public navCtrl: NavController, public navParams: NavParams, public plt: Platform,
     public alertCrtl: AlertController, public ariagroData: AriagroDataProvider, public localData: LocalDataProvider,
     public loadingCtrl: LoadingController, public appVersion: AppVersion, public oneSignal: OneSignal) {
@@ -47,6 +48,17 @@ export class HomePage {
         this.navCtrl.setRoot('ParametrosPage');
       }
     });
+    try {
+      this.appVersion.getVersionNumber().then(vrs => {
+        this.version = "ARIAGRO APP V" + vrs;
+      },
+        error => {
+          // NO hacemos nada, en realidad protegemos al estar en debug
+          // con el navegador
+        });
+    } catch (error) {
+
+    }
   }
 
   cargarMensajes(): void {
@@ -62,7 +74,7 @@ export class HomePage {
             data.forEach(f => {
               f.fecha = moment(f.fecha).format('DD/MM/YYYY HH:mm:ss');
               if (f.estado != 'LEIDO') {
-              this.numNoLeidos++;
+                this.numNoLeidos++;
               }
             });
             this.mensajes = data;
@@ -127,7 +139,7 @@ export class HomePage {
           (error) => {
             if (error.status == 404) {
               this.showAlert("AVISO", "Usuario o contraseña incorrectos");
-            } 
+            }
           });
         this.oneSignal.endInit();
       } catch (e) {

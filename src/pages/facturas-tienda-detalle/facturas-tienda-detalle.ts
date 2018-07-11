@@ -3,8 +3,6 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
 import { ViewController } from 'ionic-angular';
-import * as numeral from 'numeral';
-import * as moment from 'moment';
 
 @IonicPage()
 @Component({

@@ -84,12 +84,6 @@ export class LoginPage {
 
             this.localData.saveSettings(config)
 
-            var notificationOpenedCallback = function (jsonData) {
-              alert("NOTIFICA LOGIN:\n" + JSON.stringify(jsonData));
-              console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
-            };
-
-
             try {
               // Registro OneSignal
               this.oneSignal.startInit(config.paramPush.appId, config.paramPush.gcm);

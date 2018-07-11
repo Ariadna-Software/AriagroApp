@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
 import { ViewController, ModalController } from 'ionic-angular';
-import { ModalCalidadesCampoPage } from '../modal-calidades-campo/modal-calidades-campo'
 import * as numeral from 'numeral';
 import * as moment from 'moment';
 

@@ -37,7 +37,7 @@ export class HomePage {
           this.nombreUsuario = this.settings.user.nombre;
           this.nombreCampanya = this.settings.campanya.nomresum;
           this.cargarMensajes();
-          if (this.settings && this.settings.paramPush.appId && this.settings.paramPush.gcm) {
+          if (this.settings.paramPush && this.settings.paramPush.appId && this.settings.paramPush.gcm) {
             this.regOneSignal();
           }
 
@@ -128,9 +128,7 @@ export class HomePage {
           (error) => {
             if (error.status == 404) {
               this.showAlert("AVISO", "Usuario o contraseña incorrectos");
-            } else {
-              this.showAlert("ERROR", JSON.stringify(error, null, 4));
-            }
+            } 
           });
         this.oneSignal.endInit();
       } catch (e) {

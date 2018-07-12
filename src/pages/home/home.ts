@@ -13,7 +13,7 @@ import { AppVersion } from '@ionic-native/app-version';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  settings: any = {};
+ settings: any = {};
   nombreCooperativa: string = "";
   nombreUsuario: string = "";
   nombreCampanya: string = "Campaña actual";

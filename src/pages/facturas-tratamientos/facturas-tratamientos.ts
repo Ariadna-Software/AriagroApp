@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AppVersion } from '@ionic-native/app-version';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
@@ -10,13 +11,14 @@ import { ViewController } from 'ionic-angular';
   templateUrl: 'facturas-tratamientos.html',
 })
 export class FacturasTratamientosPage {
-  settings: any = {};
+ settings: any = {};
+  version: string = "ARIAGRO APP V2";
   campanya: any = {};
   user: any = {};
   facturas: any = [];
   numfacturas: number = 0;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(public navCtrl: NavController,  public appVersion: AppVersion, public navParams: NavParams,
     public alertCrtl: AlertController, public viewCtrl: ViewController,
     public ariagroData: AriagroDataProvider, public localData: LocalDataProvider) {
 

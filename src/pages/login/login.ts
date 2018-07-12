@@ -40,6 +40,17 @@ export class LoginPage {
         this.navCtrl.setRoot('ParametrosPage');
       }
     });
+    try {
+      this.appVersion.getVersionNumber().then(vrs => {
+        this.version = "ARIAGRO APP V" + vrs;
+      },
+        error => {
+          // NO hacemos nada, en realidad protegemos al estar en debug
+          // con el navegador
+        });
+    } catch (error) {
+
+    }
   }
 
   doLogin(): void {

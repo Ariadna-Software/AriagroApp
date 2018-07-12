@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ariadnasw.ariagroapp2" version="2.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>ariAgro2</name>
+<widget id="com.ariadnasw.ariagroapp2" version="2.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>AriAGRO 2</name>
     <description>APP Ariagro V2</description>
     <author email="rafa@myariadna.com" href="http://ariadnasw.com/">Rafael Garcia (Ariadna Software SL)</author>
     <content original-src="index.html" src="http://192.168.1.105:8100" />

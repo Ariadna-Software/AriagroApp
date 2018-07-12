@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AppVersion } from '@ionic-native/app-version';
 import { IonicPage, NavController, NavParams, AlertController, Platform, LoadingController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
@@ -12,14 +13,15 @@ import { OneSignal } from '@ionic-native/onesignal';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  settings: any = {};
+ settings: any = {};
+  version: string = "ARIAGRO APP V2";
   loginForm: FormGroup;
   submitAttempt: boolean = false;
   login: string = "";
   password: string = "";
   nombreCooperativa: string = "LA COOPPP";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public plt: Platform, public loadingCtrl: LoadingController,
+  constructor(public navCtrl: NavController,  public appVersion: AppVersion, public navParams: NavParams, public plt: Platform, public loadingCtrl: LoadingController,
     public formBuilder: FormBuilder, public alertCrtl: AlertController, public viewCtrl: ViewController,
     public ariagroData: AriagroDataProvider, public localData: LocalDataProvider, public oneSignal: OneSignal) {
     this.loginForm = formBuilder.group({
@@ -38,6 +40,17 @@ export class LoginPage {
         this.navCtrl.setRoot('ParametrosPage');
       }
     });
+    try {
+      this.appVersion.getVersionNumber().then(vrs => {
+        this.version = "ARIAGRO APP V" + vrs;
+      },
+        error => {
+          // NO hacemos nada, en realidad protegemos al estar en debug
+          // con el navegador
+        });
+    } catch (error) {
+
+    }
   }
 
   doLogin(): void {

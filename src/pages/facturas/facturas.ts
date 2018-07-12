@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AppVersion } from '@ionic-native/app-version';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
@@ -12,7 +13,8 @@ import * as moment from 'moment';
   templateUrl: 'facturas.html',
 })
 export class FacturasPage {
-  settings: any = {};
+ settings: any = {};
+  version: string = "ARIAGRO APP V2";
   campanya: any = {};
   user: any = {};
   years: any = [];
@@ -30,7 +32,7 @@ export class FacturasPage {
 
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(public navCtrl: NavController,  public appVersion: AppVersion, public navParams: NavParams,
     public alertCrtl: AlertController, public viewCtrl: ViewController, public loadingCtrl: LoadingController,
     public ariagroData: AriagroDataProvider, public localData: LocalDataProvider) {
   }
@@ -48,6 +50,17 @@ export class FacturasPage {
         this.navCtrl.setRoot('ParametrosPage');
       }
     });
+    try {
+      this.appVersion.getVersionNumber().then(vrs => {
+        this.version = "ARIAGRO APP V" + vrs;
+      },
+        error => {
+          // NO hacemos nada, en realidad protegemos al estar en debug
+          // con el navegador
+        });
+    } catch (error) {
+
+    }
   }
 
 
@@ -84,12 +97,9 @@ export class FacturasPage {
   }
 
   getFacturasTienda(): void {
-    let loading = this.loadingCtrl.create({ content: 'Buscando tienda...' });
-    loading.present();
     this.ariagroData.getFacturasTienda(this.settings.parametros.url, this.user.tiendaId, this.selectedYear)
       .subscribe(
         (data) => {
-          loading.dismiss();
           data.forEach(f => {
             f.fecfactu = moment(f.fecfactu).format('DD/MM/YYYY');
             f.bases = numeral(f.bases).format('0,0.00');
@@ -106,19 +116,15 @@ export class FacturasPage {
           this.numFacturasTienda = data.length;
         },
         (error) => {
-          loading.dismiss();
           this.showAlert("ERROR", JSON.stringify(error, null, 4));
         }
       );
   }
 
   getFacturasTelefonia(): void {
-    let loading = this.loadingCtrl.create({ content: 'Buscando telefonia...' });
-    loading.present();
     this.ariagroData.getFacturasTelefonia(this.settings.parametros.url, this.user.telefoniaId, this.selectedYear)
       .subscribe(
         (data) => {
-          loading.dismiss();
           data.forEach(f => {
             f.fecfactu = moment(f.fecfactu).format('DD/MM/YYYY');
             f.bases = numeral(f.bases).format('0,0.00');
@@ -134,19 +140,15 @@ export class FacturasPage {
           this.numFacturasTelefonia = data.length;
         },
         (error) => {
-          loading.dismiss();
           this.showAlert("ERROR", JSON.stringify(error, null, 4));
         }
       );
   }
 
   getFacturasGasolinera(): void {
-    let loading = this.loadingCtrl.create({ content: 'Buscando gasolinera...' });
-    loading.present();
     this.ariagroData.getFacturasGasolinera(this.settings.parametros.url, this.user.gasolineraId, this.selectedYear)
       .subscribe(
         (data) => {
-          loading.dismiss();
           data.forEach(f => {
             f.fecfactu = moment(f.fecfactu).format('DD/MM/YYYY');
             f.bases = numeral(f.bases).format('0,0.00');
@@ -163,19 +165,15 @@ export class FacturasPage {
           this.numFacturasGasolinera = data.length;
         },
         (error) => {
-          loading.dismiss();
           this.showAlert("ERROR", JSON.stringify(error, null, 4));
         }
       );
   }
 
   getFacturasTratamientos(): void {
-    let loading = this.loadingCtrl.create({ content: 'Buscando tratamientos...' });
-    loading.present();
     this.ariagroData.getFacturasTratamientos(this.settings.parametros.url, this.user.tratamientosId, this.selectedYear, this.user.ariagroId, this.campanya.ariagro)
       .subscribe(
         (data) => {
-          loading.dismiss();
           data.forEach(f => {
             f.fecfactu = moment(f.fecfactu).format('DD/MM/YYYY');
             f.bases = numeral(f.bases).format('0,0.00');
@@ -191,7 +189,7 @@ export class FacturasPage {
           this.numFacturasTratamientos = data.length;
         },
         (error) => {
-          loading.dismiss();
+          
           this.showAlert("ERROR", JSON.stringify(error, null, 4));
         }
       );

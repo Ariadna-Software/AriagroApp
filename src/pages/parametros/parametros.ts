@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AppVersion } from '@ionic-native/app-version';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
@@ -11,12 +12,13 @@ import { ViewController } from 'ionic-angular';
   templateUrl: 'parametros.html',
 })
 export class ParametrosPage {
-  settings: any = {};
+ settings: any = {};
+  version: string = "ARIAGRO APP V2";
   parametrosForm: FormGroup;
   submitAttempt: boolean = false;
   numeroCooperativa: string = "";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(public navCtrl: NavController,  public appVersion: AppVersion, public navParams: NavParams,
     public formBuilder: FormBuilder, public alertCrtl: AlertController, public viewCtrl: ViewController,
     public ariagroData: AriagroDataProvider, public localData: LocalDataProvider) {
     this.parametrosForm = formBuilder.group({
@@ -27,6 +29,17 @@ export class ParametrosPage {
 
   ionViewDidLoad() {
     this.viewCtrl.setBackButtonText('');
+    try {
+      this.appVersion.getVersionNumber().then(vrs => {
+        this.version = "ARIAGRO APP V" + vrs;
+      },
+        error => {
+          // NO hacemos nada, en realidad protegemos al estar en debug
+          // con el navegador
+        });
+    } catch (error) {
+
+    }
   }
 
   doSearch(): void {

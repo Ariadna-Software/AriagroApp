@@ -20,8 +20,7 @@ export class HomePage {
   mensajes: any = [];
   numNoLeidos: number = 0;
   version: string = "ARIAGRO APP V2";
-  segundoPlano: boolean = false;
-  primeraCarga = true;
+  cont: any = 0;
   constructor(public navCtrl: NavController, public navParams: NavParams, public plt: Platform,
     public alertCrtl: AlertController, public ariagroData: AriagroDataProvider, public localData: LocalDataProvider,
     public loadingCtrl: LoadingController, public appVersion: AppVersion, public oneSignal: OneSignal) {
@@ -33,7 +32,7 @@ export class HomePage {
   ionViewWillEnter() {
     this.localData.getSettings().then(data => {
       if (data) {
-        this.segundoPlano = false;
+       this.cont = 0;
         this.settings = JSON.parse(data);
         this.nombreCooperativa = this.settings.parametros.nombre;
         if (this.settings.user) {
@@ -88,11 +87,6 @@ export class HomePage {
 
   regOneSignal(): void {
     this.plt.ready().then(() => {
-      this.plt.resume.subscribe(() => {
-        this.segundoPlano = true;
-        this.primeraCarga = false;
-        console.log(this.segundoPlano);
-      }); 
       try {
         // Registro OneSignal
         this.oneSignal.startInit(this.settings.paramPush.appId, this.settings.paramPush.gcm);
@@ -102,37 +96,26 @@ export class HomePage {
 
         this.oneSignal.handleNotificationReceived()
         .subscribe(jsonData => {
-          if(this.segundoPlano == false) {
-            let alert = this.alertCrtl.create({
-              title: '',
-              subTitle: 'Mensaje recibido',
-              buttons: [
-                {
-                  text: 'Aceptar',
-                  handler: () => {
-                    this.ariagroData.getMensajeHttp(this.settings.parametros.url, jsonData.payload.additionalData.mensajeId)
-                    .subscribe((data) => {
-                      data.fecha = moment(data.fecha).format('DD/MM/YYYY HH:mm:ss');
-                      this.navCtrl.push('MensajesDetallePage', {
-                        mensaje: data
-                      });
-                    },
-                    (error) => {
-                      this.showAlert("ERROR", JSON.stringify(error, null, 4));
-                    });
-                  }
-                }
-              ]
-            });
-            alert.present();
-            console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
-          }
+          console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+            
+              this.ariagroData.getMensajeHttp(this.settings.parametros.url, jsonData.payload.additionalData.mensajeId)
+              .subscribe((data) => {
+                data.fecha = moment(data.fecha).format('DD/MM/YYYY HH:mm:ss');
+                this.navCtrl.push('MensajesDetallePage', {
+                  mensaje: data
+                });
+              },
+                (error) => {
+                  this.showAlert("ERROR", JSON.stringify(error, null, 4));
+                });
+                this.cont = 1;
         });
 
        this.oneSignal.handleNotificationOpened()
           .subscribe(jsonData => {
-            console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
-            if(this.segundoPlano || this.primeraCarga == true){
+            if(this.cont != 1) {
+              console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+            
               this.ariagroData.getMensajeHttp(this.settings.parametros.url, jsonData.notification.payload.additionalData.mensajeId)
               .subscribe((data) => {
                 data.fecha = moment(data.fecha).format('DD/MM/YYYY HH:mm:ss');
@@ -143,6 +126,7 @@ export class HomePage {
                 (error) => {
                   this.showAlert("ERROR", JSON.stringify(error, null, 4));
                 });
+            
             }
           });
 

@@ -13,6 +13,7 @@ import { ViewController } from 'ionic-angular';
 })
 export class ParametrosPage {
  settings: any = {};
+ segundoPlano:boolean = false;
   version: string = "ARIAGRO APP V2";
   parametrosForm: FormGroup;
   submitAttempt: boolean = false;

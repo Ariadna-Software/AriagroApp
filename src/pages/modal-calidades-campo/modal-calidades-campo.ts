@@ -14,6 +14,7 @@ import * as numeral from 'numeral';
 export class ModalCalidadesCampoPage {
 
   settings: any = {};
+ segundoPlano:boolean = false;
   campanya: any = {};
   user: any = {};
   campo: any = {};

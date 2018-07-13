@@ -18,6 +18,7 @@ import { LocalDataProvider } from '../../providers/local-data/local-data';
 })
 export class ModalDatosCambiarPage {
   settings: any = {};
+ segundoPlano:boolean = false;
   user: any = {}
   userCopia: any = {
     nombre: "",

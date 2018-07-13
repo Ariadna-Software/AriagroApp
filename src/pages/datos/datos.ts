@@ -12,6 +12,7 @@ import { ViewController } from 'ionic-angular';
 })
 export class DatosPage {
  settings: any = {};
+ segundoPlano:boolean = false;
   version: string = "ARIAGRO APP V2";
   user: any = {};
 

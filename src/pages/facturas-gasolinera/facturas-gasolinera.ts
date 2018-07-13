@@ -14,6 +14,7 @@ import { ViewController } from 'ionic-angular';
 export class FacturasGasolineraPage {
 
  settings: any = {};
+ segundoPlano:boolean = false;
   version: string = "ARIAGRO APP V2";
   campanya: any = {};
   user: any = {};

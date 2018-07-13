@@ -13,6 +13,7 @@ import * as numeral from 'numeral';
 })
 export class CamposPage {
  settings: any = {};
+ segundoPlano:boolean = false;
   version: string = "ARIAGRO APP V2";
   campanya: any = {};
   user: any = {};

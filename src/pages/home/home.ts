@@ -14,6 +14,7 @@ import { AppVersion } from '@ionic-native/app-version';
 })
 export class HomePage {
  settings: any = {};
+ segundoPlano:boolean = false;
   nombreCooperativa: string = "";
   nombreUsuario: string = "";
   nombreCampanya: string = "Campaña actual";
@@ -102,6 +103,7 @@ export class HomePage {
 
         this.oneSignal.handleNotificationReceived()
         .subscribe(jsonData => {
+          if(this.segundoPlano == false) {
             let alert = this.alertCrtl.create({
               title: '',
               subTitle: 'Mensaje recibido',
@@ -125,6 +127,7 @@ export class HomePage {
             });
             alert.present();
             console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+          }
         });
 
        this.oneSignal.handleNotificationOpened()

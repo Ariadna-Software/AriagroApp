@@ -14,7 +14,6 @@ import { OneSignal } from '@ionic-native/onesignal';
 })
 export class LoginPage {
  settings: any = {};
- segundoPlano:boolean = false;
   version: string = "ARIAGRO APP V2";
   loginForm: FormGroup;
   submitAttempt: boolean = false;

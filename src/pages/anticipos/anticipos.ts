@@ -14,7 +14,6 @@ import * as moment from 'moment';
 })
 export class AnticiposPage {
  settings: any = {};
- segundoPlano:boolean = false;
   version: string = "ARIAGRO APP V2";
   campanya: any = {};
   user: any = {};

@@ -12,7 +12,6 @@ import { ViewController } from 'ionic-angular';
 })
 export class CampanyasPage {
  settings: any = {};
- segundoPlano:boolean = false;
   version: string = "ARIAGRO APP V2";
   campanyas: any = [];
 

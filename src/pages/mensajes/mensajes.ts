@@ -15,7 +15,6 @@ import * as moment from 'moment';
 })
 export class MensajesPage {
  settings: any = {};
- segundoPlano:boolean = false;
   version: string = "ARIAGRO APP V2";
   campanya: any = {};
   user: any = {};

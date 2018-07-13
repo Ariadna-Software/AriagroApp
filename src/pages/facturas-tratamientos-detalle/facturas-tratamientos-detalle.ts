@@ -13,7 +13,6 @@ import { ViewController } from 'ionic-angular';
 })
 export class FacturasTratamientosDetallePage {
  settings: any = {};
- segundoPlano:boolean = false;
   version: string = "ARIAGRO APP V2";
   campanya: any = {};
   user: any = {};

@@ -15,7 +15,6 @@ import * as numeral from 'numeral';
 export class ModalCalidadesAlbaranPage {
 
   settings: any = {};
- segundoPlano:boolean = false;
   campanya: any = {};
   user: any = {};
   entrada: any = {};

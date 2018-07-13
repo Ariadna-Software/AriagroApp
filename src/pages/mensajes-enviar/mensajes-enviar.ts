@@ -16,7 +16,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class MensajesEnviarPage {
 
  settings: any = {};
- segundoPlano:boolean = false;
   version: string = "ARIAGRO APP V2";
   campanya: any = {};
   user: any = {};

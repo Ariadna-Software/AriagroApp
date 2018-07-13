@@ -14,7 +14,6 @@ import { AppVersion } from '@ionic-native/app-version';
 })
 export class HomePage {
  settings: any = {};
- segundoPlano:boolean = false;
   nombreCooperativa: string = "";
   nombreUsuario: string = "";
   nombreCampanya: string = "Campaña actual";

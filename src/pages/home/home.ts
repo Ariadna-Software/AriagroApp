@@ -63,13 +63,10 @@ export class HomePage {
 
   cargarMensajes(): void {
     this.numNoLeidos = 0;
-    let loading = this.loadingCtrl.create({ content: 'Buscando mensajes...' });
-    loading.present();
     this.ariagroData.getMensajesUsuario(this.settings.parametros.url, this.settings.user.usuarioPushId)
       .subscribe(
         (data) => {
           this.numNoLeidos = 0;
-          loading.dismiss();
           if (data.length > 0) {
             data.forEach(f => {
               f.fecha = moment(f.fecha).format('DD/MM/YYYY HH:mm:ss');
@@ -81,7 +78,6 @@ export class HomePage {
           }
         },
         (error) => {
-          loading.dismiss();
           this.showAlert("ERROR", JSON.stringify(error, null, 4));
         }
       );
@@ -94,16 +90,18 @@ export class HomePage {
         this.oneSignal.startInit(this.settings.paramPush.appId, this.settings.paramPush.gcm);
 
 
-        this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
+        this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification);
 
-        this.oneSignal.handleNotificationReceived()
-          .subscribe(jsonData => {
-
-          });
-
+        
 
         this.oneSignal.handleNotificationOpened()
           .subscribe(jsonData => {
+            let alert = this.alertCrtl.create({
+              title: 'Low battery',
+              subTitle: '10% of battery remaining',
+              buttons: ['Dismiss']
+            });
+            alert.present();
             console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
             this.ariagroData.getMensajeHttp(this.settings.parametros.url, jsonData.notification.payload.additionalData.mensajeId)
               .subscribe((data) => {

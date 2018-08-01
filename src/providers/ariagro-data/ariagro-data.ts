@@ -105,4 +105,11 @@ export class AriagroDataProvider {
     };
     return this.http.post(url + '/api/mensajes/correo', data);
 }
+
+prepararCorreoClasif(url, numalbar) {
+  var data = {
+    numalbar: numalbar
+};
+return this.http.post(url + '/api/mensajes/preparar-correo/clasif', data);
+}
 }

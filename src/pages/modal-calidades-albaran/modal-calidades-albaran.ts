@@ -20,6 +20,7 @@ export class ModalCalidadesAlbaranPage {
   entrada: any = {};
   calidades: any = [];
   loading: any;
+  correo: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,
      public localData: LocalDataProvider, public alertCrtl: AlertController, public loadingCtrl: LoadingController, 
@@ -72,6 +73,9 @@ export class ModalCalidadesAlbaranPage {
   comprobarCorreo(): void {
     var emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
     //Se muestra un texto a modo de ejemplo, luego va a ser un icono
+    if(this.correo) {
+      this.settings.user.email = this.correo;
+    }
     if (emailRegex.test(this.settings.user.email)) {
       this.loading = this.loadingCtrl.create({ content: 'Enviando correo...' });
       this.loading.present();
@@ -85,7 +89,7 @@ export class ModalCalidadesAlbaranPage {
         }
       );
     } else {
-      this.showAlert("ERROR", "correo invalido");
+      this.pedirCorreo();
     }
   }
 
@@ -100,6 +104,35 @@ export class ModalCalidadesAlbaranPage {
           this.showAlert("ERROR", JSON.stringify(error, null, 4));
         }
       );
+  }
+
+  pedirCorreo() {
+    let alert = this.alertCrtl.create({
+      title: 'Correo no configurado o incorrecto, introduzca un correo',
+      inputs: [
+        {
+          name: 'Correo',
+          placeholder: 'ejemplo@servidor.com'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Aceptar',
+          handler: data => {
+            this.correo = data.Correo;
+            this.comprobarCorreo();
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
   showAlert(title, subTitle): void {

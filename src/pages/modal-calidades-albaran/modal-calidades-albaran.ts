@@ -19,6 +19,7 @@ export class ModalCalidadesAlbaranPage {
   user: any = {};
   entrada: any = {};
   calidades: any = [];
+  loading: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,
      public localData: LocalDataProvider, public alertCrtl: AlertController, public loadingCtrl: LoadingController, 
@@ -72,10 +73,12 @@ export class ModalCalidadesAlbaranPage {
     var emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
     //Se muestra un texto a modo de ejemplo, luego va a ser un icono
     if (emailRegex.test(this.settings.user.email)) {
+      this.loading = this.loadingCtrl.create({ content: 'Enviando correo...' });
+      this.loading.present();
       this.ariagroData.prepararCorreoClasif(this.settings.parametros.url, this.entrada.numalbar)
       .subscribe(
         (data) => {
-          console.log(data);
+          this.enviarCorreo(data);
         },
         (error) => {
           this.showAlert("ERROR", JSON.stringify(error, null, 4));
@@ -84,6 +87,19 @@ export class ModalCalidadesAlbaranPage {
     } else {
       this.showAlert("ERROR", "correo invalido");
     }
+  }
+
+  enviarCorreo(ruta): void {
+    this.ariagroData.enviarCorreoClasif(this.settings.parametros.url, this.entrada.numalbar, this.settings.user.email, ruta)
+      .subscribe(
+        (data) => {
+          this.loading.dismiss();
+          this.showAlert("", JSON.stringify(data, null, 4));
+        },
+        (error) => {
+          this.showAlert("ERROR", JSON.stringify(error, null, 4));
+        }
+      );
   }
 
   showAlert(title, subTitle): void {

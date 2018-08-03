@@ -40,13 +40,37 @@
               </div>
             </ion-grid>
           </ion-item>
+  
+        </ion-list>
+        <ion-list>
+          <div *ngIf="incidencias.length > 0">
+              <ion-item text-wrap no-lines class="greenHeader">
+                  INCIDENCIAS
+              </ion-item>
+              <ion-item>
+                  <ion-grid style=" border: 1px solid grey;" no-padding>
+              
+                      <div *ngFor="let incidencia of incidencias">
+                          
+                        <ion-row [ngClass]="{'color': incidencia.contador%2 > 0}">
+                          
+                            <ion-col col-12 >
+                              {{incidencia.nomincid}}
+                            </ion-col>
+                        </ion-row>
+                      
+                      </div>
+                    </ion-grid>
+              </ion-item>
+          </div>
+          
           <ion-item no-lines>
             <button ion-button outline item-end round icon-left text-wrap class="myGreen"  (click)="comprobarCorreo()">
               <ion-icon name="git-compare"></ion-icon>
               Enviar clasificacion por correo.
             </button>
           </ion-item>
-        </ion-list>
+      </ion-list>
   </ion-content>
   
   <ion-footer>

@@ -19,6 +19,7 @@ export class ModalCalidadesAlbaranPage {
   user: any = {};
   entrada: any = {};
   calidades: any = [];
+  incidencias: any = [];
   loading: any;
   correo: any;
 
@@ -50,7 +51,8 @@ export class ModalCalidadesAlbaranPage {
     .subscribe(
       (data) => {
         loading.dismiss();
-        this.calidades = this.prepareData(data);
+        this.calidades = this.prepareData(data[0]);
+        this.incidencias = this.prepareIncidencias(data[1]);
       },
       (error) => {
         loading.dismiss();
@@ -68,6 +70,14 @@ export class ModalCalidadesAlbaranPage {
       }
     });
     return calidades;
+  }
+
+  prepareIncidencias(incidencias): any {
+    var contador = 1;
+    incidencias.forEach(a => {
+        a.contador = contador++;
+      });
+    return incidencias;
   }
 
   comprobarCorreo(): void {

@@ -65,12 +65,7 @@ export class CampanyasPage {
   }
 
   cargarCampanyas(campanyas): void {
-    this.campanyas.push({
-      codempre: 0,
-      nomempre: 'Campaña actual',
-      nomresum: 'Campaña actual',
-      ariagro: 'ariagro'
-    });
+   
     campanyas.forEach(c => this.campanyas.push(c));
   }
 

@@ -115,6 +115,7 @@ export class ModalCalidadesAlbaranPage {
         },
         (error) => {
           this.showAlert("ERROR", JSON.stringify(error, null, 4));
+          this.loading.dismiss();
         }
       );
   }

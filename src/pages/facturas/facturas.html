@@ -78,7 +78,15 @@
       <ion-badge color="secondary">{{numFacturasTratamientos}}</ion-badge>
       <ion-icon name="log-in" item-end class="myGreen"></ion-icon>
     </ion-item>
-
+    <ion-item text-wrap (click)="goFacturasVarias()">
+      <ion-thumbnail item-start>
+        <img src="assets/imgs/tratamientos.png">
+      </ion-thumbnail>
+      <h2 class="myGreen">FACTURAS VARIAS</h2>
+      Número de facturas:
+      <ion-badge color="secondary">{{numFacturasTratamientos}}</ion-badge>
+      <ion-icon name="log-in" item-end class="myGreen"></ion-icon>
+    </ion-item>
 
   </ion-list>
 </ion-content>

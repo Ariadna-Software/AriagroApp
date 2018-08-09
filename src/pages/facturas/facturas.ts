@@ -199,7 +199,7 @@ export class FacturasPage {
   }
 
   getFacturasVarias(): void {
-    this.ariagroData.getFacturasVarias(this.settings.parametros.url, this.user.tratamientosId, this.selectedYear, this.user.ariagroId, this.campanya.ariagro)
+    this.ariagroData.getFacturasVarias(this.settings.parametros.url, this.campanya.ariagro)
       .subscribe(
         (data) => {
           data.forEach(f => {
@@ -213,8 +213,8 @@ export class FacturasPage {
               l.precioar = numeral(l.precioar).format('0,0.00');
             });
           });
-          this.facturasTratamientos = data;
-          this.numFacturasTratamientos = data.length;
+          this.facturasVarias = data;
+          this.numFacturasVarias = data.length;
         },
         (error) => {
           

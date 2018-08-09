@@ -5,9 +5,8 @@ import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
 import { ViewController } from 'ionic-angular';
 
-
 /**
- * Generated class for the FacturasVariasPage page.
+ * Generated class for the FacturasVariasDetallePage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -15,22 +14,21 @@ import { ViewController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-facturas-varias',
-  templateUrl: 'facturas-varias.html',
+  selector: 'page-facturas-varias-detalle',
+  templateUrl: 'facturas-varias-detalle.html',
 })
-export class FacturasVariasPage {
+export class FacturasVariasDetallePage {
   settings: any = {};
   version: string = "ARIAGRO APP V2";
   campanya: any = {};
   user: any = {};
-  facturas: any = [];
-  numfacturas: number = 0;
+  factura: any = {};
+
 
   constructor(public navCtrl: NavController,  public appVersion: AppVersion, public navParams: NavParams,
     public alertCrtl: AlertController, public viewCtrl: ViewController,
     public ariagroData: AriagroDataProvider, public localData: LocalDataProvider) {
   }
-
   ionViewDidLoad() {
     this.localData.getSettings().then(data => {
       if (data) {
@@ -38,8 +36,7 @@ export class FacturasVariasPage {
         this.viewCtrl.setBackButtonText('');
         this.user = this.settings.user;
         this.campanya = this.settings.campanya;
-        this.facturas = this.navParams.get('facturas');
-        this.numfacturas = this.facturas.length;
+        this.factura = this.navParams.get('factura');
       } else {
         this.navCtrl.setRoot('ParametrosPage');
       }
@@ -69,12 +66,5 @@ export class FacturasVariasPage {
     });
     alert.present();
   }
-
-  goFacturaDetalle(factura): void {
-    this.navCtrl.push('FacturasVariasDetallePage',{
-      factura: factura
-    });
-  }
-
 
 }

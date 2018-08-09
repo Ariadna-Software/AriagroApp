@@ -110,18 +110,20 @@ export class AriagroDataProvider {
     return this.http.post(url + '/api/mensajes/correo', data);
 }
 
-prepararCorreoClasif(url, numalbar): any {
+prepararCorreoClasif(url, numalbar,campanya): any {
   var data = {
-    numalbar: numalbar
+    numalbar: numalbar,
+    campanya: campanya
 };
 return this.http.post(url + '/api/mensajes/preparar-correo/clasif', data);
 }
 
-enviarCorreoClasif(url, numalbar, email, ruta): any {
+enviarCorreoClasif(url, numalbar, email, ruta, coop): any {
   var data = {
     numalbar: numalbar,
     email: email,
-    ruta: ruta
+    ruta: ruta,
+    coop: coop
   };
   return this.http.post(url + '/api/mensajes/enviar/correo/clasif', data);
 }

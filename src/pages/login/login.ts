@@ -60,14 +60,22 @@ export class LoginPage {
         .subscribe(
           (data) => {
             this.settings.user = data;
-            this.settings.campanya = {
-              codempre: 0,
-              nomresum: 'Campaña actual',
-              ariagro: 'ariagro'
-            }
-            this.localData.saveSettings(this.settings);
-            this.pushUser(this.settings.user);
-            this.navCtrl.setRoot('HomePage');
+            this.ariagroData.getCampanyaActual(this.settings.parametros.url)
+            .subscribe(
+              (data) => {
+                this.settings.campanya = data[0];
+                this.localData.saveSettings(this.settings);
+                this.pushUser(this.settings.user);
+                this.navCtrl.setRoot('HomePage');
+              },
+              (error) => {
+                if (error.status == 404) {
+                  this.showAlert("AVISO", "Usuario o contraseña incorrectos");
+                } else {
+                  this.showAlert("ERROR", JSON.stringify(error, null, 4));
+                }
+              }
+            );
           },
           (error) => {
             if (error.status == 404) {

@@ -26,8 +26,14 @@ export class AriagroDataProvider {
     });
   }
 
+  
   getCampanyas(url): any {
     return this.http.get(url + '/api/campanyas');
+  }
+
+
+  getCampanyaActual(url): any {
+    return this.http.get(url + '/api/campanyas/actual');
   }
 
   getCampos(url, socio, campanya): any {

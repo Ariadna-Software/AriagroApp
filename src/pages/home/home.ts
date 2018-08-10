@@ -16,7 +16,7 @@ export class HomePage {
  settings: any = {};
   nombreCooperativa: string = "";
   nombreUsuario: string = "";
-  nombreCampanya: string = "Campaña actual";
+  nombreCampanya: string;
   mensajes: any = [];
   numNoLeidos: number = 0;
   version: string = "ARIAGRO APP V2";

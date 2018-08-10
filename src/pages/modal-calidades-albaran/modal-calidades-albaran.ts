@@ -84,13 +84,15 @@ export class ModalCalidadesAlbaranPage {
   
 
   comprobarCorreo(): void {
+    var mens = "";
     var emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
    
     if (emailRegex.test(this.correo)) {
-      this.mostrarCorreo();
+      mens = 'Este es el correo al cual se va a enviar la clasificación. Puede introducir otro';
     } else {
-      this.pedirCorreo();
+      mens = 'Correo incorrecto, introduzca un correo';
     }
+    this.mostrarCorreo(mens);
   }
 
   enviarCorreo(ruta): void {
@@ -156,9 +158,9 @@ export class ModalCalidadesAlbaranPage {
     alert.present();
   }
 
-  mostrarCorreo() {
+  mostrarCorreo(mens) {
     let alert = this.alertCrtl.create({
-      title: 'Este es el correo al cual se va a enviar la clasificación. Puede introducir otro',
+      title: mens,
       inputs: [
         {
           name: 'Correo',
@@ -192,7 +194,8 @@ export class ModalCalidadesAlbaranPage {
                 }
               );
             }else {
-              this.pedirCorreo()
+              mens = 'Correo incorrecto, introduzca un correo';
+              this.mostrarCorreo(mens);
             }
           }
         }

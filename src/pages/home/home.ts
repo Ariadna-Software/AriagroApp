@@ -20,7 +20,6 @@ export class HomePage {
   mensajes: any = [];
   numNoLeidos: number = 0;
   version: string = "ARIAGRO APP V2";
-  cont: any = 0;
   constructor(public navCtrl: NavController, public navParams: NavParams, public plt: Platform,
     public alertCrtl: AlertController, public ariagroData: AriagroDataProvider, public localData: LocalDataProvider,
     public loadingCtrl: LoadingController, public appVersion: AppVersion, public oneSignal: OneSignal) {
@@ -32,7 +31,6 @@ export class HomePage {
   ionViewWillEnter() {
     this.localData.getSettings().then(data => {
       if (data) {
-       this.cont = 0;
         this.settings = JSON.parse(data);
         this.nombreCooperativa = this.settings.parametros.nombre;
         if (this.settings.user) {
@@ -94,41 +92,30 @@ export class HomePage {
 
         this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification);
 
-        this.oneSignal.handleNotificationReceived()
+       this.oneSignal.handleNotificationOpened()
         .subscribe(jsonData => {
           console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
-            
-              this.ariagroData.getMensajeHttp(this.settings.parametros.url, jsonData.payload.additionalData.mensajeId)
-              .subscribe((data) => {
-                data.fecha = moment(data.fecha).format('DD/MM/YYYY HH:mm:ss');
-                this.navCtrl.push('MensajesDetallePage', {
+            this.ariagroData.getMensajeHttp(this.settings.parametros.url, jsonData.notification.payload.additionalData.mensajeId)
+              .subscribe(
+                (data) => {
+                  data.fecha = moment(data.fecha).format('DD/MM/YYYY HH:mm:ss');
+                  this.navCtrl.push('MensajesDetallePage', {
                   mensaje: data
                 });
-              },
+                },
                 (error) => {
                   this.showAlert("ERROR", JSON.stringify(error, null, 4));
                 });
-                this.cont = 1;
         });
 
-       this.oneSignal.handleNotificationOpened()
+       /*this.oneSignal.handleNotificationReceived()
           .subscribe(jsonData => {
-            if(this.cont != 1) {
+            this.cont = 1;
+           
               console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
-            
-              this.ariagroData.getMensajeHttp(this.settings.parametros.url, jsonData.notification.payload.additionalData.mensajeId)
-              .subscribe((data) => {
-                data.fecha = moment(data.fecha).format('DD/MM/YYYY HH:mm:ss');
-                this.navCtrl.push('MensajesDetallePage', {
-                  mensaje: data
-                });
-              },
-                (error) => {
-                  this.showAlert("ERROR", JSON.stringify(error, null, 4));
-                });
-            
-            }
-          });
+              this.mostrarAlert(jsonData);
+          
+          });*/
 
 
 
@@ -151,7 +138,7 @@ export class HomePage {
         },
           (error) => {
             if (error.status == 404) {
-              this.showAlert("AVISO", "Usuario o contraseña incorrectos");
+              this.showAlert("AVISO", "Usuario o contrase�a incorrectos");
             }
           });
         this.oneSignal.endInit();
@@ -167,6 +154,37 @@ export class HomePage {
       title: title,
       subTitle: subTitle,
       buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  mostrarAlert(jsonData) {
+    let alert = this.alertCrtl.create({
+      title: 'Ha recibido un mensaje',
+      buttons: [
+        {
+          text: 'Ignorar',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Ir al mensaje',
+          handler: data => {
+            this.ariagroData.getMensajeHttp(this.settings.parametros.url, jsonData.payload.additionalData.mensajeId)
+              .subscribe((data) => {
+                data.fecha = moment(data.fecha).format('DD/MM/YYYY HH:mm:ss');
+                this.navCtrl.push('MensajesDetallePage', {
+                  mensaje: data
+                });
+              },
+                (error) => {
+                  this.showAlert("ERROR", JSON.stringify(error, null, 4));
+                });
+          }
+        }
+      ]
     });
     alert.present();
   }

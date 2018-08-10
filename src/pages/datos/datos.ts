@@ -27,6 +27,22 @@ export class DatosPage {
         this.viewCtrl.setBackButtonText('');
         if (this.settings.user) {
           this.user = this.settings.user;
+          this.ariagroData.login(this.settings.parametros.url, this.user.login, this.user.password)
+          .subscribe(
+            (data) => {
+              this.settings.user = data;
+              this.user = this.settings.user;
+              this.localData.saveSettings(this.settings);
+              
+            },
+            (error) => {
+              if (error.status == 404) {
+                this.showAlert("AVISO", "Usuario o contraseña incorrectos");
+              } else {
+                this.showAlert("ERROR", JSON.stringify(error, null, 4));
+              }
+            }
+          );
         } else {
           this.navCtrl.setRoot('LoginPage');
         }

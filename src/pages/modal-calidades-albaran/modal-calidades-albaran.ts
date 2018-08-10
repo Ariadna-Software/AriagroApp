@@ -34,11 +34,26 @@ export class ModalCalidadesAlbaranPage {
         this.settings = JSON.parse(data);
         this.viewCtrl.setBackButtonText('');
         this.user = this.settings.user;
-        this.campanya = this.settings.campanya;
-        this.entrada = this.navParams.get('entrada');
-        this.correo = this.settings.user.email;
-        this.loadCalidades();
-
+        //renovar configuración de usuario
+        this.ariagroData.login(this.settings.parametros.url, this.user.login, this.user.password)
+        .subscribe(
+          (data) => {
+            this.settings.user = data;
+            this.user = this.settings.user;
+            this.localData.saveSettings(this.settings);
+            this.campanya = this.settings.campanya;
+            this.entrada = this.navParams.get('entrada');
+            this.correo = this.settings.user.email;
+            this.loadCalidades();
+          },
+          (error) => {
+            if (error.status == 404) {
+              this.showAlert("AVISO", "Usuario o contraseña incorrectos");
+            } else {
+              this.showAlert("ERROR", JSON.stringify(error, null, 4));
+            }
+          }
+        );
       } else {
         this.navCtrl.setRoot('ParametrosPage');
       }
@@ -113,51 +128,7 @@ export class ModalCalidadesAlbaranPage {
       );
   }
 
-  pedirCorreo() {
-    let alert = this.alertCrtl.create({
-      title: 'Correo incorrecto, introduzca un correo',
-      inputs: [
-        {
-          name: 'Correo',
-          placeholder: 'ejemplo@servidor.com'
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Aceptar',
-          handler: data => {
-            var emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-   
-            if (emailRegex.test(data.Correo)) {
-              this.correo = data.Correo;
-              this.loading = this.loadingCtrl.create({ content: 'Enviando correo...' });
-              this.loading.present();
-              this.ariagroData.prepararCorreoClasif(this.settings.parametros.url, this.entrada.numalbar, this.campanya.ariagro)
-              .subscribe(
-                (data) => {
-                  this.enviarCorreo(data);
-                },
-                (error) => {
-                  this.showAlert("ERROR", JSON.stringify(error, null, 4));
-                }
-              );
-            }else {
-              this.pedirCorreo()
-            }
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-
+  
   mostrarCorreo(mens) {
     let alert = this.alertCrtl.create({
       title: mens,

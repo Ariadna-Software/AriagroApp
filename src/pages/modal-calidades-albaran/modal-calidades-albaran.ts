@@ -22,6 +22,7 @@ export class ModalCalidadesAlbaranPage {
   incidencias: any = [];
   loading: any;
   correo: any;
+  usaInformes: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,
      public localData: LocalDataProvider, public alertCrtl: AlertController, public loadingCtrl: LoadingController, 
@@ -34,6 +35,7 @@ export class ModalCalidadesAlbaranPage {
         this.settings = JSON.parse(data);
         this.viewCtrl.setBackButtonText('');
         this.user = this.settings.user;
+        this.usaInformes = this.settings.parametros.usaInformes;
         //renovar configuración de usuario
         this.ariagroData.login(this.settings.parametros.url, this.user.login, this.user.password)
         .subscribe(
@@ -99,15 +101,19 @@ export class ModalCalidadesAlbaranPage {
   
 
   comprobarCorreo(): void {
-    var mens = "";
-    var emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+    if(this.usaInformes == 0) {
+      this.showAlert('', 'Funcionalidad no habilitada, póngase en contacto con su cooperativa');
+    }else {
+      var mens = "";
+      var emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
    
-    if (emailRegex.test(this.correo)) {
-      mens = 'Este es el correo al cual se va a enviar la clasificación. Puede introducir otro';
-    } else {
-      mens = 'Correo incorrecto, introduzca un correo';
+      if (emailRegex.test(this.correo)) {
+        mens = 'Este es el correo al cual se va a enviar la clasificación. Puede introducir otro.';
+      } else {
+        mens = 'Correo incorrecto, introduzca un correo.';
+      }
+      this.mostrarCorreo(mens);
     }
-    this.mostrarCorreo(mens);
   }
 
   enviarCorreo(ruta): void {
@@ -115,7 +121,8 @@ export class ModalCalidadesAlbaranPage {
       .subscribe(
         (data) => {
           this.loading.dismiss();
-          this.showAlert("", JSON.stringify(data, null, 4));
+
+          this.showAlert("", JSON.stringify('MENSAJE ENVIADO', null, 4));
           if( this.settings.user.email == ""){
             this.correo = null;
           }
@@ -155,13 +162,14 @@ export class ModalCalidadesAlbaranPage {
               this.correo = data.Correo;
               this.loading = this.loadingCtrl.create({ content: 'Enviando correo...' });
               this.loading.present();
-              this.ariagroData.prepararCorreoClasif(this.settings.parametros.url, this.entrada.numalbar, this.campanya.ariagro)
+              this.ariagroData.prepararCorreoClasif(this.settings.parametros.url, this.entrada.numalbar, this.campanya.ariagro, this.settings.parametros.infClasificacion)
               .subscribe(
                 (data) => {
                   this.enviarCorreo(data);
                 },
                 (error) => {
                   this.showAlert("ERROR", JSON.stringify(error, null, 4));
+                  this.loading.dismiss();
                 }
               );
             }else {

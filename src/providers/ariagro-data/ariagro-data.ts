@@ -116,10 +116,11 @@ export class AriagroDataProvider {
     return this.http.post(url + '/api/mensajes/correo', data);
 }
 
-prepararCorreoClasif(url, numalbar,campanya): any {
+prepararCorreoClasif(url, numalbar,campanya, informe): any {
   var data = {
     numalbar: numalbar,
-    campanya: campanya
+    campanya: campanya,
+    informe: informe
 };
 return this.http.post(url + '/api/mensajes/preparar-correo/clasif', data);
 }

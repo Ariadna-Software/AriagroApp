@@ -43,6 +43,13 @@
         <p>
           <strong>Campo: </strong> {{campo.codcampo}}
           <br>
+          
+          <span *ngIf="campo.numcampo > 0">
+            
+                <strong>Orden: </strong> {{campo.numcampo}}
+            
+          </span>
+          <br>
           <strong>Partida: </strong> {{campo.nomparti}}
           <br>
           <strong>Poligono: </strong> {{campo.poligono}}

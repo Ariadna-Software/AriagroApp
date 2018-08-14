@@ -26,8 +26,14 @@ export class AriagroDataProvider {
     });
   }
 
+  
   getCampanyas(url): any {
     return this.http.get(url + '/api/campanyas');
+  }
+
+
+  getCampanyaActual(url): any {
+    return this.http.get(url + '/api/campanyas/actual');
   }
 
   getCampos(url, socio, campanya): any {
@@ -62,6 +68,10 @@ export class AriagroDataProvider {
 
   getFacturasTratamientos(url, codclien, year, codsocio, campanya): any {
     return this.http.get(url + '/api/facturas/tratamientos/' + codclien + '/' + year + '/' + codsocio + '/' + campanya);
+  }
+
+  getFacturasVarias(url, campanya): any {
+    return this.http.get(url + '/api/facturas/varias/'  + campanya);
   }
 
   getMensajesUsuario(url, usuPush): any {
@@ -104,5 +114,24 @@ export class AriagroDataProvider {
         correo: correo
     };
     return this.http.post(url + '/api/mensajes/correo', data);
+}
+
+prepararCorreoClasif(url, numalbar,campanya, informe): any {
+  var data = {
+    numalbar: numalbar,
+    campanya: campanya,
+    informe: informe
+};
+return this.http.post(url + '/api/mensajes/preparar-correo/clasif', data);
+}
+
+enviarCorreoClasif(url, numalbar, email, ruta, coop): any {
+  var data = {
+    numalbar: numalbar,
+    email: email,
+    ruta: ruta,
+    coop: coop
+  };
+  return this.http.post(url + '/api/mensajes/enviar/correo/clasif', data);
 }
 }

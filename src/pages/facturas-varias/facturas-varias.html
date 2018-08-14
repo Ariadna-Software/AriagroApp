@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-navbar>
+   <ion-title>
+      {{version}}
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only class="myGreen" (click)="goHome()">
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item text-wrap no-lines class="greenHeader">
+      FACTURAS
+      <br> {{campanya.nomresum}}
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-item>
+      <ion-thumbnail item-start>
+        <img src="assets/imgs/bill.png">
+      </ion-thumbnail>
+      <h2 class="myGreen">FACTURAS VARIAS</h2>
+      Facturas:
+      <ion-badge color="secondary">{{numfacturas}}</ion-badge>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-item *ngFor="let factura of facturas" (click)="goFacturaDetalle(factura)">
+      <span class="myGreen">{{factura.numfactu}} {{factura.fecfactu}}</span>
+      <br>BASE: {{factura.bases}} € 
+      <br>IVA: {{factura.cuotas}} €
+      <br>TOTAL: {{factura.totalfac}} €
+      <ion-icon name="log-in" item-end class="myGreen"></ion-icon>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>
+      <span style="font-size:0.8em;">(c) Ariadna SW 2018</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>

@@ -15,7 +15,8 @@
 <ion-content padding>
   <ion-list no-lines>
     <ion-item text-wrap class="greenHeader">
-      ENTRADAS CAMPO: {{campo.codcampo}}
+      {{campo.nomvarie}}<br>
+      Nº CAMPO: {{campo.codcampo}} <span *ngIf="campo.numcampo > 0">ORDEN: {{campo.numcampo}}</span>
       <br> {{campanya.nomresum}}
       <br> Partida: {{campo.nomparti}}
       <br> Polígono: {{campo.poligono}} Parcela: {{campo.parcela}}

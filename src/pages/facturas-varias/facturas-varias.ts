@@ -1,23 +1,34 @@
 import { Component } from '@angular/core';
 import { AppVersion } from '@ionic-native/app-version';
-import { IonicPage, NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
 import { ViewController } from 'ionic-angular';
 
+
+/**
+ * Generated class for the FacturasVariasPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
 @IonicPage()
 @Component({
-  selector: 'page-datos',
-  templateUrl: 'datos.html',
+  selector: 'page-facturas-varias',
+  templateUrl: 'facturas-varias.html',
 })
-export class DatosPage {
- settings: any = {};
+export class FacturasVariasPage {
+  settings: any = {};
   version: string = "ARIAGRO APP V2";
+  campanya: any = {};
   user: any = {};
+  facturas: any = [];
+  numfacturas: number = 0;
 
   constructor(public navCtrl: NavController,  public appVersion: AppVersion, public navParams: NavParams,
     public alertCrtl: AlertController, public viewCtrl: ViewController,
-    public ariagroData: AriagroDataProvider, public localData: LocalDataProvider, public modalCtrl: ModalController) {
+    public ariagroData: AriagroDataProvider, public localData: LocalDataProvider) {
   }
 
   ionViewDidLoad() {
@@ -25,27 +36,10 @@ export class DatosPage {
       if (data) {
         this.settings = JSON.parse(data);
         this.viewCtrl.setBackButtonText('');
-        if (this.settings.user) {
-          this.user = this.settings.user;
-          this.ariagroData.login(this.settings.parametros.url, this.user.login, this.user.password)
-          .subscribe(
-            (data) => {
-              this.settings.user = data;
-              this.user = this.settings.user;
-              this.localData.saveSettings(this.settings);
-              
-            },
-            (error) => {
-              if (error.status == 404) {
-                this.showAlert("AVISO", "Usuario o contraseña incorrectos");
-              } else {
-                this.showAlert("ERROR", JSON.stringify(error, null, 4));
-              }
-            }
-          );
-        } else {
-          this.navCtrl.setRoot('LoginPage');
-        }
+        this.user = this.settings.user;
+        this.campanya = this.settings.campanya;
+        this.facturas = this.navParams.get('facturas');
+        this.numfacturas = this.facturas.length;
       } else {
         this.navCtrl.setRoot('ParametrosPage');
       }
@@ -76,9 +70,11 @@ export class DatosPage {
     alert.present();
   }
 
-  cambioDatos(): void {
-    let modal = this.modalCtrl.create('ModalDatosCambiarPage');
-    modal.present();
+  goFacturaDetalle(factura): void {
+    this.navCtrl.push('FacturasVariasDetallePage',{
+      factura: factura
+    });
   }
+
 
 }

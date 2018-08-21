@@ -36,9 +36,15 @@
     </ion-grid>
   </ion-list>
   <ion-list>
-    <ion-item *ngFor="let linea of anticipo.lineas" text-wrap>
+    <ion-item *ngFor="let linea of anticipo.lineas" text-wrap no-lines>
       <span class="myGreen">{{linea.nomvarie}}</span>
       <br>{{linea.kilosnet}} Kg. {{linea.imporvar}} €
+    </ion-item>
+    <ion-item no-lines>
+      <button ion-button outline item-end round icon-left text-wrap class="myGreen"  (click)="comprobarCorreo()">
+        <ion-icon name="mail"></ion-icon>
+        Enviar factura por correo.
+      </button>
     </ion-item>
   </ion-list>
 

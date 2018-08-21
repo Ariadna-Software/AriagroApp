@@ -134,4 +134,14 @@ enviarCorreoClasif(url, numalbar, email, ruta, coop): any {
   };
   return this.http.post(url + '/api/mensajes/enviar/correo/clasif', data);
 }
+
+prepararCorreoFactu(url, campanya, numfactu, informe, codtipom): any {
+  var data = {
+    campanya: campanya,
+    numfactu: numfactu,
+    informe: informe,
+    codtipom: codtipom
+};
+return this.http.post(url + '/api/anticipos-liquidaciones/preparar-correo', data);
+}
 }

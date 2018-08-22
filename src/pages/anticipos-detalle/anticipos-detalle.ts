@@ -117,7 +117,7 @@ export class AnticiposDetallePage {
               } else {
                 this.informe = this.settings.parametros.infFAL;
               }
-              this.ariagroData.prepararCorreoFactu(this.settings.parametros.url, this.campanya.ariagro, this.anticipo.numfactu, this.informe, this.anticipo.codtipom)
+              this.ariagroData.prepararCorreoFactu(this.settings.parametros.url, this.campanya.ariagro, this.anticipo.numfactu, this.informe, this.anticipo.codtipom, this.settings.parametros.parametroId)
               .subscribe(
                 (data) => {
                   //this.enviarCorreo(data);

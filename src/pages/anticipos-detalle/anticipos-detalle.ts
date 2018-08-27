@@ -142,7 +142,7 @@ export class AnticiposDetallePage {
   }
 
   enviarCorreo(ruta): void {
-    this.ariagroData.enviarCorreoFactu(this.settings.parametros.url, this.anticipo.numfactu, this.correo, ruta, this.campanya.nomempre)
+    this.ariagroData.enviarCorreoFactu(this.settings.parametros.url, this.anticipo.numfactu, this.correo, ruta, this.campanya.nomempre, this.anticipo.codtipom)
       .subscribe(
         (data) => {
           this.loading.dismiss();

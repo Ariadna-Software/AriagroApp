@@ -21,8 +21,8 @@
       </ion-list>
   
       <ion-list>
-          <ion-item no-lines *ngIf="calidades.length > 0 " >         
-            <ion-grid style=" border: 1px solid grey;" no-padding>
+          <ion-item style="font-size: 1em" no-lines *ngIf="calidades.length > 0 " >         
+            <ion-grid style=" border: 1px solid grey" no-padding>
               
               <div *ngFor="let calidad of calidades">
                   <div *ngIf="calidad.kilos != null">
@@ -47,7 +47,7 @@
               <ion-item text-wrap no-lines class="greenHeader">
                   INCIDENCIAS
               </ion-item>
-              <ion-item>
+              <ion-item style="font-size: 1em">
                   <ion-grid style=" border: 1px solid grey;" no-padding>
               
                       <div *ngFor="let incidencia of incidencias">

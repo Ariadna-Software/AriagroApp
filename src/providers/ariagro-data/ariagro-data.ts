@@ -146,12 +146,13 @@ prepararCorreoFactu(url, campanya, numfactu, informe, codtipom, servidor): any {
 return this.http.post(url + '/api/anticipos-liquidaciones/preparar-correo', data);
 }
 
-enviarCorreoFactu(url, numfactu, email, ruta, coop): any {
+enviarCorreoFactu(url, numfactu, email, ruta, coop, codtipom): any {
   var data = {
     numfactu: numfactu,
     email: email,
     ruta: ruta,
-    coop: coop
+    coop: coop,
+    codtipom: codtipom
   };
   return this.http.post(url + '/api/anticipos-liquidaciones/enviar/correo/ant-liq', data);
 }

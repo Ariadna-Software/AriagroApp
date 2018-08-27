@@ -145,4 +145,14 @@ prepararCorreoFactu(url, campanya, numfactu, informe, codtipom, servidor): any {
 };
 return this.http.post(url + '/api/anticipos-liquidaciones/preparar-correo', data);
 }
+
+enviarCorreoFactu(url, numfactu, email, ruta, coop): any {
+  var data = {
+    numfactu: numfactu,
+    email: email,
+    ruta: ruta,
+    coop: coop
+  };
+  return this.http.post(url + '/api/anticipos-liquidaciones/enviar/correo/ant-liq', data);
+}
 }

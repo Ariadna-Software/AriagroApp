@@ -73,6 +73,9 @@ export class AnticiposDetallePage {
   comprobarCorreo(): void {
     if(this.usaInformes == 0) {
       this.showAlert('', 'Funcionalidad no habilitada, póngase en contacto con su cooperativa');
+    }
+    if(this.anticipo.codtipom != "FAA" && this.anticipo.codtipom != 'FAL'){
+      this.showAlert('', 'Tipo de factura no disponible, póngase en contacto con su cooperativa');
     }else {
       var mens = "";
       var emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
@@ -120,7 +123,7 @@ export class AnticiposDetallePage {
               this.ariagroData.prepararCorreoFactu(this.settings.parametros.url, this.campanya.ariagro, this.anticipo.numfactu, this.informe, this.anticipo.codtipom, this.settings.parametros.parametroId)
               .subscribe(
                 (data) => {
-                  //this.enviarCorreo(data);
+                  this.enviarCorreo(data);
                 },
                 (error) => {
                   this.showAlert("ERROR", JSON.stringify(error, null, 4));
@@ -138,8 +141,8 @@ export class AnticiposDetallePage {
     alert.present();
   }
 
-  /*enviarCorreo(ruta): void {
-    this.ariagroData.enviarCorreoFactu(this.settings.parametros.url, this.correo, ruta, this.campanya.nomempre)
+  enviarCorreo(ruta): void {
+    this.ariagroData.enviarCorreoFactu(this.settings.parametros.url, this.anticipo.numfactu, this.correo, ruta, this.campanya.nomempre)
       .subscribe(
         (data) => {
           this.loading.dismiss();
@@ -155,7 +158,7 @@ export class AnticiposDetallePage {
           this.loading.dismiss();
         }
       );
-  }*/
+  }
 
 
 

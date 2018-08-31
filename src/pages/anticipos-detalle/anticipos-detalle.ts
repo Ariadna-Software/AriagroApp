@@ -44,6 +44,7 @@ export class AnticiposDetallePage {
             this.user = this.settings.user;
             this.localData.saveSettings(this.settings);
             this.correo = this.settings.user.email;
+            this.renovarParametros();
           },
           (error) => {
             if (error.status == 404) {
@@ -68,6 +69,33 @@ export class AnticiposDetallePage {
     } catch (error) {
 
     }
+  }
+
+  renovarParametros(): void {
+    this.ariagroData.getParametrosCentral(this.settings.parametros.parametroId)
+        .subscribe(
+          (data) => {
+            this.settings.parametros = data;
+            this.localData.saveSettings(this.settings);
+          },
+          (error) => {
+            if (error.status == 404) {
+              let alert = this.alertCrtl.create({
+                title: "AVISO",
+                subTitle: "No se ha encontrado ninguna cooperativa con ese número",
+                buttons: ['OK']
+              });
+              alert.present();
+            } else {
+              let alert = this.alertCrtl.create({
+                title: "ERROR",
+                subTitle: JSON.stringify(error, null, 4),
+                buttons: ['OK']
+              });
+              alert.present();
+            }
+          }
+        );
   }
 
   comprobarCorreo(): void {

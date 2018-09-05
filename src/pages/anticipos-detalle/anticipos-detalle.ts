@@ -102,7 +102,7 @@ export class AnticiposDetallePage {
     if(this.usaInformes == 0) {
       this.showAlert('', 'Funcionalidad no habilitada, póngase en contacto con su cooperativa');
     }
-    if(this.anticipo.codtipom != "FAA" && this.anticipo.codtipom != 'FAL'){
+    else if(this.anticipo.codtipom != "FAA" && this.anticipo.codtipom != 'FAL'){
       this.showAlert('', 'Tipo de factura no disponible, póngase en contacto con su cooperativa');
     }else {
       var mens = "";
@@ -114,6 +114,20 @@ export class AnticiposDetallePage {
         mens = 'Correo incorrecto, introduzca un correo.';
       }
       this.mostrarCorreo(mens);
+    }
+  }
+
+  comprobarPlantillas(){
+    if(this.anticipo.codtipom == "FAA") {
+      this.informe = this.settings.parametros.infFAA;
+    } else {
+      this.informe = this.settings.parametros.infFAL;
+    }
+    
+    if(this.informe == "" || this.informe == null){
+      this.showAlert('', 'Plantilla de factura no configurada');
+    }else {
+      this.comprobarCorreo();
     }
   }
 
@@ -143,11 +157,7 @@ export class AnticiposDetallePage {
               this.correo = data.Correo;
               this.loading = this.loadingCtrl.create({ content: 'Enviando correo...' });
               this.loading.present();
-              if(this.anticipo.codtipom == "FAA") {
-                this.informe = this.settings.parametros.infFAA;
-              } else {
-                this.informe = this.settings.parametros.infFAL;
-              }
+              
               this.ariagroData.prepararCorreoFactu(this.settings.parametros.url, this.campanya.ariagro, this.anticipo.numfactu, this.informe, this.anticipo.codtipom, this.settings.parametros.parametroId)
               .subscribe(
                 (data) => {

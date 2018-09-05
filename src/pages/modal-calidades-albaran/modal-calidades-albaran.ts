@@ -126,6 +126,15 @@ export class ModalCalidadesAlbaranPage {
     return incidencias;
   }
 
+  comprobarPlantillas(){
+    
+    if(this.settings.parametros.infClasificacion == "" || this.settings.parametros.infClasificacion == null){
+      this.showAlert('', 'Plantilla de factura no configurada');
+    }else {
+      this.comprobarCorreo();
+    }
+  }
+
   
 
   comprobarCorreo(): void {

@@ -16,7 +16,7 @@ export class FacturasTratamientosDetallePage {
   version: string = "ARIAGRO APP V2";
   campanya: any = {};
   user: any = {};
-  factura: any = {};
+  factura: any = {lineas:[], partes:[{lineas:[]}]};
 
   constructor(public navCtrl: NavController,  public appVersion: AppVersion, public navParams: NavParams,
     public alertCrtl: AlertController, public viewCtrl: ViewController,

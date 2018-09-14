@@ -177,17 +177,35 @@ export class FacturasPage {
     this.ariagroData.getFacturasTratamientos(this.settings.parametros.url, this.user.tratamientosId, this.selectedYear, this.user.ariagroId, this.campanya.ariagro)
       .subscribe(
         (data) => {
-          data.forEach(f => {
-            f.fecfactu = moment(f.fecfactu).format('DD/MM/YYYY');
-            f.bases = numeral(f.bases).format('0,0.00');
-            f.cuotas = numeral(f.cuotas).format('0,0.00');
-            f.totalfac = numeral(f.totalfac).format('0,0.00');
-            f.lineas.forEach(l => {
-              l.cantidad = numeral(l.cantidad).format('0,0.00');
-              l.importel = numeral(l.importel).format('0,0.00');
-              l.precioar = numeral(l.precioar).format('0,0.00');
+          if(data[0].partes){
+            data.forEach(f => {
+              f.fecfactu = moment(f.fecfactu).format('DD/MM/YYYY');
+              f.bases = numeral(f.bases).format('0,0.00');
+              f.cuotas = numeral(f.cuotas).format('0,0.00');
+              f.totalfac = numeral(f.totalfac).format('0,0.00');
+              f.partes.forEach(l => {
+                l.fechapar = moment(f.fechapar).format('DD/MM/YYYY');
+                l.lineas.forEach(s =>{
+                  s.cantidad = numeral(s.cantidad).format('0,0.00');
+                  s.importel = numeral(s.importel).format('0,0.00');
+                  s.precioar = numeral(s.precioar).format('0,0.00');
+                });
+              });
             });
-          });
+          } else {
+            data.forEach(f => {
+              f.fecfactu = moment(f.fecfactu).format('DD/MM/YYYY');
+              f.bases = numeral(f.bases).format('0,0.00');
+              f.cuotas = numeral(f.cuotas).format('0,0.00');
+              f.totalfac = numeral(f.totalfac).format('0,0.00');
+              f.lineas.forEach(l => {
+                l.cantidad = numeral(l.cantidad).format('0,0.00');
+                l.importel = numeral(l.importel).format('0,0.00');
+                l.precioar = numeral(l.precioar).format('0,0.00');
+              });
+            });
+          }
+         
           this.facturasTratamientos = data;
           this.numFacturasTratamientos = data.length;
         },

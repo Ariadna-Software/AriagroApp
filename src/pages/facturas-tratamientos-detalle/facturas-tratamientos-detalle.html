@@ -31,10 +31,26 @@
     </ion-item>
   </ion-list>
   <ion-list>
+    <!--ALZICOOP-->
     <ion-item *ngFor="let linea of factura.lineas">
-      <span class="myGreen">{{linea.nomartic}}</span>
-      <br>{{linea.cantidad}} UD. * {{linea.precioar}} € = {{linea.importel}} €
+          <span class="myGreen">{{linea.nomartic}}</span>
+          <br>{{linea.cantidad}} UD. * {{linea.precioar}} € = {{linea.importel}} €
     </ion-item>
+    <!--NO ALZICOOP-->
+    <div *ngFor="let parte of factura.partes">
+        <ion-item no-lines class="partes">
+            <span>Parte: {{parte.numparte}} del {{parte.fechapar}}</span><br>
+            <span>Campo: {{parte.codcampo}}-{{parte.nomparti}}</span><br>
+            <span>Tratto: {{parte.codtrata}}-{{parte.nomtrata}}</span><br>
+            <span> Variedad: {{parte.codvarie}}-{{parte.nomvarie}}</span>
+        </ion-item>
+
+      <ion-item no-lines *ngFor="let linea of parte.lineas" style="font-size: 1em">
+          <span class="myGreen">{{linea.codartic}}-{{linea.nomartic}}</span>
+          <br>{{linea.cantidad}} UD. * {{linea.precioar}} € = {{linea.importel}} €
+      </ion-item>
+       
+    </div>
   </ion-list>
 
 </ion-content>

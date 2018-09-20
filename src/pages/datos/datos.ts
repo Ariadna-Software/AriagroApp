@@ -77,8 +77,22 @@ export class DatosPage {
   }
 
   cambioDatos(): void {
-    let modal = this.modalCtrl.create('ModalDatosCambiarPage');
-    modal.present();
+   this.ariagroData.comprobarHost(this.settings.parametros.url)
+   .subscribe(
+     (data) => {
+      if(data){
+        if(!data.smtpConfig.host || data.smtpConfig.host == "") {
+          this.showAlert("ERROR", "Opción no disponible, consulte con su coperativa");
+        }else {
+          let modal = this.modalCtrl.create('ModalDatosCambiarPage');
+          modal.present();
+        }
+      }
+     },
+     (err) => {
+      this.showAlert("ERROR", JSON.stringify(err, null, 4));
+     }
+   )
   }
 
 }

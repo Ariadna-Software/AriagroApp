@@ -91,6 +91,10 @@ export class AriagroDataProvider {
     return this.http.get(url + '/api/campos/buscar/clasificacion/albaran/' + numalbar + '/' +campanya);
   }
 
+  comprobarHost(url): any {
+    return this.http.get(url + '/api/mensajes/buscar/host');
+  }
+
   putMensajeUsuario(url, usuarioPushId, mensajeId, fecha): any {
     var data = {
       usuarioPushId: usuarioPushId,

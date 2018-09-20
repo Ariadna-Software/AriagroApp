@@ -77,10 +77,10 @@ export class MensajesEnviarPage {
           this.showExito("", "Mensaje enviado con exito");
         
       },
-      (error) =>{
+      (err) =>{
         loading.dismiss();
-        if (error) {
-            this.showAlert("ERROR", JSON.stringify(error, null, 4));
+        if (err) {
+            this.showAlert("ERROR", JSON.stringify(err.error, null, 4));
             
         } else {
           this.showAlert("ERROR", "Error de conexión. Revise disponibilidad de datos y/o configuración");

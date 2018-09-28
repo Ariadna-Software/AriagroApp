@@ -27,6 +27,8 @@ export class ModalDatosCambiarPage {
     provincia: "",
     telefono1: "",
     telefono2: "",
+    telefono3: "",
+    movil: "",
     email: "",
     iban: ""
   };

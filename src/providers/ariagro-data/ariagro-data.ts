@@ -160,4 +160,16 @@ enviarCorreoFactu(url, numfactu, email, ruta, coop, codtipom): any {
   };
   return this.http.post(url + '/api/anticipos-liquidaciones/enviar/correo/ant-liq', data);
 }
+
+prepararCorreoFactuGasol(url, fecfactu, numfactu, letraser, informe, codclien): any {
+  var data = {
+    fecfactu: fecfactu,
+    numfactu: numfactu,
+    letraser: letraser,
+    informe: informe,
+    codclien: codclien
+};
+return this.http.post(url + '/api/facturas/gasolinera/correo', data);
+}
+
 }

@@ -108,6 +108,7 @@ export class FacturasPage {
             f.bases = numeral(f.bases).format('0,0.00');
             f.cuotas = numeral(f.cuotas).format('0,0.00');
             f.totalfac = numeral(f.totalfac).format('0,0.00');
+            
             f.lineas.forEach(l => {
               l.cantidad = numeral(l.cantidad).format('0,0.00');
               l.importel = numeral(l.importel).format('0,0.00');
@@ -157,6 +158,7 @@ export class FacturasPage {
             f.bases = numeral(f.bases).format('0,0.00');
             f.cuotas = numeral(f.cuotas).format('0,0.00');
             f.totalfac = numeral(f.totalfac).format('0,0.00');
+            f.year = this.selectedYear;
             f.lineas.forEach(l => {
               l.fecalbar = moment(l.fecalbar).format('DD/MM/YYYY');
               l.cantidad = numeral(l.cantidad).format('0,0.00');

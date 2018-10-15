@@ -173,7 +173,7 @@ export class FacturasGasolineraDetallePage {
   }
 
   enviarCorreo(ruta): void {
-    this.ariagroData.enviarCorreoFactu(this.settings.parametros.url, this.anticipo.numfactu, this.correo, ruta, this.campanya.nomempre, this.anticipo.codtipom)
+    /*this.ariagroData.enviarCorreoFactu(this.settings.parametros.url, this.anticipo.numfactu, this.correo, ruta, this.campanya.nomempre, this.anticipo.codtipom)
       .subscribe(
         (data) => {
           this.loading.dismiss();
@@ -188,7 +188,7 @@ export class FacturasGasolineraDetallePage {
           this.showAlert("ERROR", JSON.stringify(error, null, 4));
           this.loading.dismiss();
         }
-      );
+      );*/
   }
 
   goHome(): any {

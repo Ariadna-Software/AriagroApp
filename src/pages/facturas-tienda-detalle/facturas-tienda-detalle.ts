@@ -172,7 +172,7 @@ export class FacturasTiendaDetallePage {
   }
 
   enviarCorreo(ruta): void {
-    /*this.ariagroData.enviarCorreoFactu(this.settings.parametros.url, this.anticipo.numfactu, this.correo, ruta, this.campanya.nomempre, this.anticipo.codtipom)
+    this.ariagroData.enviarCorreoFactuTienda(this.settings.parametros.url, this.factura.numfactuSin, this.correo, ruta, this.campanya.nomempre, this.factura.codtipom)
       .subscribe(
         (data) => {
           this.loading.dismiss();
@@ -187,7 +187,7 @@ export class FacturasTiendaDetallePage {
           this.showAlert("ERROR", JSON.stringify(error, null, 4));
           this.loading.dismiss();
         }
-      );*/
+      );
   }
 
   goHome(): any {

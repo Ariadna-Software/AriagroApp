@@ -82,7 +82,7 @@ export class LoginPage {
               this.showAlert("AVISO", "Usuario o contraseña incorrectos");
             } else {
               if(error.status == 0){
-                error = "Fallo de conexion"
+                error = "Conexión no disponible. Verifique que dispone de conexión con Internet y su número de cooperativa es correcto en los parámetros"
               }
               this.showAlert("ERROR", JSON.stringify(error, null, 4));
             }

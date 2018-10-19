@@ -172,17 +172,6 @@ prepararCorreoFactuGasol(url, fecfactu, numfactu, letraser, informe, codclien): 
 return this.http.post(url + '/api/facturas/gasolinera/correo', data);
 }
 
-enviarCorreoFactuGasol(url, numfactu, email, ruta, coop, codtipom): any {
-  var data = {
-    numfactu: numfactu,
-    email: email,
-    ruta: ruta,
-    coop: coop,
-    codtipom: codtipom
-  };
-  return this.http.post(url + '/api/facturas/enviar/correo/tienda/venta', data);
-}
-
 prepararCorreoFactuTienda(url, fecfactu, numfactu, letraser, informe, codclien): any {
   var data = {
     fecfactu: fecfactu,
@@ -194,7 +183,7 @@ prepararCorreoFactuTienda(url, fecfactu, numfactu, letraser, informe, codclien):
 return this.http.post(url + '/api/facturas/tienda/correo/esto', data);
 }
 
-enviarCorreoFactuTienda(url, numfactu, email, ruta, coop, codtipom): any {
+enviarCorreoFactuComun(url, numfactu, email, ruta, coop, codtipom): any {
   var data = {
     numfactu: numfactu,
     email: email,
@@ -202,7 +191,7 @@ enviarCorreoFactuTienda(url, numfactu, email, ruta, coop, codtipom): any {
     coop: coop,
     codtipom: codtipom
   };
-  return this.http.post(url + '/api/facturas/enviar/correo/tienda/venta', data);
+  return this.http.post(url + '/api/facturas/enviar/correo/comun', data);
 }
 
 

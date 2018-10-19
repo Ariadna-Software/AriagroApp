@@ -173,7 +173,7 @@ export class FacturasGasolineraDetallePage {
   }
 
   enviarCorreo(ruta): void {
-    this.ariagroData.enviarCorreoFactuGasol(this.settings.parametros.url, this.factura.numfactuSin, this.correo, ruta, this.campanya.nomempre, this.factura.codtipom)
+    this.ariagroData.enviarCorreoFactuComun(this.settings.parametros.url, this.factura.numfactuSin, this.correo, ruta, this.campanya.nomempre, 'gasolinera')
       .subscribe(
         (data) => {
           this.loading.dismiss();

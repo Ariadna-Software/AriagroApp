@@ -81,6 +81,9 @@ export class LoginPage {
             if (error.status == 404) {
               this.showAlert("AVISO", "Usuario o contraseña incorrectos");
             } else {
+              if(error.status == 0){
+                error = "Fallo de conexion"
+              }
               this.showAlert("ERROR", JSON.stringify(error, null, 4));
             }
           }

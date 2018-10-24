@@ -20,7 +20,7 @@ export class FacturasGasolineraPage {
   facturas: any = [];
   numfacturas: number = 0;
 
-  constructor(public navCtrl: NavController,  public appVersion: AppVersion, public navParams: NavParams,
+  constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider,  public appVersion: AppVersion, public navParams: NavParams,
     public alertCrtl: AlertController, public viewCtrl: ViewController,
     public ariagroData: AriagroDataProvider, public localData: LocalDataProvider) {
 

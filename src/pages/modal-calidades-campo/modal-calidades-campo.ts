@@ -19,7 +19,7 @@ export class ModalCalidadesCampoPage {
   campo: any = {};
   calidades: any = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,
+  constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider, public navParams: NavParams, public viewCtrl: ViewController,
      public localData: LocalDataProvider, public alertCrtl: AlertController, public loadingCtrl: LoadingController, 
      public ariagroData: AriagroDataProvider) {
   }

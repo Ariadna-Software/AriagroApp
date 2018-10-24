@@ -16,8 +16,8 @@ export class CampanyasPage {
   version: string = "ARIAGRO APP V2";
   campanyas: any = [];
 
-  constructor(public navCtrl: NavController,  public appVersion: AppVersion, public navParams: NavParams,
-    public alertCrtl: AlertController, public viewCtrl: ViewController,public msg: AriagroMsgProvider,
+  constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider,  public appVersion: AppVersion, public navParams: NavParams,
+    public alertCrtl: AlertController, public viewCtrl: ViewController,
     public ariagroData: AriagroDataProvider, public localData: LocalDataProvider) {
   }
 
@@ -32,7 +32,7 @@ export class CampanyasPage {
               this.cargarCampanyas(data);
             },
             (error) => {
-              this.showAlert("ERROR", JSON.stringify(error, null, 4));
+              this.msg.showAlert(error);
             }
           );
       } else {

@@ -20,7 +20,7 @@ export class HomePage {
   mensajes: any = [];
   numNoLeidos: number = 0;
   version: string = "ARIAGRO APP V2";
-  constructor(public navCtrl: NavController, public navParams: NavParams, public plt: Platform,
+  constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider, public navParams: NavParams, public plt: Platform,
     public alertCrtl: AlertController, public ariagroData: AriagroDataProvider, public localData: LocalDataProvider,
     public loadingCtrl: LoadingController, public appVersion: AppVersion, public oneSignal: OneSignal) {
 

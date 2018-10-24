@@ -16,19 +16,12 @@ export class AriagroMsgProvider {
   }
 
   showAlert(error): void {
-    var title;
-    var subtitle;
-    if(error.status == 404) {
-      title = "AVISO";
-      subtitle = "Recurso no encontrado";
-    }
-    else if(error.status == 0) {
+      var title = "ERROR";
+      var subtitle =  JSON.stringify(error, null, 4);
+    if(error.status == 0) {
       title = "ERROR"
       subtitle = "Fallo al conectar al servidor, reintente operación o revise su conexion"
-    } else {
-      title = "ERROR";
-      subtitle =  JSON.stringify(error, null, 4);
-    }
+    } 
     let alert = this.alertCrtl.create({
       title: title,
       subTitle: subtitle,

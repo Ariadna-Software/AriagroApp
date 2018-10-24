@@ -28,7 +28,7 @@ export class MensajesEnviarPage {
   submitAttempt: boolean = false;
 
 
-  constructor(public navCtrl: NavController,  public appVersion: AppVersion, public navParams: NavParams,
+  constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider,  public appVersion: AppVersion, public navParams: NavParams,
     public alertCrtl: AlertController, public viewCtrl: ViewController, public loadingCtrl: LoadingController,
     public ariagroData: AriagroDataProvider, public localData: LocalDataProvider, public formBuilder: FormBuilder) {
 

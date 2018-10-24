@@ -22,8 +22,8 @@ export class LoginPage {
   password: string = "";
   nombreCooperativa: string = "LA COOPPP";
 
-  constructor(public navCtrl: NavController,  public appVersion: AppVersion, public navParams: NavParams, public plt: Platform, public loadingCtrl: LoadingController,
-    public formBuilder: FormBuilder, public viewCtrl: ViewController, public msg: AriagroMsgProvider,
+  constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider, public appVersion: AppVersion, public navParams: NavParams, public plt: Platform, public loadingCtrl: LoadingController,
+    public formBuilder: FormBuilder, public viewCtrl: ViewController,
     public ariagroData: AriagroDataProvider, public localData: LocalDataProvider, public oneSignal: OneSignal) {
     this.loginForm = formBuilder.group({
       login: ['', Validators.compose([Validators.required])],

@@ -31,7 +31,7 @@ export class ModalDatosCambiarPage {
     iban: ""
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider, public navParams: NavParams,
     public alertCrtl: AlertController, public viewCtrl: ViewController,
     public ariagroData: AriagroDataProvider, public localData: LocalDataProvider, public modalCtrl: ModalController, 
   public loadingCtrl: LoadingController) {

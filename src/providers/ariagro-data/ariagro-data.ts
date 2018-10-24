@@ -33,7 +33,7 @@ export class AriagroDataProvider {
 
 
   getCampanyaActual(url): any {
-    return this.http.get(url + '/api/campanyas/actual');
+    return this.http.get(url + '/api/campanyas/aual');
   }
 
   getCampos(url, socio, campanya): any {

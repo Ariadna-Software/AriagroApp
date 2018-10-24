@@ -21,7 +21,7 @@ export class FacturasTiendaDetallePage {
   correo: any;
   loading: any;
 
-  constructor(public navCtrl: NavController,  public appVersion: AppVersion, public navParams: NavParams, public loadingCtrl: LoadingController,
+  constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider,  public appVersion: AppVersion, public navParams: NavParams, public loadingCtrl: LoadingController,
     public alertCrtl: AlertController, public viewCtrl: ViewController,
     public ariagroData: AriagroDataProvider, public localData: LocalDataProvider) {
 

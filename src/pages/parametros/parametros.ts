@@ -18,7 +18,7 @@ export class ParametrosPage {
   submitAttempt: boolean = false;
   numeroCooperativa: string = "";
 
-  constructor(public navCtrl: NavController,  public appVersion: AppVersion, public navParams: NavParams,
+  constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider,  public appVersion: AppVersion, public navParams: NavParams,
     public formBuilder: FormBuilder, public alertCrtl: AlertController, public viewCtrl: ViewController,
     public ariagroData: AriagroDataProvider, public localData: LocalDataProvider) {
     this.parametrosForm = formBuilder.group({

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { AppVersion } from '@ionic-native/app-version';
-import { IonicPage, NavController, NavParams, AlertController, Platform, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, LoadingController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
+import { AriagroMsgProvider } from '../../providers/ariagro-msg/ariagro-msg';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
 import { ViewController } from 'ionic-angular';
 import { OneSignal } from '@ionic-native/onesignal';
@@ -22,7 +23,7 @@ export class LoginPage {
   nombreCooperativa: string = "LA COOPPP";
 
   constructor(public navCtrl: NavController,  public appVersion: AppVersion, public navParams: NavParams, public plt: Platform, public loadingCtrl: LoadingController,
-    public formBuilder: FormBuilder, public alertCrtl: AlertController, public viewCtrl: ViewController,
+    public formBuilder: FormBuilder, public viewCtrl: ViewController, public msg: AriagroMsgProvider,
     public ariagroData: AriagroDataProvider, public localData: LocalDataProvider, public oneSignal: OneSignal) {
     this.loginForm = formBuilder.group({
       login: ['', Validators.compose([Validators.required])],
@@ -54,44 +55,39 @@ export class LoginPage {
   }
 
   doLogin(): void {
+    
     this.submitAttempt = true;
     if (this.loginForm.valid) {
       this.ariagroData.login(this.settings.parametros.url, this.login, this.password)
         .subscribe(
           (data) => {
+            console.log('datos:' + data)
             this.settings.user = data;
             this.ariagroData.getCampanyaActual(this.settings.parametros.url)
             .subscribe(
               (data) => {
+               
+                console.log('data:' + data);
                 this.settings.campanya = data[0];
                 this.localData.saveSettings(this.settings);
                 this.pushUser(this.settings.user);
                 this.navCtrl.setRoot('HomePage');
               },
               (error) => {
-                if (error.status == 404) {
-                  this.showAlert("AVISO", "Usuario o contraseña incorrectos");
-                } else {
-                  this.showAlert("ERROR", JSON.stringify(error, null, 4));
-                }
+                
+                this.msg.showAlert(error);
               }
             );
           },
           (error) => {
-            if (error.status == 404) {
-              this.showAlert("AVISO", "Usuario o contraseña incorrectos");
-            } else {
-              if(error.status == 0){
-                error = "Conexión no disponible. Verifique que dispone de conexión con Internet y su número de cooperativa es correcto en los parámetros"
-              }
-              this.showAlert("ERROR", JSON.stringify(error, null, 4));
-            }
+            console.log('error:' + error);
+            this.msg.showErrorLogin()
           }
         );
     }
   }
 
-
+  
 
   pushUser(user) {
     this.plt.ready().then(() => {
@@ -129,9 +125,7 @@ export class LoginPage {
                 }
               },
                 (error) => {
-                  if (error.status == 404) {
-                    this.showAlert("AVISO", "Usuario o contraseña incorrectos");
-                  } 
+                  this.msg.showAlert(error);
                 });
               this.oneSignal.endInit();
             } catch (e) {
@@ -142,8 +136,7 @@ export class LoginPage {
           (err) => {
             loading.dismiss();
             if (err) {
-              var msg = err || err.message;
-              this.showAlert("ERROR", msg);
+              this.msg.showAlert(err);
             }
           });
     });
@@ -157,16 +150,4 @@ export class LoginPage {
   goHome(): any {
     this.navCtrl.setRoot('HomePage');
   }
-
-  showAlert(title, subTitle): void {
-    let alert = this.alertCrtl.create({
-      title: title,
-      subTitle: subTitle,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
-
-
 }

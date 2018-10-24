@@ -13,6 +13,7 @@ import { LocalDataProvider } from '../providers/local-data/local-data';
 
 import {OneSignal} from '@ionic-native/onesignal';
 import { AppVersion } from '@ionic-native/app-version';
+import { AriagroMsgProvider } from '../providers/ariagro-msg/ariagro-msg';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { AppVersion } from '@ionic-native/app-version';
     AriagroDataProvider,
     LocalDataProvider,
     OneSignal,
-    AppVersion
+    AppVersion,
+    AriagroMsgProvider
   ]
 })
 export class AppModule {}

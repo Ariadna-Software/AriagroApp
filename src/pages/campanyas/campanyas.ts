@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AppVersion } from '@ionic-native/app-version';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
+import { AriagroMsgProvider } from '../../providers/ariagro-msg/ariagro-msg';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
 import { ViewController } from 'ionic-angular';
 
@@ -16,7 +17,7 @@ export class CampanyasPage {
   campanyas: any = [];
 
   constructor(public navCtrl: NavController,  public appVersion: AppVersion, public navParams: NavParams,
-    public alertCrtl: AlertController, public viewCtrl: ViewController,
+    public alertCrtl: AlertController, public viewCtrl: ViewController,public msg: AriagroMsgProvider,
     public ariagroData: AriagroDataProvider, public localData: LocalDataProvider) {
   }
 

@@ -36,11 +36,7 @@ export class DatosPage {
               
             },
             (error) => {
-              if (error.status == 404) {
-                this.showAlert("AVISO", "Usuario o contraseña incorrectos");
-              } else {
-                this.showAlert("ERROR", JSON.stringify(error, null, 4));
-              }
+                this.msg.showAlert(error);
             }
           );
         } else {
@@ -90,7 +86,7 @@ export class DatosPage {
       }
      },
      (err) => {
-      this.showAlert("ERROR", JSON.stringify(err, null, 4));
+      this.msg.showAlert(err);
      }
    )
   }

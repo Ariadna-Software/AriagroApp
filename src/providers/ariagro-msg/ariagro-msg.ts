@@ -30,9 +30,13 @@ export class AriagroMsgProvider {
     alert.present();
   }
 
-  showErrorLogin() {
+  showErrorLogin(error) {
     var title = "AVISO";
     var subtitle = "Usuario o contraseña incorrectos";
+    if(error.status == 0) {
+      title = "ERROR"
+      subtitle = "Fallo al conectar al servidor, reintente operación o revise su conexion"
+    } 
     let alert = this.alertCrtl.create({
       title: title,
       subTitle: subtitle,
@@ -40,4 +44,5 @@ export class AriagroMsgProvider {
     });
     alert.present();
   }
+  
 }

@@ -56,15 +56,6 @@ export class CampanyasPage {
     this.navCtrl.setRoot('HomePage');
   }
 
-  showAlert(title, subTitle): void {
-    let alert = this.alertCrtl.create({
-      title: title,
-      subTitle: subTitle,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
   cargarCampanyas(campanyas): void {
    
     campanyas.forEach(c => this.campanyas.push(c));

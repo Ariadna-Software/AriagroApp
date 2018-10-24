@@ -80,8 +80,7 @@ export class LoginPage {
             );
           },
           (error) => {
-            console.log('error:' + error);
-            this.msg.showErrorLogin()
+            this.msg.showErrorLogin(error)
           }
         );
     }

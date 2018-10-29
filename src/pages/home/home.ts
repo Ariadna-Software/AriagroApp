@@ -78,7 +78,7 @@ export class HomePage {
           }
         },
         (error) => {
-          this.showAlert("ERROR", JSON.stringify(error, null, 4));
+          this.msg.showAlert(error);
         }
       );
   }
@@ -104,7 +104,7 @@ export class HomePage {
                 });
                 },
                 (error) => {
-                  this.showAlert("ERROR", JSON.stringify(error, null, 4));
+                  this.msg.showAlert(error);
                 });
         });
 
@@ -131,8 +131,7 @@ export class HomePage {
                 this.settings.user = data;
               },
                 (err) => {
-                  var msg = err || err.message;
-                  this.showAlert("ERROR", msg);
+                  this.msg.showAlert(err);
                 });
           }
         },

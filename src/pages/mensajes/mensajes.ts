@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AppVersion } from '@ionic-native/app-version';
-import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data'; import { AriagroMsgProvider } from '../../providers/ariagro-msg/ariagro-msg';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
 import { ViewController } from 'ionic-angular';
@@ -21,7 +21,7 @@ export class MensajesPage {
   mensajes: any = [];
 
   constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider,  public appVersion: AppVersion, public navParams: NavParams,
-    public alertCrtl: AlertController, public viewCtrl: ViewController, public loadingCtrl: LoadingController,
+    public viewCtrl: ViewController, public loadingCtrl: LoadingController,
     public ariagroData: AriagroDataProvider, public localData: LocalDataProvider) {
   }
 
@@ -70,21 +70,12 @@ export class MensajesPage {
       },
       (error) => {
         loading.dismiss();
-        this.showAlert("ERROR", JSON.stringify(error, null, 4));
+        this.msg.showAlert(error);
       }
     );
   }
 
-  showAlert(title, subTitle): void {
-    let alert = this.alertCrtl.create({
-      title: title,
-      subTitle: subTitle,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
-
+  
 
   goMensajeDetalle(mensaje): void {
     this.navCtrl.push('MensajesDetallePage', {

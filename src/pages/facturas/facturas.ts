@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { AppVersion } from '@ionic-native/app-version';
-import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
-import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data'; import { AriagroMsgProvider } from '../../providers/ariagro-msg/ariagro-msg';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data'; 
+import { AriagroMsgProvider } from '../../providers/ariagro-msg/ariagro-msg';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
 import { ViewController } from 'ionic-angular';
 import * as numeral from 'numeral';
@@ -35,7 +36,7 @@ export class FacturasPage {
 
 
   constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider,  public appVersion: AppVersion, public navParams: NavParams,
-    public alertCrtl: AlertController, public viewCtrl: ViewController, public loadingCtrl: LoadingController,
+    public viewCtrl: ViewController, public loadingCtrl: LoadingController,
     public ariagroData: AriagroDataProvider, public localData: LocalDataProvider) {
   }
 
@@ -69,15 +70,6 @@ export class FacturasPage {
 
   goHome(): any {
     this.navCtrl.setRoot('HomePage');
-  }
-
-  showAlert(title, subTitle): void {
-    let alert = this.alertCrtl.create({
-      title: title,
-      subTitle: subTitle,
-      buttons: ['OK']
-    });
-    alert.present();
   }
 
   generateYears(): void {
@@ -120,7 +112,7 @@ export class FacturasPage {
           this.numFacturasTienda = data.length;
         },
         (error) => {
-          this.showAlert("ERROR", JSON.stringify(error, null, 4));
+          this.msg.showAlert(error);
         }
       );
   }
@@ -144,7 +136,7 @@ export class FacturasPage {
           this.numFacturasTelefonia = data.length;
         },
         (error) => {
-          this.showAlert("ERROR", JSON.stringify(error, null, 4));
+          this.msg.showAlert(error);
         }
       );
   }
@@ -170,7 +162,7 @@ export class FacturasPage {
           this.numFacturasGasolinera = data.length;
         },
         (error) => {
-          this.showAlert("ERROR", JSON.stringify(error, null, 4));
+          this.msg.showAlert(error);
         }
       );
   }
@@ -213,7 +205,7 @@ export class FacturasPage {
         },
         (error) => {
           
-          this.showAlert("ERROR", JSON.stringify(error, null, 4));
+          this.msg.showAlert(error);
         }
       );
   }
@@ -238,7 +230,7 @@ export class FacturasPage {
         },
         (error) => {
           
-          this.showAlert("ERROR", JSON.stringify(error, null, 4));
+          this.msg.showAlert(error);
         }
       );
   }

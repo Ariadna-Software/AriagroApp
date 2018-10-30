@@ -110,7 +110,7 @@ export class ModalDatosCambiarPage {
                   (error)=>{
                     loading.dismiss();
                   if (error) {
-                    this.showAlert("ERROR", JSON.stringify(error, null, 4));
+                    this.msg.showAlert(error);
                   } else {
                     this.showAlert("ERROR", "Error de conexión. Revise disponibilidad de datos y/o configuración");
                   }

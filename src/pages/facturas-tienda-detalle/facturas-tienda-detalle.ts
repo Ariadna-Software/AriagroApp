@@ -50,7 +50,7 @@ export class FacturasTiendaDetallePage {
             if (error.status == 404) {
               this.showAlert("AVISO", "Usuario o contraseña incorrectos");
             } else {
-              this.showAlert("ERROR", JSON.stringify(error, null, 4));
+              this.msg.showAlert(error);
             }
           }
         );
@@ -156,7 +156,7 @@ export class FacturasTiendaDetallePage {
                   this.enviarCorreo(data);
                 },
                 (error) => {
-                  this.showAlert("ERROR", JSON.stringify(error, null, 4));
+                  this.msg.showAlert(error);
                   this.loading.dismiss();
                 }
               );
@@ -184,7 +184,7 @@ export class FacturasTiendaDetallePage {
           
         },
         (error) => {
-          this.showAlert("ERROR", JSON.stringify(error, null, 4));
+          this.msg.showAlert(error);
           this.loading.dismiss();
         }
       );

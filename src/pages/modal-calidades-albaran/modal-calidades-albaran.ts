@@ -53,7 +53,7 @@ export class ModalCalidadesAlbaranPage {
             if (error.status == 404) {
               this.showAlert("AVISO", "Usuario o contraseña incorrectos");
             } else {
-              this.showAlert("ERROR", JSON.stringify(error, null, 4));
+              this.msg.showAlert(error);
             }
           }
         );
@@ -102,7 +102,7 @@ export class ModalCalidadesAlbaranPage {
       },
       (error) => {
         loading.dismiss();
-        this.showAlert("ERROR", JSON.stringify(error, null, 4));
+        this.msg.showAlert(error);
       }
     );
   }
@@ -166,7 +166,7 @@ export class ModalCalidadesAlbaranPage {
           
         },
         (error) => {
-          this.showAlert("ERROR", JSON.stringify(error, null, 4));
+          this.msg.showAlert(error);
           this.loading.dismiss();
         }
       );
@@ -205,7 +205,7 @@ export class ModalCalidadesAlbaranPage {
                   this.enviarCorreo(data);
                 },
                 (error) => {
-                  this.showAlert("ERROR", JSON.stringify(error, null, 4));
+                  this.msg.showAlert(error);
                   this.loading.dismiss();
                 }
               );

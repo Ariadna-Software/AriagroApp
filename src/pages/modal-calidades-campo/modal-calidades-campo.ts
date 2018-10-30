@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, AlertController, LoadingController  } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, LoadingController  } from 'ionic-angular';
 import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data'; import { AriagroMsgProvider } from '../../providers/ariagro-msg/ariagro-msg';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
 import * as numeral from 'numeral';
@@ -20,7 +20,7 @@ export class ModalCalidadesCampoPage {
   calidades: any = [];
 
   constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider, public navParams: NavParams, public viewCtrl: ViewController,
-     public localData: LocalDataProvider, public alertCrtl: AlertController, public loadingCtrl: LoadingController, 
+     public localData: LocalDataProvider,  public loadingCtrl: LoadingController, 
      public ariagroData: AriagroDataProvider) {
   }
 
@@ -51,7 +51,7 @@ export class ModalCalidadesCampoPage {
       },
       (error) => {
         loading.dismiss();
-        this.showAlert("ERROR", JSON.stringify(error, null, 4));
+        this.msg.showAlert(error);
       }
     );
   }
@@ -67,14 +67,7 @@ export class ModalCalidadesCampoPage {
     return calidades;
   }
 
-  showAlert(title, subTitle): void {
-    let alert = this.alertCrtl.create({
-      title: title,
-      subTitle: subTitle,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
+  
 
   dismiss(): void {
     this.viewCtrl.dismiss();

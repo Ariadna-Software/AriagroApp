@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { AppVersion } from '@ionic-native/app-version';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data'; import { AriagroMsgProvider } from '../../providers/ariagro-msg/ariagro-msg';
+import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data'; 
+import { AriagroMsgProvider } from '../../providers/ariagro-msg/ariagro-msg';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
 import { ViewController } from 'ionic-angular';
 import * as numeral from 'numeral';
@@ -20,7 +21,7 @@ export class AnticiposPage {
   anticipos: any = [];
 
   constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider,  public appVersion: AppVersion, public navParams: NavParams,
-    public alertCrtl: AlertController, public viewCtrl: ViewController,
+    public viewCtrl: ViewController,
     public ariagroData: AriagroDataProvider, public localData: LocalDataProvider) {
   }
 
@@ -37,7 +38,7 @@ export class AnticiposPage {
               this.cargarAnticipos(data);
             },
             (error) => {
-              this.showAlert("ERROR", JSON.stringify(error, null, 4));
+              this.msg.showAlert(error);
             }
           );
       } else {
@@ -77,14 +78,7 @@ export class AnticiposPage {
     this.navCtrl.setRoot('HomePage');
   }
 
-  showAlert(title, subTitle): void {
-    let alert = this.alertCrtl.create({
-      title: title,
-      subTitle: subTitle,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
+  
 
   goAnticipo(anticipo): void {
     this.navCtrl.push('AnticiposDetallePage',{

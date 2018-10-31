@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, AlertController, ModalController, LoadingController } from 'ionic-angular';
-import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data'; import { AriagroMsgProvider } from '../../providers/ariagro-msg/ariagro-msg';
+import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
+import { AriagroMsgProvider } from '../../providers/ariagro-msg/ariagro-msg';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
 
 
@@ -117,17 +118,10 @@ export class ModalDatosCambiarPage {
                 });
 
             } else {
-              this.showAlert("", "No se ha cambiado ningún dato");
+              this.msg.showErrorPersoinalizado("", "No se ha cambiado ningún dato");
             }
   }
-  showAlert(title, subTitle): void {
-    let alert = this.alertCrtl.create({
-      title: title,
-      subTitle: subTitle,
-      buttons: ['OK'],
-    });
-    alert.present();
-  }
+ 
     
   showExito(title, subTitle): void {
     let alert = this.alertCrtl.create({

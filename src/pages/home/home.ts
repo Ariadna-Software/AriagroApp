@@ -137,7 +137,7 @@ export class HomePage {
         },
           (error) => {
             if (error.status == 404) {
-              this.showAlert("AVISO", "Usuario o contrase�a incorrectos");
+              this.msg.showErrorLogin(error);
             }
           });
         this.oneSignal.endInit();

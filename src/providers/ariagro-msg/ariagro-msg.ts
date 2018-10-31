@@ -31,12 +31,25 @@ export class AriagroMsgProvider {
   }
 
   showErrorLogin(error) {
-    var title = "AVISO";
-    var subtitle = "Usuario o contraseña incorrectos";
+    var title = "ERROR";
+    var subtitle =  JSON.stringify(error, null, 4);
+    if (error.status == 404) {
+      title = "AVISO";
+      subtitle = "Usuario o contraseña incorrectos";  
+    }
     if(error.status == 0) {
       title = "ERROR"
       subtitle = "Fallo al conectar al servidor, reintente operación o revise su conexion"
     } 
+    let alert = this.alertCrtl.create({
+      title: title,
+      subTitle: subtitle,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  showErrorPersoinalizado(title, subtitle) {
     let alert = this.alertCrtl.create({
       title: title,
       subTitle: subtitle,

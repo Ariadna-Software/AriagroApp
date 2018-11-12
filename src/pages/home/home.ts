@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, LoadingController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, Platform } from 'ionic-angular';
 import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data'; import { AriagroMsgProvider } from '../../providers/ariagro-msg/ariagro-msg';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
 import { OneSignal } from '@ionic-native/onesignal';
@@ -21,7 +21,7 @@ export class HomePage {
   numNoLeidos: number = 0;
   version: string = "ARIAGRO APP V2";
   constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider, public navParams: NavParams, public plt: Platform,
-    public alertCrtl: AlertController, public ariagroData: AriagroDataProvider, public localData: LocalDataProvider,
+     public ariagroData: AriagroDataProvider, public localData: LocalDataProvider,
     public loadingCtrl: LoadingController, public appVersion: AppVersion, public oneSignal: OneSignal) {
 
   }
@@ -136,9 +136,9 @@ export class HomePage {
           }
         },
           (error) => {
-            if (error.status == 404) {
+           
               this.msg.showErrorLogin(error);
-            }
+            
           });
         this.oneSignal.endInit();
       } catch (e) {
@@ -147,17 +147,7 @@ export class HomePage {
     });
   }
 
-
-  showAlert(title, subTitle): void {
-    let alert = this.alertCrtl.create({
-      title: title,
-      subTitle: subTitle,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
-  mostrarAlert(jsonData) {
+  /*mostrarAlert(jsonData) {
     let alert = this.alertCrtl.create({
       title: 'Ha recibido un mensaje',
       buttons: [
@@ -179,14 +169,14 @@ export class HomePage {
                 });
               },
                 (error) => {
-                  this.showAlert("ERROR", JSON.stringify(error, null, 4));
+                  this.msg.showAlert(error);
                 });
           }
         }
       ]
     });
     alert.present();
-  }
+  }*/
 
   goLogin(): void {
     this.navCtrl.push('LoginPage');

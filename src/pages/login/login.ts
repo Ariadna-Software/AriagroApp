@@ -70,7 +70,7 @@ export class LoginPage {
                 console.log('data:' + data);
                 this.settings.campanya = data[0];
                 this.localData.saveSettings(this.settings);
-                this.pushUser(this.settings.user);
+                this.pushUser();
                 this.navCtrl.setRoot('HomePage');
               },
               (error) => {
@@ -88,7 +88,7 @@ export class LoginPage {
 
   
 
-  pushUser(user) {
+  pushUser() {
     this.plt.ready().then(() => {
       // obtener los parámetros
       let loading = this.loadingCtrl.create({ content: 'Buscando mensajes...' });

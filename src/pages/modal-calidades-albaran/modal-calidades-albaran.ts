@@ -109,7 +109,21 @@ export class ModalCalidadesAlbaranPage {
     var contador = 1;
     incidencias.forEach(a => {
         a.contador = contador++;
-      });
+        switch(a.tipincid) {
+          case 0:
+            a.tipincid = "Leve";
+            break;
+          case 1: 
+            a.tipincid = "Grave";
+            break;
+          case 2: 
+            a.tipincid = "Muy Grave";
+            break;
+          default:
+            a.tipincid = "";
+            break;
+        }
+    });
     return incidencias;
   }
 

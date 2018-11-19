@@ -126,7 +126,7 @@ prepararCorreoClasif(url, numalbar,campanya, informe): any {
     campanya: campanya,
     informe: informe
 };
-return this.http.post(url + '/api/mensajes/preparar-correo/clasif', data);
+return this.http.post(url + '/api/campos/preparar-correo/clasif', data);
 }
 
 enviarCorreoClasif(url, numalbar, email, ruta, coop): any {
@@ -136,7 +136,7 @@ enviarCorreoClasif(url, numalbar, email, ruta, coop): any {
     ruta: ruta,
     coop: coop
   };
-  return this.http.post(url + '/api/mensajes/enviar/correo/clasif', data);
+  return this.http.post(url + '/api/campos/enviar/correo/clasif', data);
 }
 
 prepararCorreoFactu(url, campanya, numfactu, informe, codtipom, servidor): any {

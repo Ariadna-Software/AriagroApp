@@ -102,7 +102,7 @@ export class FacturasGasolineraDetallePage {
       var emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
    
       if (emailRegex.test(this.correo)) {
-        mens = 'Este es el correo al cual se va a enviar la clasificación. Puede introducir otro.';
+        mens = 'Este es el correo al cual se va a enviar la factura. Puede introducir otro.';
       } else {
         mens = 'Correo incorrecto, introduzca un correo.';
       }

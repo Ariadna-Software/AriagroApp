@@ -203,8 +203,22 @@ export class FacturasPage {
            
             this.facturasTratamientos = data;
             this.numFacturasTratamientos = data.length;
+          }  else {
+            data.forEach(f => {
+              f.fecfactu = moment(f.fecfactu).format('DD/MM/YYYY');
+              f.bases = numeral(f.bases).format('0,0.00');
+              f.cuotas = numeral(f.cuotas).format('0,0.00');
+              f.totalfac = numeral(f.totalfac).format('0,0.00');
+              f.lineas.forEach(l => {
+                l.cantidad = numeral(l.cantidad).format('0,0.00');
+                l.importel = numeral(l.importel).format('0,0.00');
+                l.precioar = numeral(l.precioar).format('0,0.00');
+              });
+            });
+
+            this.facturasTratamientos = data;
+            this.numFacturasTratamientos = data.length;
           }
-         
         },
         (error) => {
           
@@ -214,7 +228,7 @@ export class FacturasPage {
   }
 
   getFacturasVarias(): void {
-    this.ariagroData.getFacturasVarias(this.settings.parametros.url, this.campanya.ariagro)
+    this.ariagroData.getFacturasVariasBis(this.settings.parametros.url, this.user.ariagroId,this.campanya.ariagro)
       .subscribe(
         (data) => {
           data.forEach(f => {

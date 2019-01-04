@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AppVersion } from '@ionic-native/app-version';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data'; import { AriagroMsgProvider } from '../../providers/ariagro-msg/ariagro-msg';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
 import { ViewController } from 'ionic-angular';
 
@@ -20,8 +20,8 @@ export class FacturasGasolineraPage {
   facturas: any = [];
   numfacturas: number = 0;
 
-  constructor(public navCtrl: NavController,  public appVersion: AppVersion, public navParams: NavParams,
-    public alertCrtl: AlertController, public viewCtrl: ViewController,
+  constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider,  public appVersion: AppVersion, public navParams: NavParams,
+     public viewCtrl: ViewController,
     public ariagroData: AriagroDataProvider, public localData: LocalDataProvider) {
 
   }
@@ -56,15 +56,7 @@ export class FacturasGasolineraPage {
     this.navCtrl.setRoot('HomePage');
   }
 
-  showAlert(title, subTitle): void {
-    let alert = this.alertCrtl.create({
-      title: title,
-      subTitle: subTitle,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
+ 
   goFacturaDetalle(factura): void {
     this.navCtrl.push('FacturasGasolineraDetallePage',{
       factura: factura

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { AppVersion } from '@ionic-native/app-version';
-import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
-import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data'; 
+import { AriagroMsgProvider } from '../../providers/ariagro-msg/ariagro-msg';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
 import { ViewController } from 'ionic-angular';
 import * as numeral from 'numeral';
@@ -34,8 +35,8 @@ export class FacturasPage {
 
 
 
-  constructor(public navCtrl: NavController,  public appVersion: AppVersion, public navParams: NavParams,
-    public alertCrtl: AlertController, public viewCtrl: ViewController, public loadingCtrl: LoadingController,
+  constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider,  public appVersion: AppVersion, public navParams: NavParams,
+    public viewCtrl: ViewController, public loadingCtrl: LoadingController,
     public ariagroData: AriagroDataProvider, public localData: LocalDataProvider) {
   }
 
@@ -71,15 +72,6 @@ export class FacturasPage {
     this.navCtrl.setRoot('HomePage');
   }
 
-  showAlert(title, subTitle): void {
-    let alert = this.alertCrtl.create({
-      title: title,
-      subTitle: subTitle,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
   generateYears(): void {
     this.years = [];
     let currentDate = new Date();
@@ -108,6 +100,7 @@ export class FacturasPage {
             f.bases = numeral(f.bases).format('0,0.00');
             f.cuotas = numeral(f.cuotas).format('0,0.00');
             f.totalfac = numeral(f.totalfac).format('0,0.00');
+            f.year = this.selectedYear;
             f.lineas.forEach(l => {
               l.cantidad = numeral(l.cantidad).format('0,0.00');
               l.importel = numeral(l.importel).format('0,0.00');
@@ -119,7 +112,7 @@ export class FacturasPage {
           this.numFacturasTienda = data.length;
         },
         (error) => {
-          this.showAlert("ERROR", JSON.stringify(error, null, 4));
+          this.msg.showAlert(error);
         }
       );
   }
@@ -143,7 +136,7 @@ export class FacturasPage {
           this.numFacturasTelefonia = data.length;
         },
         (error) => {
-          this.showAlert("ERROR", JSON.stringify(error, null, 4));
+          this.msg.showAlert(error);
         }
       );
   }
@@ -157,6 +150,7 @@ export class FacturasPage {
             f.bases = numeral(f.bases).format('0,0.00');
             f.cuotas = numeral(f.cuotas).format('0,0.00');
             f.totalfac = numeral(f.totalfac).format('0,0.00');
+            f.year = this.selectedYear;
             f.lineas.forEach(l => {
               l.fecalbar = moment(l.fecalbar).format('DD/MM/YYYY');
               l.cantidad = numeral(l.cantidad).format('0,0.00');
@@ -168,7 +162,7 @@ export class FacturasPage {
           this.numFacturasGasolinera = data.length;
         },
         (error) => {
-          this.showAlert("ERROR", JSON.stringify(error, null, 4));
+          this.msg.showAlert(error);
         }
       );
   }
@@ -177,41 +171,44 @@ export class FacturasPage {
     this.ariagroData.getFacturasTratamientos(this.settings.parametros.url, this.user.tratamientosId, this.selectedYear, this.user.ariagroId, this.campanya.ariagro)
       .subscribe(
         (data) => {
-          if(data[0].partes){
-            data.forEach(f => {
-              f.fecfactu = moment(f.fecfactu).format('DD/MM/YYYY');
-              f.bases = numeral(f.bases).format('0,0.00');
-              f.cuotas = numeral(f.cuotas).format('0,0.00');
-              f.totalfac = numeral(f.totalfac).format('0,0.00');
-              f.partes.forEach(l => {
-                l.fechapar = moment(f.fechapar).format('DD/MM/YYYY');
-                l.lineas.forEach(s =>{
-                  s.cantidad = numeral(s.cantidad).format('0,0.00');
-                  s.importel = numeral(s.importel).format('0,0.00');
-                  s.precioar = numeral(s.precioar).format('0,0.00');
+          if(data.length > 0){
+            if(data[0].partes){
+              data.forEach(f => {
+                f.fecfactu = moment(f.fecfactu).format('DD/MM/YYYY');
+                f.bases = numeral(f.bases).format('0,0.00');
+                f.cuotas = numeral(f.cuotas).format('0,0.00');
+                f.totalfac = numeral(f.totalfac).format('0,0.00');
+                f.partes.forEach(l => {
+                  l.fechapar = moment(f.fechapar).format('DD/MM/YYYY');
+                  l.lineas.forEach(s =>{
+                    s.cantidad = numeral(s.cantidad).format('0,0.00');
+                    s.importel = numeral(s.importel).format('0,0.00');
+                    s.precioar = numeral(s.precioar).format('0,0.00');
+                  });
                 });
               });
-            });
-          } else {
-            data.forEach(f => {
-              f.fecfactu = moment(f.fecfactu).format('DD/MM/YYYY');
-              f.bases = numeral(f.bases).format('0,0.00');
-              f.cuotas = numeral(f.cuotas).format('0,0.00');
-              f.totalfac = numeral(f.totalfac).format('0,0.00');
-              f.lineas.forEach(l => {
-                l.cantidad = numeral(l.cantidad).format('0,0.00');
-                l.importel = numeral(l.importel).format('0,0.00');
-                l.precioar = numeral(l.precioar).format('0,0.00');
+            } else {
+              data.forEach(f => {
+                f.fecfactu = moment(f.fecfactu).format('DD/MM/YYYY');
+                f.bases = numeral(f.bases).format('0,0.00');
+                f.cuotas = numeral(f.cuotas).format('0,0.00');
+                f.totalfac = numeral(f.totalfac).format('0,0.00');
+                f.lineas.forEach(l => {
+                  l.cantidad = numeral(l.cantidad).format('0,0.00');
+                  l.importel = numeral(l.importel).format('0,0.00');
+                  l.precioar = numeral(l.precioar).format('0,0.00');
+                });
               });
-            });
+            }
+           
+            this.facturasTratamientos = data;
+            this.numFacturasTratamientos = data.length;
           }
          
-          this.facturasTratamientos = data;
-          this.numFacturasTratamientos = data.length;
         },
         (error) => {
           
-          this.showAlert("ERROR", JSON.stringify(error, null, 4));
+          this.msg.showAlert(error);
         }
       );
   }
@@ -236,7 +233,7 @@ export class FacturasPage {
         },
         (error) => {
           
-          this.showAlert("ERROR", JSON.stringify(error, null, 4));
+          this.msg.showAlert(error);
         }
       );
   }

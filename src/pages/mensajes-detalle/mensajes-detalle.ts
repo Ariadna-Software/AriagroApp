@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { AppVersion } from '@ionic-native/app-version';
-import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
-import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data'; 
+import { AriagroMsgProvider } from '../../providers/ariagro-msg/ariagro-msg';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
 import { ViewController } from 'ionic-angular';
 import * as moment from 'moment';
@@ -26,8 +27,8 @@ export class MensajesDetallePage {
   user: any = {};
   mensaje: any = {};
 
-  constructor(public navCtrl: NavController,  public appVersion: AppVersion, public navParams: NavParams,
-    public alertCrtl: AlertController, public viewCtrl: ViewController, public loadingCtrl: LoadingController,
+  constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider,  public appVersion: AppVersion, public navParams: NavParams,
+     public viewCtrl: ViewController, public loadingCtrl: LoadingController,
     public ariagroData: AriagroDataProvider, public localData: LocalDataProvider) {
   }
 
@@ -45,7 +46,7 @@ export class MensajesDetallePage {
           (data) => {
           },
           (error) => {
-            this.showAlert("ERROR", JSON.stringify(error, null, 4));
+            this.msg.showAlert(error);
           }
         );
       } else {
@@ -69,13 +70,5 @@ export class MensajesDetallePage {
     this.navCtrl.setRoot('HomePage');
   }
 
-  showAlert(title, subTitle): void {
-    let alert = this.alertCrtl.create({
-      title: title,
-      subTitle: subTitle,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
 }
 

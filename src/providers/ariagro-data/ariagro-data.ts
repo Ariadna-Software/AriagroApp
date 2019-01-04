@@ -126,7 +126,7 @@ prepararCorreoClasif(url, numalbar,campanya, informe): any {
     campanya: campanya,
     informe: informe
 };
-return this.http.post(url + '/api/mensajes/preparar-correo/clasif', data);
+return this.http.post(url + '/api/campos/preparar-correo/clasif', data);
 }
 
 enviarCorreoClasif(url, numalbar, email, ruta, coop): any {
@@ -136,7 +136,7 @@ enviarCorreoClasif(url, numalbar, email, ruta, coop): any {
     ruta: ruta,
     coop: coop
   };
-  return this.http.post(url + '/api/mensajes/enviar/correo/clasif', data);
+  return this.http.post(url + '/api/campos/enviar/correo/clasif', data);
 }
 
 prepararCorreoFactu(url, campanya, numfactu, informe, codtipom, servidor): any {
@@ -160,4 +160,37 @@ enviarCorreoFactu(url, numfactu, email, ruta, coop, codtipom): any {
   };
   return this.http.post(url + '/api/anticipos-liquidaciones/enviar/correo/ant-liq', data);
 }
+prepararCorreoFactuGasol(url, fecfactu, numfactu, letraser, informe, codclien): any {
+  var data = {
+    fecfactu: fecfactu,
+    numfactu: numfactu,
+    letraser: letraser,
+    informe: informe,
+    codclien: codclien
+};
+return this.http.post(url + '/api/facturas/gasolinera/correo', data);
+}
+
+prepararCorreoFactuTienda(url, fecfactu, numfactu, letraser, informe, codclien): any {
+  var data = {
+    fecfactu: fecfactu,
+    numfactu: numfactu,
+    letraser: letraser,
+    informe: informe,
+    codclien: codclien
+};
+return this.http.post(url + '/api/facturas/tienda/correo/esto', data);
+}
+
+enviarCorreoFactuComun(url, numfactu, email, ruta, coop, codtipom): any {
+  var data = {
+    numfactu: numfactu,
+    email: email,
+    ruta: ruta,
+    coop: coop,
+    codtipom: codtipom
+  };
+  return this.http.post(url + '/api/facturas/enviar/correo/comun', data);
+}
+
 }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AppVersion } from '@ionic-native/app-version';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
-import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
+import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data'; import { AriagroMsgProvider } from '../../providers/ariagro-msg/ariagro-msg';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
 import { ViewController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -28,7 +28,7 @@ export class MensajesEnviarPage {
   submitAttempt: boolean = false;
 
 
-  constructor(public navCtrl: NavController,  public appVersion: AppVersion, public navParams: NavParams,
+  constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider,  public appVersion: AppVersion, public navParams: NavParams,
     public alertCrtl: AlertController, public viewCtrl: ViewController, public loadingCtrl: LoadingController,
     public ariagroData: AriagroDataProvider, public localData: LocalDataProvider, public formBuilder: FormBuilder) {
 

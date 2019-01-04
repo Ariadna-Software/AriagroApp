@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, AlertController, ModalController, LoadingController } from 'ionic-angular';
 import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
+import { AriagroMsgProvider } from '../../providers/ariagro-msg/ariagro-msg';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
 
 
@@ -31,7 +32,7 @@ export class ModalDatosCambiarPage {
     iban: ""
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider, public navParams: NavParams,
     public alertCrtl: AlertController, public viewCtrl: ViewController,
     public ariagroData: AriagroDataProvider, public localData: LocalDataProvider, public modalCtrl: ModalController, 
   public loadingCtrl: LoadingController) {
@@ -110,24 +111,17 @@ export class ModalDatosCambiarPage {
                   (error)=>{
                     loading.dismiss();
                   if (error) {
-                    this.showAlert("ERROR", JSON.stringify(error, null, 4));
+                    this.msg.showAlert(error);
                   } else {
                     this.showAlert("ERROR", "Error de conexión. Revise disponibilidad de datos y/o configuración");
                   }
                 });
 
             } else {
-              this.showAlert("", "No se ha cambiado ningún dato");
+              this.msg.showErrorPersoinalizado("", "No se ha cambiado ningún dato");
             }
   }
-  showAlert(title, subTitle): void {
-    let alert = this.alertCrtl.create({
-      title: title,
-      subTitle: subTitle,
-      buttons: ['OK'],
-    });
-    alert.present();
-  }
+ 
     
   showExito(title, subTitle): void {
     let alert = this.alertCrtl.create({

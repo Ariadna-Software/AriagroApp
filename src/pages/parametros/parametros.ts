@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AppVersion } from '@ionic-native/app-version';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
+import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data'; import { AriagroMsgProvider } from '../../providers/ariagro-msg/ariagro-msg';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
 import { ViewController } from 'ionic-angular';
 
@@ -18,8 +18,8 @@ export class ParametrosPage {
   submitAttempt: boolean = false;
   numeroCooperativa: string = "";
 
-  constructor(public navCtrl: NavController,  public appVersion: AppVersion, public navParams: NavParams,
-    public formBuilder: FormBuilder, public alertCrtl: AlertController, public viewCtrl: ViewController,
+  constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider,  public appVersion: AppVersion, public navParams: NavParams,
+    public formBuilder: FormBuilder, public viewCtrl: ViewController,
     public ariagroData: AriagroDataProvider, public localData: LocalDataProvider) {
     this.parametrosForm = formBuilder.group({
       numeroCooperativa: ['', Validators.compose([Validators.required])]
@@ -54,19 +54,9 @@ export class ParametrosPage {
           },
           (error) => {
             if (error.status == 404) {
-              let alert = this.alertCrtl.create({
-                title: "AVISO",
-                subTitle: "No se ha encontrado ninguna cooperativa con ese número",
-                buttons: ['OK']
-              });
-              alert.present();
+              this.msg.showErrorPersoinalizado("AVISO",  "No se ha encontrado ninguna cooperativa con ese número")
             } else {
-              let alert = this.alertCrtl.create({
-                title: "ERROR",
-                subTitle: JSON.stringify(error, null, 4),
-                buttons: ['OK']
-              });
-              alert.present();
+              this.msg.showAlert(error);
             }
           }
         );

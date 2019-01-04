@@ -54,8 +54,11 @@
                           
                         <ion-row [ngClass]="{'color': incidencia.contador%2 > 0}">
                           
-                            <ion-col col-12 >
+                            <ion-col col-8>
                               {{incidencia.nomincid}}
+                            </ion-col>
+                            <ion-col col-4 style="text-align:right;">
+                              {{incidencia.tipincid}}
                             </ion-col>
                         </ion-row>
                       

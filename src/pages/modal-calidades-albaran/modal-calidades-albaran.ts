@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, AlertController, LoadingController  } from 'ionic-angular';
-import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
+import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data'; 
+import { AriagroMsgProvider } from '../../providers/ariagro-msg/ariagro-msg';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
 import * as numeral from 'numeral';
 
@@ -24,7 +25,7 @@ export class ModalCalidadesAlbaranPage {
   correo: any;
   usaInformes: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,
+  constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider, public navParams: NavParams, public viewCtrl: ViewController,
      public localData: LocalDataProvider, public alertCrtl: AlertController, public loadingCtrl: LoadingController, 
      public ariagroData: AriagroDataProvider) {
   }
@@ -50,11 +51,7 @@ export class ModalCalidadesAlbaranPage {
             this.loadCalidades();
           },
           (error) => {
-            if (error.status == 404) {
-              this.showAlert("AVISO", "Usuario o contraseña incorrectos");
-            } else {
-              this.showAlert("ERROR", JSON.stringify(error, null, 4));
-            }
+            this.msg.showErrorPersoinalizado("Fallo al actualizar usuario", JSON.stringify(error));
           }
         );
       } else {
@@ -72,19 +69,9 @@ export class ModalCalidadesAlbaranPage {
           },
           (error) => {
             if (error.status == 404) {
-              let alert = this.alertCrtl.create({
-                title: "AVISO",
-                subTitle: "No se ha encontrado ninguna cooperativa con ese número",
-                buttons: ['OK']
-              });
-              alert.present();
+              this.msg.showErrorPersoinalizado("AVISO, Fallo al Actualizar Parametros", "No se ha encontrado ninguna cooperativa con ese número, consulte con su cooperativa");
             } else {
-              let alert = this.alertCrtl.create({
-                title: "ERROR",
-                subTitle: JSON.stringify(error, null, 4),
-                buttons: ['OK']
-              });
-              alert.present();
+              this.msg.showAlert(error);
             }
           }
         );
@@ -102,7 +89,7 @@ export class ModalCalidadesAlbaranPage {
       },
       (error) => {
         loading.dismiss();
-        this.showAlert("ERROR", JSON.stringify(error, null, 4));
+        this.msg.showAlert(error);
       }
     );
   }
@@ -122,14 +109,28 @@ export class ModalCalidadesAlbaranPage {
     var contador = 1;
     incidencias.forEach(a => {
         a.contador = contador++;
-      });
+        switch(a.tipincid) {
+          case 0:
+            a.tipincid = "Leve";
+            break;
+          case 1: 
+            a.tipincid = "Grave";
+            break;
+          case 2: 
+            a.tipincid = "Muy Grave";
+            break;
+          default:
+            a.tipincid = "";
+            break;
+        }
+    });
     return incidencias;
   }
 
   comprobarPlantillas(){
     
     if(this.settings.parametros.infClasificacion == "" || this.settings.parametros.infClasificacion == null){
-      this.showAlert('', 'Plantilla de factura no configurada');
+      this.msg.showErrorPersoinalizado('', 'Plantilla de factura no configurada');
     }else {
       this.comprobarCorreo();
     }
@@ -139,7 +140,7 @@ export class ModalCalidadesAlbaranPage {
 
   comprobarCorreo(): void {
     if(this.usaInformes == 0) {
-      this.showAlert('', 'Funcionalidad no habilitada, póngase en contacto con su cooperativa');
+      this.msg.showErrorPersoinalizado('', 'Funcionalidad no habilitada, póngase en contacto con su cooperativa');
     }else {
       var mens = "";
       var emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
@@ -159,14 +160,14 @@ export class ModalCalidadesAlbaranPage {
         (data) => {
           this.loading.dismiss();
 
-          this.showAlert("", JSON.stringify('MENSAJE ENVIADO', null, 4));
+          this.msg.showErrorPersoinalizado("", 'MENSAJE ENVIADO');
           if( this.settings.user.email == ""){
             this.correo = null;
           }
           
         },
         (error) => {
-          this.showAlert("ERROR", JSON.stringify(error, null, 4));
+          this.msg.showAlert(error);
           this.loading.dismiss();
         }
       );
@@ -205,7 +206,7 @@ export class ModalCalidadesAlbaranPage {
                   this.enviarCorreo(data);
                 },
                 (error) => {
-                  this.showAlert("ERROR", JSON.stringify(error, null, 4));
+                  this.msg.showAlert(error);
                   this.loading.dismiss();
                 }
               );

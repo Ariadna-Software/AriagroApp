@@ -15,6 +15,7 @@ export class DatosPage {
  settings: any = {};
   version: string = "ARIAGRO APP V2";
   user: any = {};
+  ocultar: boolean = false;
 
   constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider,  public appVersion: AppVersion, public navParams: NavParams,
      public viewCtrl: ViewController,
@@ -34,6 +35,7 @@ export class DatosPage {
               this.settings.user = data;
               this.user = this.settings.user;
               this.localData.saveSettings(this.settings);
+              this.renovarParametros();
               
             },
             (error) => {
@@ -64,6 +66,26 @@ export class DatosPage {
     this.navCtrl.setRoot('HomePage');
   }
 
+  renovarParametros(): void {
+    this.ariagroData.getParametrosCentral(this.settings.parametros.parametroId)
+        .subscribe(
+          (data) => {
+            this.settings.parametros = data;
+            this.localData.saveSettings(this.settings);
+            if(this.settings.parametros.noComunicarCoop != 1) {
+              this.ocultar = true;
+            } else { this.ocultar = false; }
+          },
+          (error) => {
+            if (error.status == 404) {
+              this.msg.showErrorPersoinalizado("AVISO, Fallo al Actualizar Parametros", "No se ha encontrado ninguna cooperativa con ese número, consulte con su cooperativa");
+            } else {
+              this.msg.showAlert(error);
+            }
+          }
+        );
+}
+
 
   cambioDatos(): void {
    this.ariagroData.comprobarHost(this.settings.parametros.url)
@@ -71,11 +93,11 @@ export class DatosPage {
      (data) => {
       if(data){
         if(!data.smtpConfig.host || data.smtpConfig.host == "") {
-          this.msg.showErrorPersoinalizado("ERROR", "Opción no disponible, consulte con su cooperativa");
+          this.msg.showErrorPersoinalizado("ERROR", "Correo no configurado, consulte con su cooperativa");
         }else {
-          let modal = this.modalCtrl.create('ModalDatosCambiarPage');
-          modal.present();
-        }
+            let modal = this.modalCtrl.create('ModalDatosCambiarPage');
+            modal.present();
+          }
       }
      },
      (err) => {

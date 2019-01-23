@@ -19,6 +19,7 @@ export class MensajesPage {
   campanya: any = {};
   user: any = {};
   mensajes: any = [];
+  ocultar: boolean = false;
 
   constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider,  public appVersion: AppVersion, public navParams: NavParams,
     public viewCtrl: ViewController, public loadingCtrl: LoadingController,
@@ -34,6 +35,8 @@ export class MensajesPage {
         this.user = this.settings.user;
         this.campanya = this.settings.campanya;
         this.cargarMensajes();
+        this.renovarParametros();
+
       } else {
         this.navCtrl.setRoot('ParametrosPage');
       }
@@ -50,6 +53,26 @@ export class MensajesPage {
 
     }
   }
+
+  renovarParametros(): void {
+    this.ariagroData.getParametrosCentral(this.settings.parametros.parametroId)
+        .subscribe(
+          (data) => {
+            this.settings.parametros = data;
+            this.localData.saveSettings(this.settings);
+            if(this.settings.parametros.noComunicarCoop != 1) {
+              this.ocultar = true;
+            } else { this.ocultar = false; }
+          },
+          (error) => {
+            if (error.status == 404) {
+              this.msg.showErrorPersoinalizado("AVISO, Fallo al Actualizar Parametros", "No se ha encontrado ninguna cooperativa con ese número, consulte con su cooperativa");
+            } else {
+              this.msg.showAlert(error);
+            }
+          }
+        );
+}
 
   cargarMensajes(): void {
     let loading = this.loadingCtrl.create({ content: 'Buscando mensajes...' });

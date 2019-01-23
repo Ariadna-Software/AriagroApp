@@ -111,7 +111,11 @@ export class MensajesPage {
   }
 
   crearMensaje(): void {
-    this.navCtrl.push('MensajesEnviarPage', {
-    });
+    if(this.settings.parametros.noComunicarCoop != 1) {
+      this.msg.showErrorPersoinalizado("AVISO", "Funcionalidad no disponible, consulte con su cooperativa");
+    } else {
+      this.navCtrl.push('MensajesEnviarPage', {
+      });
+    }
   }
 }

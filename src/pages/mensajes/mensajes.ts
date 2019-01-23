@@ -61,8 +61,8 @@ export class MensajesPage {
             this.settings.parametros = data;
             this.localData.saveSettings(this.settings);
             if(this.settings.parametros.noComunicarCoop != 1) {
-              this.ocultar = true;
-            } else { this.ocultar = false; }
+              this.ocultar = false;
+            } else { this.ocultar = true; }
           },
           (error) => {
             if (error.status == 404) {
@@ -112,10 +112,10 @@ export class MensajesPage {
 
   crearMensaje(): void {
     if(this.settings.parametros.noComunicarCoop != 1) {
-      this.msg.showErrorPersoinalizado("AVISO", "Funcionalidad no disponible, consulte con su cooperativa");
-    } else {
       this.navCtrl.push('MensajesEnviarPage', {
       });
+    } else {
+      this.msg.showErrorPersoinalizado("AVISO", "Funcionalidad no disponible, consulte con su cooperativa");
     }
   }
 }

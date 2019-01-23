@@ -73,8 +73,8 @@ export class DatosPage {
             this.settings.parametros = data;
             this.localData.saveSettings(this.settings);
             if(this.settings.parametros.noComunicarCoop != 1) {
-              this.ocultar = true;
-            } else { this.ocultar = false; }
+              this.ocultar = false;
+            } else { this.ocultar = true; }
           },
           (error) => {
             if (error.status == 404) {

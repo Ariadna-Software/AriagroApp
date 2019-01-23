@@ -15,7 +15,7 @@ export class DatosPage {
  settings: any = {};
   version: string = "ARIAGRO APP V2";
   user: any = {};
-  ocultar: boolean = false;
+  ocultar: boolean = true;
 
   constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider,  public appVersion: AppVersion, public navParams: NavParams,
      public viewCtrl: ViewController,

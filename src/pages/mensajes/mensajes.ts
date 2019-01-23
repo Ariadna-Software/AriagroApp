@@ -19,7 +19,7 @@ export class MensajesPage {
   campanya: any = {};
   user: any = {};
   mensajes: any = [];
-  ocultar: boolean = false;
+  ocultar: boolean = true;
 
   constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider,  public appVersion: AppVersion, public navParams: NavParams,
     public viewCtrl: ViewController, public loadingCtrl: LoadingController,

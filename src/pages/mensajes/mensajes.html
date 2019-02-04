@@ -19,10 +19,10 @@
       </ion-item>
      
           <ion-item (click)='crearMensaje()' class="justificar" text-wrap no-lines>
-              Pulse en cualquier mensaje para ver su detalle. Si desea enviarnos un mensaje haga clic aquí.
+              Pulse en cualquier mensaje para ver su detalle. <span *ngIf="!ocultar">Si desea enviarnos un mensaje haga clic aquí.</span>
           </ion-item>
           <ion-item no-lines>
-              <button ion-button outline item-end round icon-left class="myGreen" (click)="crearMensaje()">
+              <button *ngIf="!ocultar" ion-button outline item-end round icon-left class="myGreen" (click)="crearMensaje()">
                 <ion-icon name="mail"></ion-icon>
                 Enviar
               </button>

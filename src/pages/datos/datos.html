@@ -43,7 +43,7 @@
       <p>IBAN: {{user.iban}}</p>
     </ion-item>
     <ion-item no-lines>
-      <button ion-button outline item-end round icon-left text-wrap class="myGreen"  (click)="cambioDatos()">
+      <button *ngIf="!ocultar" ion-button outline item-end round icon-left text-wrap class="myGreen"  (click)="cambioDatos()">
         <ion-icon name="git-compare"></ion-icon>
         Solicitar cambio de datos
       </button>

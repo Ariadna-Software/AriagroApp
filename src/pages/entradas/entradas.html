@@ -44,9 +44,9 @@
   <ion-list>
     <ion-item  *ngFor="let entrada of campo.entradas" (click)="openModalCalidadesAlbaran(entrada)" text-wrap>
       
-        <span class="myGreen">Fecha: {{entrada.fecalbar}} Albarán: {{entrada.numalbar}}</span>
+        <span class="myGreen">Fecha: {{entrada.fechaalb}} Albarán: {{entrada.numalbar}}</span>
         <br>
-        {{entrada.kilosnet}} Kg. {{entrada.numcajon}} Cajones
+        {{entrada.knetos}} Kg. {{entrada.cajones}} Cajones
         <ion-icon name="shuffle" item-end class="myGreen"></ion-icon>
       
     </ion-item>

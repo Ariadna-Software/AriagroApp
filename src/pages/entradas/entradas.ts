@@ -20,6 +20,10 @@ export class EntradasPage {
   campo: any = {};
   modalCalidadesCampo: any;
   modalCalidadesAlbaran: any;
+  fechaalb: any = '';
+  cajones: any = '';
+  knetos: any = '';
+  
 
   constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider,  public appVersion: AppVersion, public navParams: NavParams,
     public viewCtrl: ViewController,
@@ -58,10 +62,13 @@ export class EntradasPage {
 
     campo.entradas.forEach(e => {
       comprobar = moment(e.fecalbar).format('DD/MM/YYYY');
+      e.cajones = this.cajones;
+      e.knetos = this.knetos;
+      e.fechaalb = this.fechaalb;
       if(comprobar != 'Invalid date') {
-        e.numcajon = numeral(e.numcajon).format('0,0');
-        e.kilosnet = numeral(e.kilosnet).format('0,0');
-        e.fecalbar = moment(e.fecalbar).format('DD/MM/YYYY');
+        e.cajones = numeral(e.numcajon).format('0,0');
+        e.knetos = numeral(e.kilosnet).format('0,0');
+        e.fechaalb = moment(e.fecalbar).format('DD/MM/YYYY');
       }
       
     });

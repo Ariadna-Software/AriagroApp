@@ -37,8 +37,7 @@
             <div>
                 <strong>Asunto: </strong> {{mensaje.asunto}}
             </div>
-            <div class="justificar">
-                <strong>Texto: </strong> {{mensaje.texto}}
+            <div class="justificar" [innerHTML]="mensaje.texto">
             </div>
         </ion-item>
   </ion-list>

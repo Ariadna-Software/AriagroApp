@@ -31,6 +31,8 @@ export class ModalDatosCambiarPage {
     email: "",
     iban: ""
   };
+  iban1: any = "";
+  iban: any = "";
 
   constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider, public navParams: NavParams,
     public alertCrtl: AlertController, public viewCtrl: ViewController,
@@ -46,6 +48,10 @@ export class ModalDatosCambiarPage {
         if (this.settings.user) {
           this.reemplazaNull(this.settings.user);
           this.user = this.settings.user;
+
+          var longitud = this.user.iban.length - 6;
+          this.iban1 = this.user.iban.substr(0, longitud);
+          this.iban = this.iban1 + "******";
         } else {
           this.navCtrl.setRoot('LoginPage');
         }
@@ -72,13 +78,26 @@ export class ModalDatosCambiarPage {
             var texto = " Datos antes de la modificación \n";
             var label;
             var contador = 0;
+            var n;
 
             for (var propiedad in this.user){
-              
-              if(this.user[propiedad] != this.userCopia[propiedad]) {
-                label = propiedad.toString();
-                texto += label + ": " + this.userCopia[propiedad] + "\n";
-                contador ++;
+              if(propiedad != "iban") {
+                if(this.user[propiedad] != this.userCopia[propiedad]) {
+                  label = propiedad.toString();
+                 
+                    texto += label + ": " + this.userCopia[propiedad] + "\n";
+                    contador ++;
+                  
+                }
+              } else {
+                n = this.iban.indexOf("*");
+                if(this.iban != this.userCopia[propiedad] && n == -1) {
+                  label = propiedad.toString();
+                 
+                    texto += label + ": " + this.userCopia[propiedad] + "\n";
+                    contador ++;
+                  
+                }
               }
             }
 
@@ -87,10 +106,20 @@ export class ModalDatosCambiarPage {
             texto += " Datos después de la modificación \n";
 
             for (var propiedad_dos in this.user){
-              
-              if(this.user[propiedad_dos] != this.userCopia[propiedad_dos]) {
-                label = propiedad_dos.toString();
-                texto += label + ": " + this.user[propiedad_dos] + "\n";
+              if(propiedad_dos != "iban") {
+                if(this.user[propiedad_dos] != this.userCopia[propiedad_dos]) {
+                  label = propiedad_dos.toString();
+                  texto += label + ": " + this.user[propiedad_dos] + "\n";
+                }
+              }else {
+                n = this.iban.indexOf("*");
+                if(this.iban != this.userCopia[propiedad_dos] && n == -1) {
+                  label = propiedad_dos.toString();
+                 
+                    texto += label + ": " + this.iban + "\n";
+                    contador ++;
+                  
+                }
               }
             }
 

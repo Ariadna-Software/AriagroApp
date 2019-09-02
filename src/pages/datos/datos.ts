@@ -16,6 +16,8 @@ export class DatosPage {
   version: string = "ARIAGRO APP V2";
   user: any = {};
   ocultar: boolean = true;
+  iban1: any = "";
+  iban: any = "";
 
   constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider,  public appVersion: AppVersion, public navParams: NavParams,
      public viewCtrl: ViewController,
@@ -29,6 +31,10 @@ export class DatosPage {
         this.viewCtrl.setBackButtonText('');
         if (this.settings.user) {
           this.user = this.settings.user;
+          var longitud = this.user.iban.length - 6;
+          this.iban1 = this.user.iban.substr(0, longitud);
+          this.iban = this.iban1 + "******";
+
           this.ariagroData.login(this.settings.parametros.url, this.user.login, this.user.password)
           .subscribe(
             (data) => {

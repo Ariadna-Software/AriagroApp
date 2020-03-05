@@ -1,6 +1,6 @@
 {
   "name": "AriagroApp",
-  "version": "2.0.9",
+  "version": "3.1.0",
   "author": "Ariadna Software SL (rafa@myariadna.com)",
   "homepage": "http://ariadnasw.com/",
   "private": true,
@@ -46,7 +46,7 @@
     "zone.js": "0.8.26"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "3.1.9",
+    "@ionic/app-scripts": "^3.2.4",
     "typescript": "~2.6.2"
   },
   "description": "An Ionic project",

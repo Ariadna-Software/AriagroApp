@@ -16,6 +16,7 @@ export class DatosPage {
   version: string = "ARIAGRO APP V2";
   user: any = {};
   ocultar: boolean = true;
+  nroregepa: string = '';
 
   constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider,  public appVersion: AppVersion, public navParams: NavParams,
      public viewCtrl: ViewController,
@@ -34,9 +35,9 @@ export class DatosPage {
             (data) => {
               this.settings.user = data;
               this.user = this.settings.user;
+              if (data.socio && data.socio.nroregepa) this.nroregepa = data.socio.nroregepa;
               this.localData.saveSettings(this.settings);
               this.renovarParametros();
-              
             },
             (error) => {
               this.msg.showErrorPersoinalizado("Fallo al actualizar usuario", JSON.stringify(error));

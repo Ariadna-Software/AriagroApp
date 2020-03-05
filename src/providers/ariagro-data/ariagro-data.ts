@@ -197,4 +197,9 @@ enviarCorreoFactuComun(url, numfactu, email, ruta, coop, codtipom): any {
   return this.http.post(url + '/api/facturas/enviar/correo/comun', data);
 }
 
+getEnlaces(url): any {
+  return this.http.get(url + '/api/enlaces');
+}
+
+
 }

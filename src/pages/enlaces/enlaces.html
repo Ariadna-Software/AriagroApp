@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-navbar>
+   <ion-title>
+      {{version}}
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only class="myGreen" (click)="goHome()">
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding >
+  <ion-list>
+    <ion-item text-wrap no-lines class="greenHeader">
+      ENLACES
+      <br> {{campanya.nomresum}}
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4>
+          <div class="psb">
+            <img src="assets/imgs/seo.png">
+          </div>
+        </ion-col>
+        <ion-col col-8 class="justificar">
+          Aquí le mostramos algunos enlaces que pueden ser de su interés
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+  <ion-list>
+    <ion-item *ngFor="let enlace of enlaces; let i = index" (click)="goEnlace(enlace)">
+      <ion-avatar item-start>
+        <img src="assets/imgs/www.png">
+      </ion-avatar>
+      <ion-label>
+        <div>{{enlace.nombre}}</div>
+        <a href="{{enlace.url}}">{{enlace.url}}</a>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>
+      <span style="font-size:0.8em;">(c) Ariadna SW 2020</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>

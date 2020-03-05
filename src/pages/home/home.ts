@@ -147,37 +147,6 @@ export class HomePage {
     });
   }
 
-  /*mostrarAlert(jsonData) {
-    let alert = this.alertCrtl.create({
-      title: 'Ha recibido un mensaje',
-      buttons: [
-        {
-          text: 'Ignorar',
-          role: 'cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Ir al mensaje',
-          handler: data => {
-            this.ariagroData.getMensajeHttp(this.settings.parametros.url, jsonData.payload.additionalData.mensajeId)
-              .subscribe((data) => {
-                data.fecha = moment(data.fecha).format('DD/MM/YYYY HH:mm:ss');
-                this.navCtrl.push('MensajesDetallePage', {
-                  mensaje: data
-                });
-              },
-                (error) => {
-                  this.msg.showAlert(error);
-                });
-          }
-        }
-      ]
-    });
-    alert.present();
-  }*/
-
   goLogin(): void {
     this.navCtrl.push('LoginPage');
   }
@@ -204,6 +173,12 @@ export class HomePage {
 
   goMensajes(): void {
     this.navCtrl.push('MensajesPage', {
+      mensajes: this.mensajes
+    });
+  }
+
+  goEnlaces(): void {
+    this.navCtrl.push('EnlacesPage', {
       mensajes: this.mensajes
     });
   }

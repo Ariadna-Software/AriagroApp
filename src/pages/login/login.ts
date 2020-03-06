@@ -61,12 +61,11 @@ export class LoginPage {
       this.ariagroData.login(this.settings.parametros.url, this.login, this.password)
         .subscribe(
           (data) => {
-            console.log('datos:' + data)
+            delete data.socio;
             this.settings.user = data;
             this.ariagroData.getCampanyaActual(this.settings.parametros.url)
             .subscribe(
               (data) => {
-               
                 console.log('data:' + data);
                 this.settings.campanya = data[0];
                 this.localData.saveSettings(this.settings);

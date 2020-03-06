@@ -40,6 +40,7 @@ export class FacturasTiendaDetallePage {
         this.ariagroData.login(this.settings.parametros.url, this.user.login, this.user.password)
         .subscribe(
           (data) => {
+            delete data.socio;
             this.settings.user = data;
             this.user = this.settings.user;
             this.localData.saveSettings(this.settings);

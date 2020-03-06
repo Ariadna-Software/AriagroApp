@@ -33,9 +33,10 @@ export class DatosPage {
           this.ariagroData.login(this.settings.parametros.url, this.user.login, this.user.password)
           .subscribe(
             (data) => {
+              if (data.socio && data.socio.nroregepa) this.nroregepa = data.socio.nroregepa;
+              delete data.socio;
               this.settings.user = data;
               this.user = this.settings.user;
-              if (data.socio && data.socio.nroregepa) this.nroregepa = data.socio.nroregepa;
               this.localData.saveSettings(this.settings);
               this.renovarParametros();
             },

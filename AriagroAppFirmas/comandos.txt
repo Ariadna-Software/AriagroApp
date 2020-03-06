@@ -1,0 +1,5 @@
+ionic cordova build --release android
+(password: aritel2010)
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ArigesApp.keystore android-release-unsigned.apk ArigesApp
+zipalign -v 4 android-release-unsigned.apk AriAGRO2.apk
+

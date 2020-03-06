@@ -45,7 +45,8 @@ export class EnlacesPage {
               this.enlaces = data;
             },
             (error) => {
-              this.msg.showAlert(error);
+              // this.msg.showAlert(error);
+              this.msg.showErrorPersoinalizado('ENLACES', 'Error en el acceso a enlaces posiblemente no esté habilitado para su cooperativa')
             }
           );
       } else {

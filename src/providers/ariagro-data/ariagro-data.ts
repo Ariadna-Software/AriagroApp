@@ -143,15 +143,17 @@ enviarCorreoClasif(url, numalbar, email, ruta, coop): any {
   return this.http.post(url + '/api/campos/enviar/correo/clasif', data);
 }
 
-prepararCorreoFactu(url, campanya, numfactu, informe, codtipom, servidor): any {
+prepararCorreoFactu(url, campanya, numfactu, informe, codtipom, servidor, fecfactu): any {
   var data = {
     campanya: campanya,
     numfactu: numfactu,
     informe: informe,
     codtipom: codtipom,
-    servidor: servidor
+    servidor: servidor,
+    fecfactu: fecfactu
+
 };
-return this.http.post(url + '/api/anticipos-liquidaciones/preparar-correo', data);
+return this.http.post(url + '/api/anticipos-liquidaciones/preparar-correo/nuevo', data);
 }
 
 enviarCorreoFactu(url, numfactu, email, ruta, coop, codtipom): any {
@@ -160,7 +162,7 @@ enviarCorreoFactu(url, numfactu, email, ruta, coop, codtipom): any {
     email: email,
     ruta: ruta,
     coop: coop,
-    codtipom: codtipom
+    codtipom: codtipom,
   };
   return this.http.post(url + '/api/anticipos-liquidaciones/enviar/correo/ant-liq', data);
 }

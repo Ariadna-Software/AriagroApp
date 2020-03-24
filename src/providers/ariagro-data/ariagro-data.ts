@@ -143,15 +143,15 @@ enviarCorreoClasif(url, numalbar, email, ruta, coop): any {
   return this.http.post(url + '/api/campos/enviar/correo/clasif', data);
 }
 
-prepararCorreoFactu(url, campanya, numfactu, informe, codtipom, servidor, fecfactu): any {
+prepararCorreoFactu(url, campanya, numfactu, informe, codtipom, servidor, fecfactu, paramCentral): any {
   var data = {
     campanya: campanya,
     numfactu: numfactu,
     informe: informe,
     codtipom: codtipom,
     servidor: servidor,
-    fecfactu: fecfactu
-
+    fecfactu: fecfactu,
+    paramCentral: paramCentral
 };
 return this.http.post(url + '/api/anticipos-liquidaciones/preparar-correo/nuevo', data);
 }

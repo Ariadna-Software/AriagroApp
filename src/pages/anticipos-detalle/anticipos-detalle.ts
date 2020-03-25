@@ -20,6 +20,7 @@ export class AnticiposDetallePage {
   correo: any;
   usaInformes: any;
   informe: any;
+  paramCentral: any;
 
   constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider,  public appVersion: AppVersion, public navParams: NavParams,
     public alertCrtl: AlertController, public viewCtrl: ViewController, public loadingCtrl: LoadingController,
@@ -89,7 +90,7 @@ export class AnticiposDetallePage {
     if(this.usaInformes == 0) {
       this.msg.showErrorPersoinalizado('', 'Funcionalidad no habilitada, póngase en contacto con su cooperativa');
     }
-    else if(this.anticipo.codtipom != "FAA" && this.anticipo.codtipom != 'FAL'){
+    else if(!this.informe){
       this.msg.showErrorPersoinalizado('', 'Tipo de factura no disponible, póngase en contacto con su cooperativa');
     }else {
       var mens = "";
@@ -105,12 +106,16 @@ export class AnticiposDetallePage {
   }
 
   comprobarPlantillas(){
-    if(this.anticipo.codtipom == "FAA") {
-      this.informe = this.settings.parametros.infFAA;
-    } else {
-      this.informe = this.settings.parametros.infFAL;
-    }
-    
+    if(this.settings.parametros.codtipomLIQ || this.settings.parametros.codtipomANT) {
+      if( this.anticipo.codtipom == this.settings.parametros.codtipomANT) {
+        this.informe = this.settings.parametros.infFAA;
+        this.paramCentral = "anticipo"
+      }
+      if( this.anticipo.codtipom == this.settings.parametros.codtipomLIQ) {
+        this.informe = this.settings.parametros.infFAL;
+        this.paramCentral = "liquidacion"
+      }
+    } 
     if(this.informe == "" || this.informe == null){
       this.msg.showErrorPersoinalizado('', 'Plantilla de factura no configurada');
     }else {
@@ -145,7 +150,8 @@ export class AnticiposDetallePage {
               this.loading = this.loadingCtrl.create({ content: 'Enviando correo...' });
               this.loading.present();
               
-              this.ariagroData.prepararCorreoFactu(this.settings.parametros.url, this.campanya.ariagro, this.anticipo.numfactu, this.informe, this.anticipo.codtipom, this.settings.parametros.parametroId)
+              this.ariagroData.prepararCorreoFactu(this.settings.parametros.url, this.campanya.ariagro, this.anticipo.numfactu, this.informe, this.anticipo.codtipom, this.settings.parametros.parametroId, this.anticipo.fecfactu, 
+                this.paramCentral)
               .subscribe(
                 (data) => {
                   this.enviarCorreo(data);

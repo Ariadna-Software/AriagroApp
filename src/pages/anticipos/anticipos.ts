@@ -60,7 +60,8 @@ export class AnticiposPage {
 
   cargarAnticipos(anticipos): void {
     anticipos.forEach(a => {
-      a.fecfactu = moment(a.fecfactu).format('DD/MM/YYYY');
+      a.fecfactuFormat = moment(a.fecfactu).format('DD/MM/YYYY');
+      a.fecfactu = moment(a.fecfactu).format('YYYY-MM-DD');
       a.baseimpo = numeral(a.baseimpo).format('0,0.00');
       a.imporiva = numeral(a.imporiva).format('0,0.00');
       a.impreten = numeral(a.impreten).format('0,0.00');

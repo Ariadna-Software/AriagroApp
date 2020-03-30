@@ -106,12 +106,16 @@ export class AnticiposDetallePage {
   }
 
   comprobarPlantillas(){
-    if(this.settings.parametros.codtipomLIQ || this.settings.parametros.codtipomANT) {
+    if(this.settings.parametros.codtipomLIQ || this.settings.parametros.codtipomLIQ2 || this.settings.parametros.codtipomANT) {
       if( this.anticipo.codtipom == this.settings.parametros.codtipomANT) {
         this.informe = this.settings.parametros.infFAA;
         this.paramCentral = "anticipo"
       }
       if( this.anticipo.codtipom == this.settings.parametros.codtipomLIQ) {
+        this.informe = this.settings.parametros.infFAL;
+        this.paramCentral = "liquidacion"
+      }
+      if( this.anticipo.codtipom == this.settings.parametros.codtipomLIQ2) {
         this.informe = this.settings.parametros.infFAL;
         this.paramCentral = "liquidacion"
       }
@@ -173,7 +177,7 @@ export class AnticiposDetallePage {
   }
 
   enviarCorreo(ruta): void {
-    this.ariagroData.enviarCorreoFactu(this.settings.parametros.url, this.anticipo.numfactu, this.correo, ruta, this.campanya.nomempre, this.anticipo.codtipom)
+    this.ariagroData.enviarCorreoFactu(this.settings.parametros.url, this.anticipo.numfactu, this.correo, ruta, this.campanya.nomempre, this.paramCentral)
       .subscribe(
         (data) => {
           this.loading.dismiss();

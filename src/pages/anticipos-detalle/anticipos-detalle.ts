@@ -106,7 +106,7 @@ export class AnticiposDetallePage {
   }
 
   comprobarPlantillas(){
-    if(this.settings.parametros.codtipomLIQ  || this.settings.parametros.codtipomANT) {
+    if(this.settings.parametros.codtipomLIQ  && this.settings.parametros.codtipomANT) {
       if( this.anticipo.codtipom == this.settings.parametros.codtipomANT) {
         this.informe = this.settings.parametros.infFAA;
         this.paramCentral = "anticipo"

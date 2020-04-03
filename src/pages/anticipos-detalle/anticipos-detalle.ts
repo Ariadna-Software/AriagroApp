@@ -106,18 +106,24 @@ export class AnticiposDetallePage {
   }
 
   comprobarPlantillas(){
-    if(this.settings.parametros.codtipomLIQ || this.settings.parametros.codtipomLIQ2 || this.settings.parametros.codtipomANT) {
+    if(this.settings.parametros.codtipomLIQ  || this.settings.parametros.codtipomANT) {
       if( this.anticipo.codtipom == this.settings.parametros.codtipomANT) {
         this.informe = this.settings.parametros.infFAA;
         this.paramCentral = "anticipo"
       }
-      if( this.anticipo.codtipom == this.settings.parametros.codtipomLIQ) {
+      else if( this.anticipo.codtipom == this.settings.parametros.codtipomLIQ) {
         this.informe = this.settings.parametros.infFAL;
         this.paramCentral = "liquidacion"
-      }
-      if( this.anticipo.codtipom == this.settings.parametros.codtipomLIQ2) {
-        this.informe = this.settings.parametros.infFAL;
-        this.paramCentral = "liquidacion"
+      } else {
+        if(this.anticipo.tipodocu){
+          if( this.anticipo.tipodocu == 1) {
+            this.informe = this.settings.parametros.infFAA;
+            this.paramCentral = this.anticipo.nomtipom;
+          }  else {
+            this.informe = this.settings.parametros.infFAL;
+            this.paramCentral = this.anticipo.nomtipom;
+          }
+        }
       }
     } 
     if(this.informe == "" || this.informe == null){

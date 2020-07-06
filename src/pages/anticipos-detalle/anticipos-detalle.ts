@@ -159,18 +159,40 @@ export class AnticiposDetallePage {
               this.correo = data.Correo;
               this.loading = this.loadingCtrl.create({ content: 'Enviando correo...' });
               this.loading.present();
-              
-              this.ariagroData.prepararCorreoFactu(this.settings.parametros.url, this.campanya.ariagro, this.anticipo.numfactu, this.informe, this.anticipo.codtipom, this.settings.parametros.parametroId, this.anticipo.fecfactu, 
-                this.paramCentral)
+
+              this.ariagroData.solicitarS2(
+                this.settings.parametros.url, 
+                this.campanya.ariagro, 
+                'FAL', 
+                this.anticipo.codtipom + "_" + this.anticipo.numfactu + "_" + this.anticipo.fecfactu,
+                this.correo
+              )
               .subscribe(
                 (data) => {
-                  this.enviarCorreo(data);
+                  this.loading.dismiss();
+
+                  this.msg.showErrorPersoinalizado("", 'Su documento ha sido pedido. Gracias.');
+                  if( this.settings.user.email == ""){
+                    this.correo = null;
+                  }
                 },
                 (error) => {
                   this.msg.showAlert(error);
                   this.loading.dismiss();
                 }
               );
+                           
+              // this.ariagroData.prepararCorreoFactu(this.settings.parametros.url, this.campanya.ariagro, this.anticipo.numfactu, this.informe, this.anticipo.codtipom, this.settings.parametros.parametroId, this.anticipo.fecfactu, 
+              //   this.paramCentral)
+              // .subscribe(
+              //   (data) => {
+              //     this.enviarCorreo(data);
+              //   },
+              //   (error) => {
+              //     this.msg.showAlert(error);
+              //     this.loading.dismiss();
+              //   }
+              // );
             }else {
               mens = 'Correo incorrecto, introduzca un correo';
               this.mostrarCorreo(mens);

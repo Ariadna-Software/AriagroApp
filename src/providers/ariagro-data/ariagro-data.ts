@@ -152,8 +152,9 @@ prepararCorreoFactu(url, campanya, numfactu, informe, codtipom, servidor, fecfac
     servidor: servidor,
     fecfactu: fecfactu,
     paramCentral: paramCentral
-};
-return this.http.post(url + '/api/anticipos-liquidaciones/preparar-correo/nuevo', data);
+  };
+  console.log('DATACORREO:', data);
+  return this.http.post(url + '/api/anticipos-liquidaciones/preparar-correo/nuevo', data);
 }
 
 enviarCorreoFactu(url, numfactu, email, ruta, coop, codtipom): any {
@@ -201,6 +202,16 @@ enviarCorreoFactuComun(url, numfactu, email, ruta, coop, codtipom): any {
 
 getEnlaces(url): any {
   return this.http.get(url + '/api/enlaces');
+}
+
+solicitarS2(url, sistema, tipo, clave, email): any {
+  var data = {
+    sistema,
+    tipo,
+    clave,
+    email
+  };
+  return this.http.post(url + '/api/s2', data);
 }
 
 

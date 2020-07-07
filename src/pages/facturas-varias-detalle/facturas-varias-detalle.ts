@@ -41,6 +41,7 @@ export class FacturasVariasDetallePage {
         this.settings = JSON.parse(data);
         this.viewCtrl.setBackButtonText('');
         this.user = this.settings.user;
+        this.correo = this.settings.user.email;
         this.campanya = this.settings.campanya;
         this.factura = this.navParams.get('factura');
       } else {

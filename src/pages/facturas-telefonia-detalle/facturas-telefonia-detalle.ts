@@ -36,6 +36,7 @@ export class FacturasTelefoniaDetallePage {
         this.viewCtrl.setBackButtonText('');
         this.user = this.settings.user;
         this.campanya = this.settings.campanya;
+        this.correo = this.settings.user.email;
         this.factura = this.navParams.get('factura');
       } else {
         this.navCtrl.setRoot('ParametrosPage');

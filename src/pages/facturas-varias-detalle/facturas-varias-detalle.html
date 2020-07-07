@@ -35,6 +35,12 @@
       <span class="myGreen">{{linea.nomconce}}<br>{{linea.ampliaci}}</span>
       <br>{{linea.cantidad}} UD. * {{linea.precioar}} € = {{linea.importel}} €
     </ion-item>
+    <ion-item no-lines>
+      <button ion-button outline item-end round icon-left text-wrap class="myGreen"  (click)="comprobarPlantillas()">
+        <ion-icon name="mail"></ion-icon>
+        Enviar factura por correo.
+      </button>
+    </ion-item>
   </ion-list>
 
 </ion-content>

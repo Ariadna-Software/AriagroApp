@@ -185,8 +185,8 @@ prepararCorreoFactuTienda(url, fecfactu, numfactu, letraser, informe, codclien):
     letraser: letraser,
     informe: informe,
     codclien: codclien
-};
-return this.http.post(url + '/api/facturas/tienda/correo/esto', data);
+  };
+  return this.http.post(url + '/api/facturas/tienda/correo/esto', data);
 }
 
 enviarCorreoFactuComun(url, numfactu, email, ruta, coop, codtipom): any {
@@ -214,5 +214,54 @@ solicitarS2(url, sistema, tipo, clave, email): any {
   return this.http.post(url + '/api/s2', data);
 }
 
+solicitarS2FacTienda(url, tipo, clave, email): any {
+  var data = {
+    sistema: "",
+    tipo,
+    clave,
+    email
+  };
+  return this.http.post(url + '/api/s2/factura-tienda', data);
+}
+
+solicitarS2FacTelefonia(url, tipo, clave, email): any {
+  var data = {
+    sistema: "",
+    tipo,
+    clave,
+    email
+  };
+  return this.http.post(url + '/api/s2/factura-telefonia', data);
+}
+
+solicitarS2FacGasolinera(url, tipo, clave, email): any {
+  var data = {
+    sistema: "",
+    tipo,
+    clave,
+    email
+  };
+  return this.http.post(url + '/api/s2/factura-gasolinera', data);
+}
+
+solicitarS2FacTratamiento(url, tipo, clave, email): any {
+  var data = {
+    sistema: "",
+    tipo,
+    clave,
+    email
+  };
+  return this.http.post(url + '/api/s2/factura-tratamientos', data);
+}
+
+solicitarS2FacVarias(url, sistema, tipo, clave, email): any {
+  var data = {
+    sistema,
+    tipo,
+    clave,
+    email
+  };
+  return this.http.post(url + '/api/s2/factura-varias', data);
+}
 
 }

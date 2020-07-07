@@ -201,16 +201,40 @@ export class ModalCalidadesAlbaranPage {
               this.correo = data.Correo;
               this.loading = this.loadingCtrl.create({ content: 'Enviando correo...' });
               this.loading.present();
-              this.ariagroData.prepararCorreoClasif(this.settings.parametros.url, this.entrada.numalbar, this.campanya.ariagro, this.settings.parametros.infClasificacion)
+
+              this.ariagroData.solicitarS2(
+                this.settings.parametros.url,
+                this.campanya.ariagro,
+                'CLA',
+                'ALB_' + this.entrada.numalbar,
+                this.correo
+              )
               .subscribe(
                 (data) => {
-                  this.enviarCorreo(data);
+                  this.loading.dismiss();
+
+                  this.msg.showErrorPersoinalizado("", 'Su documento ha sido solicitado. Gracias.');
+                  if( this.settings.user.email == ""){
+                    this.correo = null;
+                  }
+                  
                 },
                 (error) => {
                   this.msg.showAlert(error);
                   this.loading.dismiss();
                 }
               );
+
+              // this.ariagroData.prepararCorreoClasif(this.settings.parametros.url, this.entrada.numalbar, this.campanya.ariagro, this.settings.parametros.infClasificacion)
+              // .subscribe(
+              //   (data) => {
+              //     this.enviarCorreo(data);
+              //   },
+              //   (error) => {
+              //     this.msg.showAlert(error);
+              //     this.loading.dismiss();
+              //   }
+              // );
             }else {
               mens = 'Correo incorrecto, introduzca un correo';
               this.mostrarCorreo(mens);

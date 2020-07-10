@@ -43,6 +43,7 @@ export class FacturasVariasDetallePage {
         this.user = this.settings.user;
         this.correo = this.settings.user.email;
         this.campanya = this.settings.campanya;
+        this.usaInformes = this.settings.parametros.usaInformes;
         this.factura = this.navParams.get('factura');
       } else {
         this.navCtrl.setRoot('ParametrosPage');

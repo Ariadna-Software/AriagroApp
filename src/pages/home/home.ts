@@ -81,6 +81,7 @@ export class HomePage {
           this.msg.showAlert(error);
         }
       );
+      this.renovarParametros();
   }
 
   regOneSignal(): void {
@@ -182,4 +183,22 @@ export class HomePage {
       mensajes: this.mensajes
     });
   }
+
+  renovarParametros(): void {
+    this.ariagroData.getParametrosCentral(this.settings.parametros.parametroId)
+        .subscribe(
+          (data) => {
+            console.log('Parametros', data);
+            this.settings.parametros = data;
+            this.localData.saveSettings(this.settings);
+          },
+          (error) => {
+            if (error.status == 404) {
+              this.msg.showErrorPersoinalizado("AVISO, Fallo al Actualizar Parametros", "No se ha encontrado ninguna cooperativa con ese número, consulte con su cooperativa");
+            } else {
+              this.msg.showAlert(error);
+            }
+          }
+        );
+}
 }

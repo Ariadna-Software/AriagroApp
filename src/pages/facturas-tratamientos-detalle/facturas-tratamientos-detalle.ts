@@ -118,6 +118,7 @@ export class FacturasTratamientosDetallePage {
 
               this.ariagroData.solicitarS2FacTratamiento(
                 this.settings.parametros.url,
+                this.campanya.ariagro,
                 'FAD',
                 this.factura.codtipom + "_" + compost[1] + "_" + moment(this.factura.fecfactu, 'DD/MM/YYYY').format('YYYY-MM-DD'),
                 this.correo

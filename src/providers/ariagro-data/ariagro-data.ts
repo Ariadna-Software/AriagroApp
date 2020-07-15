@@ -244,9 +244,9 @@ solicitarS2FacGasolinera(url, tipo, clave, email): any {
   return this.http.post(url + '/api/s2/factura-gasolinera', data);
 }
 
-solicitarS2FacTratamiento(url, tipo, clave, email): any {
+solicitarS2FacTratamiento(url, sistema, tipo, clave, email): any {
   var data = {
-    sistema: "",
+    sistema,
     tipo,
     clave,
     email

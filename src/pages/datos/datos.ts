@@ -141,6 +141,7 @@ export class DatosPage {
       inputs: [
         {
           label: 'Ejercicio:',
+          type: 'number',
           name: 'Ejercicio',
           placeholder: 'Ejercicio...',
           value:  this.ejercicio
@@ -164,7 +165,11 @@ export class DatosPage {
           text: 'Aceptar',
           handler: data => {
             var emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-   
+            if (data.Ejercicio >= moment().year()) {
+              mens = 'Ejercicio incorrecto';
+              this.mostrarCorreo(mens);
+              return;
+            }
             if (emailRegex.test(data.Correo)) {
               this.correo = data.Correo;
               this.loading = this.loadingCtrl.create({ content: 'Enviando correo...' });
@@ -174,7 +179,7 @@ export class DatosPage {
                 this.settings.parametros.url, 
                 'ARIAGRO', 
                 'CER', 
-                this.settings.user.ariagroId + "" + this.ejercicio,
+                this.settings.user.ariagroId + "_" + data.Ejercicio,
                 this.correo
               )
               .subscribe(

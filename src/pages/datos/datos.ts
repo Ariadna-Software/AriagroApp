@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { AppVersion } from '@ionic-native/app-version';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, LoadingController, AlertController } from 'ionic-angular';
 import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data'; 
 import { AriagroMsgProvider } from '../../providers/ariagro-msg/ariagro-msg';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
 import { ViewController } from 'ionic-angular';
+import * as moment from 'moment';
 
 @IonicPage()
 @Component({
@@ -17,10 +18,17 @@ export class DatosPage {
   user: any = {};
   ocultar: boolean = true;
   nroregepa: string = '';
+  usaInformes: any;
+  informe: any;
+  loading: any;
+  correo: any;
+  ejercicio: any;
+
 
   constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider,  public appVersion: AppVersion, public navParams: NavParams,
      public viewCtrl: ViewController,
-    public ariagroData: AriagroDataProvider, public localData: LocalDataProvider, public modalCtrl: ModalController) {
+    public ariagroData: AriagroDataProvider, public localData: LocalDataProvider, public modalCtrl: ModalController, public loadingCtrl: LoadingController,
+    public alertCrtl: AlertController) {
   }
 
   ionViewDidLoad() {
@@ -38,6 +46,8 @@ export class DatosPage {
               this.settings.user = data;
               this.user = this.settings.user;
               this.localData.saveSettings(this.settings);
+              this.correo = this.settings.user.email;
+              this.ejercicio = moment().year() - 1;
               this.renovarParametros();
             },
             (error) => {
@@ -106,6 +116,107 @@ export class DatosPage {
       this.msg.showAlert(err);
      }
    )
+  }
+
+  comprobarCorreo(): void {
+    this.renovarParametros();
+    if(!this.settings.parametros.certificadoIRPF || this.settings.parametros.certificadoIRPF == 0) {
+      this.msg.showErrorPersoinalizado('', 'Funcionalidad no habilitada, póngase en contacto con su cooperativa');
+    }else {
+      var mens = "";
+      var emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+   
+      if (emailRegex.test(this.correo)) {
+        mens = 'Se va a enviar al correo indicado el certificado del periodo. Puede introducir otros valores.';
+      } else {
+        mens = 'Correo incorrecto, introduzca un correo.';
+      }
+      this.mostrarCorreo(mens);
+    }
+  }
+
+  mostrarCorreo(mens) {
+    let alert = this.alertCrtl.create({
+      title: mens,
+      inputs: [
+        {
+          label: 'Ejercicio:',
+          name: 'Ejercicio',
+          placeholder: 'Ejercicio...',
+          value:  this.ejercicio
+        },
+        {
+          label: 'Correo:',
+          name: 'Correo',
+          placeholder: 'Correo...',
+          value:  this.correo
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Aceptar',
+          handler: data => {
+            var emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+   
+            if (emailRegex.test(data.Correo)) {
+              this.correo = data.Correo;
+              this.loading = this.loadingCtrl.create({ content: 'Enviando correo...' });
+              this.loading.present();
+
+              this.ariagroData.solicitarS2(
+                this.settings.parametros.url, 
+                'ARIAGRO', 
+                'CER', 
+                this.settings.user.ariagroId + "" + this.ejercicio,
+                this.correo
+              )
+              .subscribe(
+                (data) => {
+                  this.loading.dismiss();
+
+                  this.msg.showErrorPersoinalizado("", 'Su documento ha sido pedido. Gracias.');
+                  if( this.settings.user.email == ""){
+                    this.correo = null;
+                  }
+                },
+                (error) => {
+                  this.msg.showAlert(error);
+                  this.loading.dismiss();
+                }
+              );
+                           
+              // this.ariagroData.prepararCorreoFactu(this.settings.parametros.url, this.campanya.ariagro, this.anticipo.numfactu, this.informe, this.anticipo.codtipom, this.settings.parametros.parametroId, this.anticipo.fecfactu, 
+              //   this.paramCentral)
+              // .subscribe(
+              //   (data) => {
+              //     this.enviarCorreo(data);
+              //   },
+              //   (error) => {
+              //     this.msg.showAlert(error);
+              //     this.loading.dismiss();
+              //   }
+              // );
+            }else {
+              mens = 'Correo incorrecto, introduzca un correo';
+              this.mostrarCorreo(mens);
+            }
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+
+  solicitarCertificado(): void {
+    this.comprobarCorreo();
   }
 
 }

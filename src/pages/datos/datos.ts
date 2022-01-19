@@ -140,17 +140,17 @@ export class DatosPage {
       title: mens,
       inputs: [
         {
-          label: 'Ejercicio:',
-          type: 'number',
-          name: 'Ejercicio',
-          placeholder: 'Ejercicio...',
-          value:  this.ejercicio
-        },
-        {
           label: 'Correo:',
           name: 'Correo',
           placeholder: 'Correo...',
           value:  this.correo
+        },
+        {
+          label: 'Ejercicio..',
+          type: 'number',
+          name: 'Ejercicio',
+          placeholder: 'Ejercicio...',
+          value:  this.ejercicio
         },
       ],
       buttons: [
@@ -209,7 +209,7 @@ export class DatosPage {
               //   }
               // );
             }else {
-              mens = 'Correo incorrecto, introduzca un correo';
+              mens = 'No tenemos un correo por defecto. Escriba uno en la entrada Correo...';
               this.mostrarCorreo(mens);
             }
           }

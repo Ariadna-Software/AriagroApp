@@ -11,7 +11,7 @@ import { MyApp } from './app.component';
 import { AriagroDataProvider } from '../providers/ariagro-data/ariagro-data';
 import { LocalDataProvider } from '../providers/local-data/local-data';
 
-import {OneSignal} from '@ionic-native/onesignal';
+import { OneSignal } from '@ionic-native/onesignal';
 import { AppVersion } from '@ionic-native/app-version';
 import { AriagroMsgProvider } from '../providers/ariagro-msg/ariagro-msg';
 

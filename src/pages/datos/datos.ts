@@ -38,6 +38,27 @@ export class DatosPage {
         this.viewCtrl.setBackButtonText('');
         if (this.settings.user) {
           this.user = this.settings.user;
+          if (this.user.movil) {
+            console.log("Movil en contrado")
+          } else {
+            // AGROAPP-55 Obtener de nuevo el usuariopush logado, le falta el móvil.
+            console.log("Buscar el móvil")
+            this.ariagroData.login(this.settings.parametros.url, this.user.login, this.user.password)
+            .subscribe(
+              (data) => {
+                this.settings.user = data;
+                this.settings.user.movil = data.movil;
+                this.user = this.settings.user;
+                this.localData.saveSettings(this.settings);
+                console.log("Nuevo usuario ", this.settings.user);
+              },
+              (error) => {
+                this.msg.showErrorPersoinalizado("Fallo al actualizar usuario", JSON.stringify(error));
+              }
+            );
+            
+          }
+          console.log("user", this.user);
           this.ariagroData.login(this.settings.parametros.url, this.user.login, this.user.password)
           .subscribe(
             (data) => {

@@ -7,10 +7,10 @@ import { ViewController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-facturas-tienda',
-  templateUrl: 'facturas-tienda.html',
+  selector: 'page-facturas-aceite',
+  templateUrl: 'facturas-aceite.html',
 })
-export class FacturasTiendaPage {
+export class FacturasAceitePage {
  settings: any = {};
   version: string = "ARIAGRO APP V2";
   campanya: any = {};
@@ -57,7 +57,7 @@ export class FacturasTiendaPage {
   
 
   goFacturaDetalle(factura): void {
-    this.navCtrl.push('FacturasTiendaDetallePage',{
+    this.navCtrl.push('FacturasAceiteDetallePage',{
       factura: factura
     });
   }

@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-navbar>
+   <ion-title>
+      {{version}}
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only class="myGreen" (click)="goHome()">
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item text-wrap no-lines class="greenHeader">
+      FACTURAS
+      <br> {{campanya.nomresum}}
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-item class="letra">
+      <ion-thumbnail item-start>
+        <img src="assets/imgs/tienda.png">
+      </ion-thumbnail>
+      <h2 class="myGreen">ACEITE</h2>
+      <span class="myGreen">{{factura.numfactu}} {{factura.fecfactu}}</span>
+      <br>BASE: {{factura.bases}} € IVA: {{factura.cuotas}} €
+      <br>TOTAL: {{factura.totalfac}} €
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-item *ngFor="let linea of factura.lineas">
+      <span class="myGreen">{{linea.nomvarie}}</span>
+      <br>{{linea.cantidad}} UD. * {{linea.precioar}} € = {{linea.importel}} €
+    </ion-item>
+    <ion-item no-lines>
+      <button ion-button outline item-end round icon-left text-wrap class="myGreen"  (click)="comprobarPlantillas()">
+        <ion-icon name="mail"></ion-icon>
+        Enviar factura por correo.
+      </button>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>
+      <span style="font-size:0.8em;">(c) Ariadna SW 2022</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>

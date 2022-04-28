@@ -31,7 +31,8 @@ export class FacturasPage {
   numFacturasTratamientos: number = 0;
   facturasVarias: any = [];
   numFacturasVarias: number = 0;
-
+  facturasAceite: any = [];
+  numFacturasAceite: number = 0;
 
 
 
@@ -89,6 +90,7 @@ export class FacturasPage {
     this.getFacturasGasolinera();
     this.getFacturasTratamientos();
     this.getFacturasVarias()
+    this.getFacturasAceite()
   }
 
   getFacturasTienda(): void {
@@ -110,6 +112,32 @@ export class FacturasPage {
           });
           this.facturasTienda = data;
           this.numFacturasTienda = data.length;
+        },
+        (error) => {
+          this.msg.showAlert(error);
+        }
+      );
+  }
+
+  getFacturasAceite(): void {
+    this.ariagroData.getFacturasAceite(this.settings.parametros.url, this.user.ariagroId, this.selectedYear)
+      .subscribe(
+        (data) => {
+          data.forEach(f => {
+            f.fecfactu = moment(f.fecfactu).format('DD/MM/YYYY');
+            f.bases = numeral(f.bases).format('0,0.00');
+            f.cuotas = numeral(f.cuotas).format('0,0.00');
+            f.totalfac = numeral(f.totalfac).format('0,0.00');
+            f.year = this.selectedYear;
+            f.lineas.forEach(l => {
+              l.cantidad = numeral(l.cantidad).format('0,0.00');
+              l.importel = numeral(l.importel).format('0,0.00');
+              l.precioar = numeral(l.precioar).format('0,0.00');
+             
+            });
+          });
+          this.facturasAceite= data;
+          this.numFacturasAceite= data.length;
         },
         (error) => {
           this.msg.showAlert(error);
@@ -280,6 +308,12 @@ export class FacturasPage {
   goFacturasVarias(): void {
     this.navCtrl.push('FacturasVariasPage', {
       facturas: this.facturasVarias
+    });
+  }
+
+  goFacturasAceite(): void {
+    this.navCtrl.push('FacturasAceitePage', {
+      facturas: this.facturasAceite
     });
   }
 }

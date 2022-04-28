@@ -58,6 +58,10 @@ export class AriagroDataProvider {
     return this.http.get(url + '/api/facturas/tienda/' + codclien + '/' + year);
   }
 
+  getFacturasAceite(url, codsocio, year): any {
+    return this.http.get(url + '/api/facturas/tienda/' + codsocio + '/' + year);
+  }
+
   getFacturasTelefonia(url, codclien, year): any {
     return this.http.get(url + '/api/facturas/telefonia/' + codclien + '/' + year);
   }

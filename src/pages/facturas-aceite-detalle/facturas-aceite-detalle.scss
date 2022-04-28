@@ -1,0 +1,54 @@
+page-facturas-aceite-detalle {
+    ion-header {
+        text-align: center;
+    }
+    ion-toolbar {
+        text-align: center;
+    }
+
+    .item-md ion-thumbnail {
+        min-width: 0px;
+        min-height: 0px; 
+        width: 5rem;    
+        
+        img {
+            width: 100%;    
+        }
+    }
+    img {
+        width: 40%;
+    }
+    .psb {
+        padding: 5px;
+        border: solid;
+        border-radius: 30px;
+        border-color: teal;
+        border-width: 3px;
+        text-align: center;
+     }
+
+     .letra {
+        font-size: 0.9em;
+    }
+     .greenHeader {
+        background-color: teal;
+        color: white;
+     }
+     .myGreen {
+         color: teal;
+     }
+     ion-header ion-icon.back-button-icon.icon {
+        color: teal;
+     }
+
+     .item-md ion-thumbnail, .item-ios ion-thumbnail, .item-wp ion-thumbnail{
+        min-width: 0px;
+        min-height: 0px;
+        width: 7rem;    
+        img {
+            width: 60%;    
+            height: 60%;
+            margin-left: 20%
+        }
+    }
+}

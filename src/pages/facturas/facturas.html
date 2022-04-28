@@ -87,7 +87,15 @@
       <ion-badge color="secondary">{{numFacturasVarias}}</ion-badge>
       <ion-icon name="log-in" item-end class="myGreen"></ion-icon>
     </ion-item>
-
+    <ion-item text-wrap (click)="goFacturasAceite()">
+      <ion-thumbnail item-start>
+        <img src="assets/imgs/olive-oil.png">
+      </ion-thumbnail>
+      <h2 class="myGreen">ACEITE</h2>
+      Número de facturas:
+      <ion-badge color="secondary">{{numFacturasAceite}}</ion-badge>
+      <ion-icon name="log-in" item-end class="myGreen"></ion-icon>
+    </ion-item>
   </ion-list>
 </ion-content>
 

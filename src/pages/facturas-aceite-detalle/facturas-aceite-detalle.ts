@@ -11,7 +11,7 @@ import * as moment from 'moment';
   selector: 'page-facturas-aceite-detalle',
   templateUrl: 'facturas-aceite-detalle.html',
 })
-export class FFacturasAceiteDetallePage {
+export class FacturasAceiteDetallePage {
  settings: any = {};
   version: string = "ARIAGRO APP V2";
   campanya: any = {};

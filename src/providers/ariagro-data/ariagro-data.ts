@@ -240,7 +240,7 @@ solicitarS2FacTelefonia(url, tipo, clave, email): any {
 
 solicitarS2FacAceite(url, tipo, clave, email): any {
   var data = {
-    sistema: "ariagro2",
+    sistema: "ariagro",
     tipo,
     clave,
     email

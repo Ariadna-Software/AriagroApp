@@ -120,6 +120,7 @@ export class FacturasPage {
   }
 
   getFacturasAceite(): void {
+    console.log("USER", this.user, "PARAM")
     this.ariagroData.getFacturasAceite(this.settings.parametros.url, this.user.ariagroId, this.selectedYear)
       .subscribe(
         (data) => {

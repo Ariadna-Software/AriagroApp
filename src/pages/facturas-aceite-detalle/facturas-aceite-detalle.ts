@@ -37,6 +37,7 @@ export class FacturasAceiteDetallePage {
         this.campanya = this.settings.campanya;
         this.factura = this.navParams.get('factura');
         this.usaInformes = this.settings.parametros.usaInformes;
+        console.log("FC", this.factura)
         //renovar configuración de usuario
         this.ariagroData.login(this.settings.parametros.url, this.user.login, this.user.password)
         .subscribe(
@@ -139,7 +140,7 @@ export class FacturasAceiteDetallePage {
               this.loading.present();
 
 
-              console.log('Factura TI', this.factura);
+              console.log('Factura ACE', this.factura);
               // La factura en el envío está compuesta
               var compost = this.factura.numfactu.split('-');
 

@@ -144,9 +144,9 @@ export class FacturasAceiteDetallePage {
               // La factura en el envío está compuesta
               var compost = this.factura.numfactu.split('-');
 
-              this.ariagroData.solicitarS2FacTienda(
+              this.ariagroData.solicitarS2FacAceite(
                 this.settings.parametros.url,
-                'FAC',
+                'FZA',
                 this.factura.codtipom + "_" + compost[1] + "_" + moment(this.factura.fecfactu, 'DD/MM/YYYY').format('YYYY-MM-DD'),
                 this.correo
               )

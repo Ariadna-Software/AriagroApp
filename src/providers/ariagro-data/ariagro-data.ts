@@ -238,6 +238,17 @@ solicitarS2FacTelefonia(url, tipo, clave, email): any {
   return this.http.post(url + '/api/s2/factura-telefonia', data);
 }
 
+solicitarS2FacAceite(url, tipo, clave, email): any {
+  var data = {
+    sistema: "ariagro2",
+    tipo,
+    clave,
+    email
+  };
+  console.log("POST INTERCAMBIO", data)
+  return this.http.post(url + '/api/s2', data);
+}
+
 solicitarS2FacGasolinera(url, tipo, clave, email): any {
   var data = {
     sistema: "",

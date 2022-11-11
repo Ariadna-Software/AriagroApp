@@ -42,12 +42,21 @@
     </ion-grid>
   </ion-list>
   <ion-list>
-    <ion-item  *ngFor="let entrada of campo.entradas" (click)="openModalCalidadesAlbaran(entrada)" text-wrap>
+    <ion-item  *ngFor="let entrada of campo.entradas" text-wrap>
       
+      <div *ngIf="!entrada.clasifica" (click)="openModalCalidadesAlbaran(entrada)">
         <span class="myGreen">Fecha: {{entrada.fechaalb}} Albarán: {{entrada.numalbar}}</span>
         <br>
         {{entrada.knetos}} Kg. {{entrada.cajones}} Cajones
         <ion-icon name="shuffle" item-end class="myGreen"></ion-icon>
+      </div>
+
+      <div *ngIf="entrada.clasifica">
+        <span class="myRed">Fecha: {{entrada.fechaalb}} Nota: {{entrada.numalbar}}</span>
+        <br>
+        <span>{{entrada.knetos}} Kg. {{entrada.cajones}} Cajones</span>
+      </div>
+       
       
     </ion-item>
   </ion-list>

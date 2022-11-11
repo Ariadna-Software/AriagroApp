@@ -31,7 +31,7 @@ export class CamposPage {
         this.viewCtrl.setBackButtonText('');
         this.user = this.settings.user;
         this.campanya = this.settings.campanya;
-        this.ariagroData.getCampos(this.settings.parametros.url, this.user.ariagroId, this.campanya.ariagro)
+        this.ariagroData.getCamposNuevo(this.settings.parametros.url, this.user.ariagroId, this.campanya.ariagro)
           .subscribe(
             (data) => {
               this.cargarVariedades(data);

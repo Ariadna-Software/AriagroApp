@@ -5,7 +5,7 @@ import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
 import { AriagroMsgProvider } from '../../providers/ariagro-msg/ariagro-msg';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
 import { ViewController } from 'ionic-angular';
-import * as numeral from 'numeral';
+
 
 /**
  * Generated class for the EnlacesPage page.

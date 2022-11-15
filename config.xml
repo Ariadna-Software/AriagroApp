@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ariadnasw.ariagroapp2" version="3.5.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.ariadnasw.ariagroapp2" version="3.5.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>AriAGRO 2</name>
     <description>APP Ariagro V2</description>
     <author email="rafa@myariadna.com" href="http://ariadnasw.com/">Rafael Garcia (Ariadna Software SL)</author>

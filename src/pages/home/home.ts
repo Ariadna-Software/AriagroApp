@@ -1,11 +1,17 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, Platform } from 'ionic-angular';
-import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data'; import { AriagroMsgProvider } from '../../providers/ariagro-msg/ariagro-msg';
+import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
+import { AriagroMsgProvider } from '../../providers/ariagro-msg/ariagro-msg';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
-import { OneSignal } from '@ionic-native/onesignal';
+//import { OneSignal } from '@ionic-native/onesignal';
+import OneSignal from 'onesignal-cordova-plugin';
 
 import * as moment from 'moment';
 import { AppVersion } from '@ionic-native/app-version';
+
+
+
+
 
 @IonicPage()
 @Component({
@@ -20,9 +26,10 @@ export class HomePage {
   mensajes: any = [];
   numNoLeidos: number = 0;
   version: string = "ARIAGRO APP V2";
+  oneSignal = OneSignal
   constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider, public navParams: NavParams, public plt: Platform,
      public ariagroData: AriagroDataProvider, public localData: LocalDataProvider,
-    public loadingCtrl: LoadingController, public appVersion: AppVersion, public oneSignal: OneSignal) {
+    public loadingCtrl: LoadingController, public appVersion: AppVersion) {
 
   }
 
@@ -36,10 +43,7 @@ export class HomePage {
         if (this.settings.user) {
           this.nombreUsuario = this.settings.user.nombre;
           this.nombreCampanya = this.settings.campanya.nomresum;
-          this.cargarMensajes();
-          if (this.settings.paramPush && this.settings.paramPush.appId && this.settings.paramPush.gcm) {
-            this.regOneSignal();
-          }
+          this.renovarParametros();
 
         } else {
           this.navCtrl.setRoot('LoginPage');
@@ -76,15 +80,86 @@ export class HomePage {
             });
             this.mensajes = data;
           }
+          if (this.settings.paramPush && this.settings.paramPush.appId && this.settings.paramPush.gcm) {
+            //this.regOneSignal();
+            this.OneSignalInit(this.settings.paramPush.appId)
+          }
         },
         (error) => {
           this.msg.showAlert(error);
         }
       );
-      this.renovarParametros();
+  }
+  
+
+
+  OneSignalInit(appId): void {
+    this.plt.ready().then(() => {
+      try{
+                // Uncomment to set OneSignal device logging to VERBOSE  
+      //OneSignal.setLogLevel(6, 0);
+  
+      // NOTE: Update the setAppId value below with your OneSignal AppId.
+      //this.msg.showAlert("AppId: " + appId);
+      OneSignal.setAppId(appId);
+      //OneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification);
+     
+
+      OneSignal.setNotificationWillShowInForegroundHandler(notifReceivedEvent => {
+        //this.msg.showAlert("OneSignal: notification will show in foreground:" + notifReceivedEvent);
+        let notif = notifReceivedEvent.getNotification();
+        notifReceivedEvent.complete(notif);
+    });
+  
+      OneSignal.getDeviceState((state) => {
+        console.log(state.userId);
+        //this.msg.showAlert("UsuarioId:" + state.userId);
+        var myUser = this.settings.user;
+        //if (myUser.playerId != state.userId) { 
+          myUser.playerId = state.userId;
+          this.ariagroData.putUsuario(this.settings.parametros.url, myUser.usuarioPushId, myUser)
+            .subscribe((data) => {
+              this.settings.user = data;
+            },
+              (err) => {
+                this.msg.showAlert(err);
+              });
+        //}
+      });
+     /*  OneSignal.setNotificationOpenedHandler(function(jsonData) {
+          console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+      });
+    
+      // Prompts the user for notification permissions.
+      //    * Since this shows a generic native prompt, we recommend instead using an In-App Message to prompt for notification permission (See step 7) to better communicate to your users what notifications they will get.
+      OneSignal.promptForPushNotificationsWithUserResponse(function(accepted) {
+          console.log("User accepted notifications: " + accepted);
+      }); */
+    
+      OneSignal.setNotificationOpenedHandler( jsonData =>{
+        //this.msg(jsonData);
+        this.ariagroData.getMensajeHttp(this.settings.parametros.url, jsonData.notification.additionalData["mensajeId"])
+          .subscribe(
+            (data) => {
+              data.fecha = moment(data.fecha).format('DD/MM/YYYY HH:mm:ss');
+              this.navCtrl.push('MensajesDetallePage', {
+              mensaje: data
+            });
+            },
+            (error) => {
+              this.msg.showAlert(error);
+            });
+      })
+      } catch(e) {
+        console.log('Fallo carga oneSignal');
+      }
+      
+    });     
   }
 
-  regOneSignal(): void {
+
+  
+ /*  regOneSignal(): void {
     this.plt.ready().then(() => {
       try {
         // Registro OneSignal
@@ -109,14 +184,7 @@ export class HomePage {
                 });
         });
 
-       /*this.oneSignal.handleNotificationReceived()
-          .subscribe(jsonData => {
-            this.cont = 1;
-           
-              console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
-              this.mostrarAlert(jsonData);
-          
-          });*/
+      
 
 
 
@@ -147,7 +215,7 @@ export class HomePage {
       }
     });
   }
-
+ */
   goLogin(): void {
     this.navCtrl.push('LoginPage');
   }
@@ -190,7 +258,17 @@ export class HomePage {
           (data) => {
             console.log('Parametros', data);
             this.settings.parametros = data;
-            this.localData.saveSettings(this.settings);
+            this.ariagroData.getParametros(this.settings.parametros.url)
+            .subscribe(
+              (data2) => {
+                this.settings.paramPush = data2
+    
+                this.localData.saveSettings(this.settings);
+                this.cargarMensajes();
+                  },
+                    (error) => {
+                      this.msg.showAlert(error);
+                    });
           },
           (error) => {
             if (error.status == 404) {

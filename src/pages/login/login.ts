@@ -6,7 +6,8 @@ import { AriagroDataProvider } from '../../providers/ariagro-data/ariagro-data';
 import { AriagroMsgProvider } from '../../providers/ariagro-msg/ariagro-msg';
 import { LocalDataProvider } from '../../providers/local-data/local-data';
 import { ViewController } from 'ionic-angular';
-import { OneSignal } from '@ionic-native/onesignal';
+//import { OneSignal } from '@ionic-native/onesignal';
+import OneSignal from 'onesignal-cordova-plugin';
 
 @IonicPage()
 @Component({
@@ -21,10 +22,11 @@ export class LoginPage {
   login: string = "";
   password: string = "";
   nombreCooperativa: string = "LA COOPPP";
+  oneSignal = OneSignal;
 
   constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider, public appVersion: AppVersion, public navParams: NavParams, public plt: Platform, public loadingCtrl: LoadingController,
     public formBuilder: FormBuilder, public viewCtrl: ViewController,
-    public ariagroData: AriagroDataProvider, public localData: LocalDataProvider, public oneSignal: OneSignal) {
+    public ariagroData: AriagroDataProvider, public localData: LocalDataProvider) {
     this.loginForm = formBuilder.group({
       login: ['', Validators.compose([Validators.required])],
       password: ['', Validators.compose([Validators.required])]
@@ -102,43 +104,41 @@ export class LoginPage {
 
             this.localData.saveSettings(config)
 
-            try {
+            
               // Registro OneSignal
-              this.oneSignal.startInit(config.paramPush.appId, config.paramPush.gcm);
-              this.oneSignal.getIds().then((ids) => {
+               OneSignal.setAppId(config.paramPush.appId);
+
+               OneSignal.getDeviceState((state) => {
+                console.log(state.userId);
                 var myUser = this.settings.user;
-
+            
                 //alert(JSON.stringify(ids));
-                if (config.user.playerId != ids.userId) {
-
-                  myUser.playerId = ids.userId;
+               
+            
+                  myUser.playerId = state.userId;
                   this.ariagroData.putUsuario(this.settings.parametros.url, myUser.usuarioPushId, myUser)
                     .subscribe((data) => {
                       this.settings.user = data;
                     },
                       (err) => {
-                        loading.dismiss();
-                        console.log("PUT usuario error");
+                        this.msg.showAlert(err);
                       });
-                }
+                
+              });
+             
               },
                 (error) => {
+                  loading.dismiss();
                   this.msg.showAlert(error);
                 });
-              this.oneSignal.endInit();
-            } catch (e) {
-              console.log("Error de carga de oneSignal");
-            }
-
           },
           (err) => {
-            loading.dismiss();
             if (err) {
               this.msg.showAlert(err);
             }
           });
-    });
   }
+
 
 
   goConexion(): any {

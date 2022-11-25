@@ -115,7 +115,7 @@ export class HomePage {
         console.log(state.userId);
         //this.msg.showAlert("UsuarioId:" + state.userId);
         var myUser = this.settings.user;
-        //if (myUser.playerId != state.userId) { 
+        if (myUser.playerId != state.userId) { 
           myUser.playerId = state.userId;
           this.ariagroData.putUsuario(this.settings.parametros.url, myUser.usuarioPushId, myUser)
             .subscribe((data) => {
@@ -124,7 +124,7 @@ export class HomePage {
               (err) => {
                 this.msg.showAlert(err);
               });
-        //}
+        }
       });
      /*  OneSignal.setNotificationOpenedHandler(function(jsonData) {
           console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));

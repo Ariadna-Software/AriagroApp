@@ -33,6 +33,7 @@ export class FacturasPage {
   numFacturasVarias: number = 0;
   facturasAceite: any = [];
   numFacturasAceite: number = 0;
+  textoTelefonia: string = "";
 
 
 
@@ -48,6 +49,7 @@ export class FacturasPage {
         this.viewCtrl.setBackButtonText('');
         this.user = this.settings.user;
         this.campanya = this.settings.campanya;
+        this.textoTelefonia = this.settings.parametros.textoTelefonia;
         this.generateYears();
         this.onYearChange(this.selectedYear);
       } else {

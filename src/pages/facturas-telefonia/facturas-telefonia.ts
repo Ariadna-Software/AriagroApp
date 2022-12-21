@@ -18,6 +18,7 @@ export class FacturasTelefoniaPage {
   user: any = {};
   facturas: any = [];
   numfacturas: number = 0;
+  textoTelefonia: string = "";
 
   constructor(public navCtrl: NavController,  public msg: AriagroMsgProvider,  public appVersion: AppVersion, public navParams: NavParams,
     public viewCtrl: ViewController,
@@ -34,6 +35,7 @@ export class FacturasTelefoniaPage {
         this.campanya = this.settings.campanya;
         this.facturas = this.navParams.get('facturas');
         this.numfacturas = this.facturas.length;
+        this.textoTelefonia = this.settings.parametros.textoTelefonia;
       } else {
         this.navCtrl.setRoot('ParametrosPage');
       }
